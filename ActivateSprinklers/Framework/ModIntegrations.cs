@@ -1,7 +1,7 @@
-﻿using Pathoschild.Stardew.Common.Integrations.BetterSprinklers;
-using Pathoschild.Stardew.Common.Integrations.SimpleSprinkler;
-using Pathoschild.Stardew.Common.Integrations.PrismaticTools;
-using Pathoschild.Stardew.Common.Integrations.Cobalt;
+﻿using Common.Integrations.BetterSprinklers;
+using Common.Integrations.SimpleSprinkler;
+using Common.Integrations.PrismaticTools;
+using Common.Integrations.Cobalt;
 using StardewModdingAPI;
 
 namespace ActivateSprinklers.Framework

@@ -10,6 +10,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Integrations\BaseIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\BetterSprinklersIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\IBetterSprinklersApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\Cobalt\CobaltIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\Cobalt\ICobaltApi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Integrations\IModIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\ILineSprinklersApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\LineSprinklersIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\IPrismaticToolsApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\PrismaticToolsIntegration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\ISimpleSprinklerApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\SimpleSprinklerIntegration.cs" />
   </ItemGroup>
 </Project>

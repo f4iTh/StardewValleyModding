@@ -137,11 +137,11 @@ namespace ActivateSprinklers
 				tiles[integrations.PrismaticTools.GetSprinklerID()] = integrations.PrismaticTools.GetSprinklerCoverage().ToArray();
 
 			if (integrations.Cobalt.IsLoaded)
-				tiles[integrations.Cobalt.GetSprinklerId()] = integrations.Cobalt.GetSprinklerTiles().ToArray();
+				tiles[integrations.Cobalt.GetSprinklerID()] = integrations.Cobalt.GetSprinklerTiles().ToArray();
 
 			if (integrations.SimpleSprinkler.IsLoaded)
 			{
-				foreach (var pair in integrations.SimpleSprinkler.GetNewSprinklerTiles())
+				foreach (var pair in integrations.SimpleSprinkler.GetSprinklerTiles())
 				{
 					int id = pair.Key;
 					if (tiles.TryGetValue(id, out Vector2[] currentTiles))
