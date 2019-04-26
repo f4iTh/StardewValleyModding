@@ -11,7 +11,7 @@ namespace Common.Integrations.BetterSprinklers
 		public int MaxRadius { get; }
 
 		public BetterSprinklersIntegration(IModRegistry modRegistry, IMonitor monitor)
-			: base("Better Sprinklers", "Speeder.BetterSprinklers", "2.3.1-uinofficial.6-pathoschild", modRegistry, monitor)
+			: base("Better Sprinklers", "Speeder.BetterSprinklers", "2.3.1-unofficial.6-pathoschild", modRegistry, monitor)
 		{
 			if (!this.IsLoaded) return;
 
