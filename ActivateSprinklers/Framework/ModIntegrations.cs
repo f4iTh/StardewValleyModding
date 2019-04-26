@@ -2,6 +2,7 @@
 using Common.Integrations.SimpleSprinkler;
 using Common.Integrations.PrismaticTools;
 using Common.Integrations.Cobalt;
+using Common.Integrations.LineSprinklers;
 using StardewModdingAPI;
 
 namespace ActivateSprinklers.Framework
@@ -12,6 +13,7 @@ namespace ActivateSprinklers.Framework
 		public SimpleSprinklerIntegration SimpleSprinkler { get; }
 		public PrismaticToolsIntegration PrismaticTools { get; }
 		public CobaltIntegration Cobalt { get; }
+		public LineSprinklersIntegration LineSprinklers { get; }
 
 		public ModIntegrations(IMonitor monitor, IModRegistry modRegistry, IReflectionHelper reflection)
 		{
@@ -19,6 +21,7 @@ namespace ActivateSprinklers.Framework
 			this.SimpleSprinkler = new SimpleSprinklerIntegration(modRegistry, monitor);
 			this.PrismaticTools = new PrismaticToolsIntegration(modRegistry, monitor);
 			this.Cobalt = new CobaltIntegration(modRegistry, monitor);
+			this.LineSprinklers = new LineSprinklersIntegration(modRegistry, monitor);
 		}
 	}
 }

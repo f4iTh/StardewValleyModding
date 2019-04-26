@@ -31,7 +31,7 @@ namespace ActivateSprinklers
 		private void Initialize(object sender, EventArgs e)
 		{
 			this.Integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry, this.Helper.Reflection);
-			this.StaticSprinklerCoverage = this.GetSprinklerCoverage(this.Integrations);
+			this.StaticSprinklerCoverage = this.GetStaticSprinklerTiles(this.Integrations);
 		}
 
 		private void OnTick(object sender, UpdateTickedEventArgs e)
@@ -48,7 +48,7 @@ namespace ActivateSprinklers
 				float stamina = Game1.player.Stamina;
 				SObject sprinkler;
 
-				if ((mouse.RightButton == ButtonState.Pressed || gamepad.Buttons.A == ButtonState.Pressed) && Game1.player.currentLocation.Objects.TryGetValue(Game1.currentCursorTile, out SObject sobj) && this.IsSprinkler(sobj))
+				if ((mouse.RightButton == ButtonState.Pressed || gamepad.Buttons.A == ButtonState.Pressed) && Game1.player.currentLocation.Objects.TryGetValue(Game1.currentCursorTile, out SObject sobj) /*&& this.IsSprinkler(sobj)*/)
 				{
 					sprinkler = sobj;
 					if (this.Config.EXPERIMENTAL_NOT_RECOMMENDED_AllowTheSprinklersToMakeTheGameLagLikeTheresNoTomorrow && !Game1.options.gamepadControls)
@@ -60,7 +60,7 @@ namespace ActivateSprinklers
 					WateringCan can = new WateringCan { WaterLeft = 100 };
 					Game1.player.toolPower = 0;
 
-					foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetSprinklerCoverage(this.Integrations)))
+					foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetCurrentSprinklerTiles(this.StaticSprinklerCoverage)))
 					{
 						can.DoFunction(Game1.player.currentLocation, (int)tile.X * 64, (int)tile.Y * 64, 0, Game1.player);
 						can.WaterLeft = can.waterCanMax;
@@ -80,7 +80,7 @@ namespace ActivateSprinklers
 			float stamina = Game1.player.Stamina;
 			SObject sprinkler;
 
-			if (e.Button.IsActionButton() && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.GrabTile, out SObject sobj) && this.IsSprinkler(sobj))
+			if (e.Button.IsActionButton() && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.GrabTile, out SObject sobj) /*&& this.IsSprinkler(sobj)*/)
 			{
 				sprinkler = sobj;
 
@@ -96,10 +96,10 @@ namespace ActivateSprinklers
 				WateringCan can = new WateringCan { WaterLeft = 100 };
 				Game1.player.toolPower = 0;
 
-				if (Integrations.BetterSprinklers.IsLoaded && sprinkler.ParentSheetIndex.Equals(this.Integrations.PrismaticTools.GetSprinklerID()))
+				if (this.Integrations.PrismaticTools.IsLoaded && sprinkler.ParentSheetIndex.Equals(this.Integrations.PrismaticTools.GetSprinklerID()) && this.Integrations.PrismaticTools.IsScarecrow())
 					this.Helper.Input.Suppress(e.Button);
 
-				foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetSprinklerCoverage(this.Integrations)))
+				foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetCurrentSprinklerTiles(this.StaticSprinklerCoverage)))
 				{
 					can.DoFunction(Game1.player.currentLocation, (int)tile.X * 64, (int)tile.Y * 64, 0, Game1.player);
 					can.WaterLeft = can.waterCanMax;
@@ -114,7 +114,7 @@ namespace ActivateSprinklers
 		******************/
 
 		// https://github.com/Pathoschild/StardewMods/blob/develop/DataLayers/Layers/Coverage/SprinklerLayer.cs#L132
-		private IDictionary<int, Vector2[]> GetSprinklerCoverage(ModIntegrations integrations)
+		private IDictionary<int, Vector2[]> GetStaticSprinklerTiles(ModIntegrations integrations)
 		{
 			IDictionary<int, Vector2[]> tiles = new Dictionary<int, Vector2[]>();
 			{
@@ -150,17 +150,25 @@ namespace ActivateSprinklers
 						tiles[id] = pair.Value;
 				}
 			}
+			return tiles;
+		}
 
-			if (integrations.BetterSprinklers.IsLoaded)
+		private IDictionary<int, Vector2[]> GetCurrentSprinklerTiles(IDictionary<int, Vector2[]> staticTiles)
+		{
+			if (!this.Integrations.BetterSprinklers.IsLoaded && !this.Integrations.LineSprinklers.IsLoaded) return staticTiles;
+
+			IDictionary<int, Vector2[]> tilesBySprinklerID = new Dictionary<int, Vector2[]>(staticTiles);
+			if (this.Integrations.BetterSprinklers.IsLoaded)
 			{
-				IDictionary<int, Vector2[]> tilesById = new Dictionary<int, Vector2[]>();
-
-				foreach (var pair in integrations.BetterSprinklers.GetSprinklerTiles())
-					tilesById[pair.Key] = pair.Value;
-
-				return tilesById;
+				foreach (var pair in this.Integrations.BetterSprinklers.GetSprinklerTiles())
+					tilesBySprinklerID[pair.Key] = pair.Value;
 			}
-			else return tiles;
+			if (this.Integrations.LineSprinklers.IsLoaded)
+			{
+				foreach (var pair in this.Integrations.LineSprinklers.GetSprinklerTiles())
+					tilesBySprinklerID[pair.Key] = pair.Value;
+			}
+			return tilesBySprinklerID;
 		}
 
 
@@ -175,9 +183,9 @@ namespace ActivateSprinklers
 		}
 
 		// https://github.com/Pathoschild/StardewMods/blob/develop/DataLayers/Layers/Coverage/SprinklerLayer.cs#L118
-		private bool IsSprinkler(SObject obj)
-		{
-			return obj != null && this.StaticSprinklerCoverage.ContainsKey(obj.ParentSheetIndex);
-		}
+		//private bool IsSprinkler(SObject obj)
+		//{
+		//	return obj != null && this.StaticSprinklerCoverage.ContainsKey(obj.ParentSheetIndex);
+		//}
     }
 }
