@@ -37,7 +37,7 @@ namespace CustomWarps.Framework.Menus
 		//private bool showSettingsPage;
 		
 		private readonly IModHelper helper;
-		private readonly ITranslationHelper translationHelper;
+		private readonly LocationHelper locationHelper;
 
 		public WarpMenu(IModHelper Helper)
 			: base(Game1.viewport.Width / 2 - (632 + IClickableMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2 - 64 + 296, 632 + IClickableMenu.borderWidth * 2, 600 + IClickableMenu.borderWidth * 2 + 16, false)
@@ -47,7 +47,8 @@ namespace CustomWarps.Framework.Menus
 			this.yPositionOnScreen = IClickableMenu.borderWidth + 16 + 256;
 			this.height = 2 * IClickableMenu.borderWidth + 144;
 			this.helper = Helper;
-			this.translationHelper = helper.Translation;
+			this.locationHelper = new LocationHelper(this.helper);
+			//this.translationHelper = helper.Translation;
 			this.previousPageButton = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen + this.height + 80, 64, 64), Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 44, -1, -1), 1f, false);
 			this.nextPageButton = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + this.width - 64, this.yPositionOnScreen + this.height + 80, 64, 64), Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 33, -1, -1), 1f, false);
 			this.addWarpButton = new ClickableTextureComponent("Add", new Rectangle(this.xPositionOnScreen + this.width - 160, this.yPositionOnScreen, 64, 64), "", "Add warp", Game1.mouseCursors, new Rectangle(128, 256, 64, 64), 1f, false);
