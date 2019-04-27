@@ -96,7 +96,7 @@ namespace ActivateSprinklers
 				WateringCan can = new WateringCan { WaterLeft = 100 };
 				Game1.player.toolPower = 0;
 
-				if (this.Integrations.PrismaticTools.IsLoaded && sprinkler.ParentSheetIndex.Equals(this.Integrations.PrismaticTools.GetSprinklerID()) && this.Integrations.PrismaticTools.IsScarecrow())
+				if (this.Integrations.PrismaticTools.IsLoaded && this.Integrations.PrismaticTools.IsScarecrow() && sprinkler.ParentSheetIndex.Equals(this.Integrations.PrismaticTools.GetSprinklerID()))
 					this.Helper.Input.Suppress(e.Button);
 
 				foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetCurrentSprinklerTiles(this.StaticSprinklerCoverage)))
