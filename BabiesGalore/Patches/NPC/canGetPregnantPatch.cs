@@ -2,11 +2,11 @@
 using StardewValley.Characters;
 using System.Collections.Generic;
 
-namespace BabiesGalore.Patches
+namespace BabiesGalore.Patches.NPC
 {
-	public class npcCanGetPregnantPatch
+	public class canGetPregnantPatch
 	{
-		public static bool Prefix(NPC __instance, ref bool __result)
+		public static bool Prefix(StardewValley.NPC __instance, ref bool __result)
 		{
 			if (ModEntry.config.AllowMoreThanTwoChildren)
 			{
@@ -25,7 +25,7 @@ namespace BabiesGalore.Patches
 				Friendship spouseFriendship = spouse.GetSpouseFriendship();
 				List<Child> children = spouse.getChildren();
 				__instance.DefaultMap = spouse.homeLocation.Value;
-				if (Utility.getHomeOfFarmer(spouse).upgradeLevel < 2 || spouseFriendship.DaysUntilBirthing >= 0 || (heartLevelForNpc < 10 || spouse.GetDaysMarried() < 7))
+				if (StardewValley.Utility.getHomeOfFarmer(spouse).upgradeLevel < 2 || spouseFriendship.DaysUntilBirthing >= 0 || (heartLevelForNpc < 10 || spouse.GetDaysMarried() < 7))
 				{
 					__result = false;
 					return false;

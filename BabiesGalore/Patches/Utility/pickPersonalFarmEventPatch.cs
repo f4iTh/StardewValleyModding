@@ -1,9 +1,9 @@
 ﻿#if DEBUG 
 using StardewValley.Events;
 
-namespace BabiesGalore.Patches
+namespace BabiesGalore.Patches.Utility
 {
-	public class utilityPickPersonalFarmEventPatch
+	public class pickPersonalFarmEventPatch
 	{
 		public static void Postfix(ref FarmEvent __result)
 		{

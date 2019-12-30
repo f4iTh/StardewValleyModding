@@ -1,5 +1,4 @@
-﻿using BabiesGalore.Patches;
-using Harmony;
+﻿using Harmony;
 using StardewModdingAPI;
 using StardewValley;
 #if DEBUG
@@ -24,12 +23,13 @@ namespace BabiesGalore
 			ModEntry.config = helper.ReadConfig<ModConfig>() ?? new ModConfig();
 
 			harmony = HarmonyInstance.Create("com.f4iTh.babiesgalore");
-			harmony.Patch(helper.Reflection.GetMethod(new NPC(), "canGetPregnant").MethodInfo, prefix: new HarmonyMethod(typeof(npcCanGetPregnantPatch), "Prefix", null));
+			harmony.Patch(helper.Reflection.GetMethod(new NPC(), "canGetPregnant").MethodInfo, prefix: new HarmonyMethod(typeof(Patches.NPC.canGetPregnantPatch), "Prefix", null));
+			harmony.Patch(helper.Reflection.GetMethod(typeof(Utility), "playersCanGetPregnantHere").MethodInfo, prefix: new HarmonyMethod(typeof(Patches.Utility.playersCanGetPregnantHerePatch), "Prefix", null));
 
 			helper.ConsoleCommands.Add("togglechildrenlimit", "Disables or allows having more than two children (default: true)", this.toggleChildrenLimitCommand);
 
 #if DEBUG
-			harmony.Patch(helper.Reflection.GetMethod(typeof(Utility), "pickPersonalFarmEvent").MethodInfo, postfix: new HarmonyMethod(typeof(utilityPickPersonalFarmEventPatch), "Postfix", null));
+			harmony.Patch(helper.Reflection.GetMethod(typeof(Utility), "pickPersonalFarmEvent").MethodInfo, postfix: new HarmonyMethod(typeof(Patches.Utility.pickPersonalFarmEventPatch), "Postfix", null));
 
 			helper.ConsoleCommands.Add("givebaby", "Attempts to start birthing event at night.", this.attemptBirthCommand);
 			helper.ConsoleCommands.Add("bg_debug", "Debug command.", this.babiesGaloreDebugCommand);

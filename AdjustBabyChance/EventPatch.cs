@@ -1,4 +1,5 @@
-﻿using StardewValley;
+﻿using StardewModdingAPI;
+using StardewValley;
 using StardewValley.Characters;
 using StardewValley.Events;
 using StardewValley.Locations;
@@ -11,6 +12,8 @@ namespace AdjustBabyChance
 	{
 		public static bool Prefix(ref FarmEvent __result)
 		{
+			IReflectedMethod playersCanGetPregnantHere = ModEntry.helper.Reflection.GetMethod(typeof(Utility), "playersCanGetPregnantHere", true);
+
 			Random random = new Random((int)Game1.stats.DaysPlayed + (int)Game1.uniqueIDForThisGame / 2 ^ 470124797 + (int)Game1.player.UniqueMultiplayerID);
 			if (Game1.weddingToday)
 			{
@@ -33,7 +36,7 @@ namespace AdjustBabyChance
 			}
 			else
 			{
-				if (Game1.player.isMarried() && Game1.player.spouse != null && (Game1.getCharacterFromName(Game1.player.spouse, false).canGetPregnant() && Game1.player.currentLocation == Game1.getLocationFromName((string)(Game1.player.homeLocation.Value))) && random.NextDouble() < ModEntry.Config.QuestionChance)
+				if (Game1.player.isMarried() && Game1.player.spouse != null && (Game1.getCharacterFromName(Game1.player.spouse, false).canGetPregnant() && Game1.player.currentLocation == Game1.getLocationFromName((string)(Game1.player.homeLocation.Value))) && random.NextDouble() < ModEntry.config.QuestionChance)
 				{
 					__result = (FarmEvent)new QuestionEvent(1);
 					return false;
@@ -41,14 +44,14 @@ namespace AdjustBabyChance
 				if (Game1.player.isMarried())
 				{
 					long? spouse = Game1.player.team.GetSpouse(Game1.player.UniqueMultiplayerID);
-					if (spouse.HasValue && Game1.player.GetSpouseFriendship().NextBirthingDate == (WorldDate)null && random.NextDouble() < ModEntry.Config.QuestionChance)
+					if (spouse.HasValue && Game1.player.GetSpouseFriendship().NextBirthingDate == (WorldDate)null && random.NextDouble() < ModEntry.config.QuestionChance)
 					{
 						spouse = Game1.player.team.GetSpouse(Game1.player.UniqueMultiplayerID);
 						long key = spouse.Value;
 						if (Game1.otherFarmers.ContainsKey(key))
 						{
 							Farmer otherFarmer = Game1.otherFarmers[key];
-							if (otherFarmer.currentLocation == Game1.player.currentLocation && (otherFarmer.currentLocation == Game1.getLocationFromName((string)(otherFarmer.homeLocation.Value)) || otherFarmer.currentLocation == Game1.getLocationFromName((string)(Game1.player.homeLocation.Value))) && playersCanGetPregnantHere(otherFarmer.currentLocation as FarmHouse))
+							if (otherFarmer.currentLocation == Game1.player.currentLocation && (otherFarmer.currentLocation == Game1.getLocationFromName((string)(otherFarmer.homeLocation.Value)) || otherFarmer.currentLocation == Game1.getLocationFromName((string)(Game1.player.homeLocation.Value))) && playersCanGetPregnantHere.Invoke<bool>(otherFarmer.currentLocation as FarmHouse))
 							{
 								__result = (FarmEvent)new QuestionEvent(3);
 								return false;
@@ -64,16 +67,6 @@ namespace AdjustBabyChance
 			}
 			__result = (FarmEvent)new SoundInTheNightEvent(2);
 			return false;
-		}
-
-		private static bool playersCanGetPregnantHere(FarmHouse farmHouse)
-		{
-			List<Child> children = farmHouse.getChildren();
-			if (farmHouse.getChildrenCount() >= 2 || farmHouse.upgradeLevel < 2 || children.Count >= 2)
-				return false;
-			if (children.Count != 0)
-				return children[0].Age > 2;
-			return true;
 		}
 	}
 }
