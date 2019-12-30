@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ShowCatchQuality</AssemblyName>
-    <RootNamespace>ShowCatchQuality</RootNamespace>
+    <AssemblyName>BabiesGalore</AssemblyName>
+    <RootNamespace>BabiesGalore</RootNamespace>
     <Version>1.0.0</Version>
     <TargetFramework>net452</TargetFramework>
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
+    <EnableHarmony>true</EnableHarmony>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>../_output/$(Configuration)/</OutputPath>
   </PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>ShowCatchQuality</AssemblyName>
-    <RootNamespace>ShowCatchQuality</RootNamespace>
+    <AssemblyName>WoodsDebrisFix</AssemblyName>
+    <RootNamespace>WoodsDebrisFix</RootNamespace>
     <Version>1.0.0</Version>
     <TargetFramework>net452</TargetFramework>
     <Platforms>x86</Platforms>
