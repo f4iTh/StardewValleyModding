@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Netcode;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -126,7 +127,7 @@ namespace PlantableMushroomTrees
 			{	
 				Crop crop = new Crop(objectIndex, tileX, tileY);
 				if (!Game1.currentLocation.IsOutdoors || Game1.currentLocation.IsGreenhouse)
-					return !crop.raisedSeeds || !Utility.doesRectangleIntersectTile(Game1.player.GetBoundingBox(), tileX, tileY);
+					return !crop.raisedSeeds.Value || !Utility.doesRectangleIntersectTile(Game1.player.GetBoundingBox(), tileX, tileY);
 				if (objectIndex == 309 || objectIndex == 310 || objectIndex == 311 || objectIndex == 420 || objectIndex == 422)
 					return true;
 				if (Game1.didPlayerJustClickAtAll() && !Game1.doesHUDMessageExist(Game1.content.LoadString("Strings\\StringsFromCSFiles:HoeDirt.cs.13924")))
@@ -140,13 +141,13 @@ namespace PlantableMushroomTrees
 
 		public bool canBePlacedHere(StardewValley.Object o, GameLocation l, Vector2 tile)
 		{
-			if (!(o.parentSheetIndex == 420 || o.parentSheetIndex == 422))
+			if (!(o.ParentSheetIndex == 420 || o.ParentSheetIndex == 422))
 				return false;
-			if (o.ParentSheetIndex == 710 && l.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Water", "Back") != null && (!l.objects.ContainsKey(tile) && l.doesTileHaveProperty((int)tile.X + 1, (int)tile.Y, "Water", "Back") != null) && l.doesTileHaveProperty((int)tile.X - 1, (int)tile.Y, "Water", "Back") != null || l.doesTileHaveProperty((int)tile.X, (int)tile.Y + 1, "Water", "Back") != null && l.doesTileHaveProperty((int)tile.X, (int)tile.Y - 1, "Water", "Back") != null || (o.parentSheetIndex == 105 && (o.bigCraftable && (l.terrainFeatures.ContainsKey(tile) && l.terrainFeatures[tile] is Tree) && !l.objects.ContainsKey(tile) || o != null && o.name.Contains("Bomb") && (!l.isTileOccupiedForPlacement(tile, o) || l.isTileOccupiedByFarmer(tile) != null))))
+			if (o.ParentSheetIndex == 710 && l.doesTileHaveProperty((int)tile.X, (int)tile.Y, "Water", "Back") != null && (!l.objects.ContainsKey(tile) && l.doesTileHaveProperty((int)tile.X + 1, (int)tile.Y, "Water", "Back") != null) && l.doesTileHaveProperty((int)tile.X - 1, (int)tile.Y, "Water", "Back") != null || l.doesTileHaveProperty((int)tile.X, (int)tile.Y + 1, "Water", "Back") != null && l.doesTileHaveProperty((int)tile.X, (int)tile.Y - 1, "Water", "Back") != null || (o.ParentSheetIndex == 105 && (o.bigCraftable.Value && (l.terrainFeatures.ContainsKey(tile) && l.terrainFeatures[tile] is Tree) && !l.objects.ContainsKey(tile) || o != null && o.name.Contains("Bomb") && (!l.isTileOccupiedForPlacement(tile, o) || l.isTileOccupiedByFarmer(tile) != null))))
 				return true;
-			if (((o.category == -74 || o.category == -19) || (o.parentSheetIndex == 420 || o.parentSheetIndex == 422)) && !l.isTileHoeDirt(tile))
+			if (((o.Category == -74 || o.Category == -19) || (o.ParentSheetIndex == 420 || o.ParentSheetIndex == 422)) && !l.isTileHoeDirt(tile))
 			{
-				switch (o.parentSheetIndex)
+				switch (o.ParentSheetIndex)
 				{
 					case 309:
 					case 310:
@@ -166,7 +167,7 @@ namespace PlantableMushroomTrees
 			}
 			else
 			{
-				if (o.category == -19 && l.isTileHoeDirt(tile) && (l.terrainFeatures.ContainsKey(tile) && l.terrainFeatures[tile] is HoeDirt && (l.terrainFeatures[tile] as HoeDirt).fertilizer != 0 || l.objects.ContainsKey(tile) && l.objects[tile] is IndoorPot && (l.objects[tile] as IndoorPot).hoeDirt.Value.fertilizer != 0))
+				if (o.Category == -19 && l.isTileHoeDirt(tile) && (l.terrainFeatures.ContainsKey(tile) && l.terrainFeatures[tile] is HoeDirt && (l.terrainFeatures[tile] as HoeDirt).fertilizer.Value != 0 || l.objects.ContainsKey(tile) && l.objects[tile] is IndoorPot && (l.objects[tile] as IndoorPot).hoeDirt.Value.fertilizer.Value != 0))
 					return false;
 				return !isTileOccupiedForPlacement(l, tile, o);
 			}
@@ -174,7 +175,7 @@ namespace PlantableMushroomTrees
 
 		public void drawPlacementBounds(StardewValley.Object obj, SpriteBatch spriteBatch, GameLocation location)
 		{
-			if (!(obj.parentSheetIndex == 420 || obj.parentSheetIndex == 422))
+			if (!(obj.ParentSheetIndex == 420 || obj.ParentSheetIndex == 422))
 				return;
 			int x = Game1.getOldMouseX() + Game1.viewport.X;
 			int y = Game1.getOldMouseY() + Game1.viewport.Y;
@@ -199,9 +200,9 @@ namespace PlantableMushroomTrees
 
 		public bool playerCanPlaceItemHere(GameLocation location, Item item, int x, int y, Farmer f)
 		{
-			if (item == null || item is Tool || (Game1.eventUp || (f.bathingClothes)) || !Utility.withinRadiusOfPlayer(x, y, 1, f) && (!Utility.withinRadiusOfPlayer(x, y, 2, f) || !Game1.isAnyGamePadButtonBeingPressed() || (double)Game1.mouseCursorTransparency != 0.0) && (!(item is Furniture) && !(item is Wallpaper) || !(location is DecoratableLocation)))
+			if (item == null || item is Tool || (Game1.eventUp || (f.bathingClothes.Value)) || !Utility.withinRadiusOfPlayer(x, y, 1, f) && (!Utility.withinRadiusOfPlayer(x, y, 2, f) || !Game1.isAnyGamePadButtonBeingPressed() || (double)Game1.mouseCursorTransparency != 0.0) && (!(item is Furniture) && !(item is Wallpaper) || !(location is DecoratableLocation)))
 				return false;
-			if (!(item.parentSheetIndex == 420 || item.parentSheetIndex == 422))
+			if (!(item.ParentSheetIndex == 420 || item.ParentSheetIndex == 422))
 				return false;
 			Vector2 vector2 = new Vector2((float)(x / 64), (float)(y / 64));
 			if (canBePlacedHere((StardewValley.Object)item, location, vector2))
@@ -237,7 +238,7 @@ namespace PlantableMushroomTrees
 			}
 			if (l.isTileOccupiedByFarmer(tileLocation) != null && (toPlace == null || !toPlace.isPassable()))
 				return true;
-			if (l.largeTerrainFeatures != null)
+			if ((NetCollection<LargeTerrainFeature>)l.largeTerrainFeatures != null)
 			{
 				foreach (LargeTerrainFeature largeTerrainFeature in l.largeTerrainFeatures)
 				{
@@ -248,7 +249,7 @@ namespace PlantableMushroomTrees
 			}
 			if (l.terrainFeatures.ContainsKey(tileLocation) && rectangle.Intersects(l.terrainFeatures[tileLocation].getBoundingBox(tileLocation)) && (!l.terrainFeatures[tileLocation].isPassable((Character)null) || l.terrainFeatures[tileLocation] is HoeDirt && ((HoeDirt)l.terrainFeatures[tileLocation]).crop != null || toPlace != null && toPlace.name.Contains("Sapling")) || !l.isTilePassable(new Location((int)tileLocation.X, (int)tileLocation.Y), Game1.viewport) && (toPlace == null || !(toPlace is Wallpaper)))
 				return true;
-			if (toPlace != null && (toPlace.Category == -74 || toPlace.Category == -19) && (@object != null && @object is IndoorPot && (@object as IndoorPot).hoeDirt.Value.canPlantThisSeedHere(toPlace.parentSheetIndex, (int)tileLocation.X, (int)tileLocation.Y, toPlace.Category == -19)))
+			if (toPlace != null && (toPlace.Category == -74 || toPlace.Category == -19) && (@object != null && @object is IndoorPot && (@object as IndoorPot).hoeDirt.Value.canPlantThisSeedHere(toPlace.ParentSheetIndex, (int)tileLocation.X, (int)tileLocation.Y, toPlace.Category == -19)))
 				return false;
 			return @object != null;
 		}

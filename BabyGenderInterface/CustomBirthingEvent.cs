@@ -15,7 +15,7 @@ namespace BabyGenderInterface
     public class CustomBirthingEvent : FarmEvent, INetObject<NetFields>
     {
 		private int timer;
-		private string soundName;
+		private readonly string soundName = "";
 		private string message;
 		private string babyName;
 		private bool playedSound;
