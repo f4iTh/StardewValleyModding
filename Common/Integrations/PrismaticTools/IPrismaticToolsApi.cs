@@ -5,7 +5,7 @@ namespace Common.Integrations.PrismaticTools
 {
 	public interface IPrismaticToolsApi
 	{
-		bool IsScarecrow { get; }
+		bool ArePrismaticSprinklersScarecrows { get; }
 
 		int SprinklerIndex { get; }
 

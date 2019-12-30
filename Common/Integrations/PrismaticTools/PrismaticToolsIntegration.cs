@@ -20,7 +20,7 @@ namespace Common.Integrations.PrismaticTools
 		public bool IsScarecrow()
 		{
 			this.AssertLoaded();
-			return this.ModApi.IsScarecrow;
+			return this.ModApi.ArePrismaticSprinklersScarecrows;
 		}
 
 		public int GetSprinklerID()
