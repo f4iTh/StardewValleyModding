@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCatchQuality", "ShowCat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheresMyItems", "WheresMyItems\WheresMyItems.csproj", "{FE84B822-2333-43EE-B56E-65B00D729AB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodsDebrisFix", "WoodsDebrisFix\WoodsDebrisFix.csproj", "{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomWarps", "CustomWarps\CustomWarps.csproj", "{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsnipsAbsolutelyEverywhereButItsGarlic", "ParsnipsAbsolutelyEverywhereButItsGarlic\ParsnipsAbsolutelyEverywhereButItsGarlic.csproj", "{791B6854-A4CD-4BCE-8005-C3B070A59EA7}"
@@ -29,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateFix", "GateFix\GateFix.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BabiesGalore", "BabiesGalore\BabiesGalore.csproj", "{BE18718B-3960-45D3-AC07-32F1CE6607AF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old", "Old", "{078E901D-A06B-424B-8E11-5BE0C18D65D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodsDebrisFix", "_old\WoodsDebrisFix\WoodsDebrisFix.csproj", "{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -129,18 +127,6 @@ Global
 		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|x86.Build.0 = Release|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|x86.Build.0 = Debug|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|Any CPU.ActiveCfg = Delete Anything|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|Any CPU.Build.0 = Delete Anything|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|x86.ActiveCfg = Delete Anything|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|x86.Build.0 = Delete Anything|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|x86.ActiveCfg = Release|Any CPU
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|x86.Build.0 = Release|Any CPU
 		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Debug|x86.ActiveCfg = Debug|x86
 		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Debug|x86.Build.0 = Debug|x86
@@ -185,12 +171,21 @@ Global
 		{BE18718B-3960-45D3-AC07-32F1CE6607AF}.Release|Any CPU.ActiveCfg = Release|x86
 		{BE18718B-3960-45D3-AC07-32F1CE6607AF}.Release|x86.ActiveCfg = Release|x86
 		{BE18718B-3960-45D3-AC07-32F1CE6607AF}.Release|x86.Build.0 = Release|x86
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|x86.Build.0 = Debug|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|Any CPU.ActiveCfg = Delete Anything|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|Any CPU.Build.0 = Delete Anything|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|x86.ActiveCfg = Delete Anything|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Delete Anything|x86.Build.0 = Delete Anything|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|x86.ActiveCfg = Release|Any CPU
+		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75} = {078E901D-A06B-424B-8E11-5BE0C18D65D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF5EA02-8EBC-4FCF-8E9F-18E02EADC6EC}
