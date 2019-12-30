@@ -1,5 +1,4 @@
 ﻿{
-  // Locations
   "AdventureGuild": "Adventurer's Guild",
   "AnimalShop": "Marnie's Ranch",
   "ArchaeologyHouse": "Stardew Valley Museum and Library",
@@ -49,22 +48,5 @@
   "WitchWarpCave": "Witch Warp Cave",
   "WizardHouse": "Wizard's Tower",
   "WizardHouseBasement": "Wizard Tower Basement",
-  "Woods": "Secret Woods",
-
-  //Menu translations
-  "menu.addnewwarp": "",
-  "menu.addwarphovertext": "Add warp",
-  "menu.removewarphovertext": "Remove warp",
-  "menu.removewarpconfirmtext": "Are you sure you want to remove {0}?",
-  "menu.globalhovertext": "Make warp global",
-  "menu.warpalreadyexists": "A warp with the name '{0}' already exists!",
-  "menu.unknownbuilding":  "Unknown Building",
-
-  //Warp features
-  "warp.warpname": "Warp name",
-  "warp.mapname": "Location",
-  "warp.xcoordinate": "",
-  "warp.ycoordinate": "",
-  "warp.isglobal": "",
-  "warp.isbuilding": ""
+  "Woods": "Secret Woods"
 }
