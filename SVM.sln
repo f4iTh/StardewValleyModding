@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleREPL", "ConsoleREPL\ConsoleREPL.csproj", "{ADC7B631-924F-47F3-B10C-E6B92556B6EB}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
@@ -138,6 +140,12 @@ Global
 		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Debug|x86.ActiveCfg = Debug|x86
 		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|Any CPU.ActiveCfg = Release|x86
 		{B7E121D7-E8A0-4ABC-BEFD-9D737B9FFC75}.Release|x86.ActiveCfg = Release|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|x86.ActiveCfg = Debug|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|x86.Build.0 = Debug|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|Any CPU.ActiveCfg = Release|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|x86.ActiveCfg = Release|x86
+		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
