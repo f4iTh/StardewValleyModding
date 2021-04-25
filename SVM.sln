@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleREPL", "ConsoleREPL\
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\Common.projitems*{4b2edbd8-4817-4a3b-9d01-49ea9096c4f5}*SharedItemsImports = 5
 		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
+		Common\Common.projitems*{adc7b631-924f-47f3-b10c-e6b92556b6eb}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
