@@ -1,7 +1,7 @@
-﻿using Common.Integrations.BetterSprinklers;
-using Common.Integrations.LineSprinklers;
-using Common.Integrations.PrismaticTools;
-using Common.Integrations.SimpleSprinkler;
+﻿using ModCommon.Integrations.BetterSprinklers;
+using ModCommon.Integrations.LineSprinklers;
+using ModCommon.Integrations.PrismaticTools;
+using ModCommon.Integrations.SimpleSprinkler;
 using StardewModdingAPI;
 
 namespace ActivateSprinklers {
