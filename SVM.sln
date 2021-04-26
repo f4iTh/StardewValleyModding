@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivateSprinklers", "Activ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BreedLikeRabbits2", "BreedLikeRabbits2\BreedLikeRabbits2.csproj", "{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantableMushroomTrees", "PlantableMushroomTrees\PlantableMushroomTrees.csproj", "{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowCatchQuality", "ShowCatchQuality\ShowCatchQuality.csproj", "{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WheresMyItems", "WheresMyItems\WheresMyItems.csproj", "{FE84B822-2333-43EE-B56E-65B00D729AB4}"
@@ -33,7 +31,6 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{4b2edbd8-4817-4a3b-9d01-49ea9096c4f5}*SharedItemsImports = 5
 		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
-		Common\Common.projitems*{aa48e6ad-66b1-4551-a5bf-06aac508d95b}*SharedItemsImports = 5
 		Common\Common.projitems*{adc7b631-924f-47f3-b10c-e6b92556b6eb}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,14 +56,6 @@ Global
 		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|x86.ActiveCfg = Release|x86
 		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|x86.Build.0 = Release|x86
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Debug|x86.ActiveCfg = Debug|x86
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Debug|x86.Build.0 = Debug|x86
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Release|x86.ActiveCfg = Release|x86
-		{AA48E6AD-66B1-4551-A5BF-06AAC508D95B}.Release|x86.Build.0 = Release|x86
 		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Debug|x86.ActiveCfg = Debug|x86
