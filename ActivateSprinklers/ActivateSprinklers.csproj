@@ -4,14 +4,20 @@
     <RootNamespace>ActivateSprinklers</RootNamespace>
     <Version>1.0.0</Version>
     <TargetFramework>net452</TargetFramework>
-    <Platforms>x86;AnyCPU</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <EnableHarmony>true</EnableHarmony>
+    <EnableHarmony>false</EnableHarmony>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ModZipPath>$(SolutionDir)\_releases</ModZipPath>
+    <IgnoreModFilePatters>\.png$</IgnoreModFilePatters>
+    <EnableModDeploy>false</EnableModDeploy>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.3.0" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="python &quot;$(ProjectDir)build.py&quot; &quot;$(GameModsPath)/$(ProjectName)/#SPLIT#$(TargetDir)#SPLIT#$(ProjectDir)\&quot; &quot;$(ConfigurationName)&quot;" />
+  </Target>
 </Project>
