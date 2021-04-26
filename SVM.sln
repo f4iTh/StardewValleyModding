@@ -25,13 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleREPL", "ConsoleREPL\ConsoleREPL.csproj", "{ADC7B631-924F-47F3-B10C-E6B92556B6EB}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{4b2edbd8-4817-4a3b-9d01-49ea9096c4f5}*SharedItemsImports = 5
 		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
-		Common\Common.projitems*{adc7b631-924f-47f3-b10c-e6b92556b6eb}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,12 +93,6 @@ Global
 		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|x86.ActiveCfg = Release|x86
 		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|x86.Build.0 = Release|x86
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|x86.ActiveCfg = Debug|x86
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Debug|x86.Build.0 = Debug|x86
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|x86.ActiveCfg = Release|x86
-		{ADC7B631-924F-47F3-B10C-E6B92556B6EB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
