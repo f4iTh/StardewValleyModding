@@ -5,13 +5,9 @@ namespace ActivateSprinklers.Integrations {
 
 	internal abstract class BaseIntegration : IModIntegration {
 		protected string ModID { get; }
-
 		protected IModRegistry ModRegistry { get; }
-
 		protected IMonitor Monitor { get; }
-
 		public string Label { get; }
-
 		public bool IsLoaded { get; protected set; }
 
 		protected BaseIntegration(string label, string modID, string minVersion, IModRegistry modRegistry, IMonitor monitor) {
