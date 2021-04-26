@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomWarps", "CustomWarps\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsnipsAbsolutelyEverywhereButItsGarlic", "ParsnipsAbsolutelyEverywhereButItsGarlic\ParsnipsAbsolutelyEverywhereButItsGarlic.csproj", "{791B6854-A4CD-4BCE-8005-C3B070A59EA7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = ".Common", "Common\.Common.shproj", "{7BAE9199-15DF-41A8-AB1F-24D9E8394384}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = ".ModCommon", "Common\.ModCommon.shproj", "{7BAE9199-15DF-41A8-AB1F-24D9E8394384}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateFix", "GateFix\GateFix.csproj", "{22F1A362-6F28-4ED8-B366-8661E9CDFE70}"
 EndProject

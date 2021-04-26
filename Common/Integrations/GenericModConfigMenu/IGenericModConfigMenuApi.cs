@@ -2,7 +2,7 @@
 using StardewModdingAPI.Utilities;
 using System;
 
-namespace Common.Integrations.GenericModConfigMenu {
+namespace ModCommon.Integrations.GenericModConfigMenu {
 	public interface IGenericModConfigMenuApi {
 		void RegisterModConfig(IManifest mod, Action revertToDefault, Action saveToFile);
 		void RegisterLabel(IManifest mod, string labelName, string labelDesc);

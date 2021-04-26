@@ -1,7 +1,7 @@
 ﻿using StardewModdingAPI;
 using System;
 
-namespace Common.Integrations {
+namespace ModCommon.Integrations {
 	internal abstract class BaseIntegration : IModIntegration {
 		protected string ModID { get; }
 		protected IModRegistry ModRegistry { get; }
