@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Common.Integrations.PrismaticTools {
+namespace ModCommon.Integrations.PrismaticTools {
 	public interface IPrismaticToolsApi {
 		bool ArePrismaticSprinklersScarecrows { get; }
 		int SprinklerIndex { get; }

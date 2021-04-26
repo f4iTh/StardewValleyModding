@@ -2,7 +2,7 @@
 using StardewModdingAPI;
 using System.Collections.Generic;
 
-namespace Common.Integrations.SimpleSprinkler {
+namespace ModCommon.Integrations.SimpleSprinkler {
 	internal class SimpleSprinklerIntegration : BaseIntegration {
 		private readonly ISimpleSprinklerApi ModApi;
 

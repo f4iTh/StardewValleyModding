@@ -2,7 +2,7 @@
 using StardewModdingAPI;
 using System.Collections.Generic;
 
-namespace Common.Integrations.PrismaticTools {
+namespace ModCommon.Integrations.PrismaticTools {
 	internal class PrismaticToolsIntegration : BaseIntegration {
 		private readonly IPrismaticToolsApi ModApi;
 
