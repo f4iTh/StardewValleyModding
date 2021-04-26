@@ -1,10 +1,8 @@
-﻿using ActivateSprinklers.Integrations.SimpleSprinkler;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using System.Collections.Generic;
 
-namespace ActivateSprinklers.Integrations.SimpleSprinkler {
-
+namespace Common.Integrations.SimpleSprinkler {
 	internal class SimpleSprinklerIntegration : BaseIntegration {
 		private readonly ISimpleSprinklerApi ModApi;
 

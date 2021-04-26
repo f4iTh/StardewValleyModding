@@ -22,23 +22,23 @@ namespace GateFix {
 
 		public static bool Prefix(Fence __instance, ref Texture2D __result) {
 #if DEBUG
-			foreach (var tile in Utility.getAdjacentTileLocations(__instance.TileLocation)) {
-				if (Game1.player.currentLocation.objects.ContainsKey(tile) && Game1.player.currentLocation.objects[tile] is Fence fence) {
-					if (fence.whichType.Value == 4) {
-						var gate = fence;
-						foreach (var possibleFence in Utility.getAdjacentTileLocations(gate.TileLocation)) {
-							if (Game1.player.currentLocation.objects.ContainsKey(possibleFence) && Game1.player.currentLocation.objects[tile] is Fence fence_ && !fence_.isGate.Value) {
-								//__result = Game1.content.Load<Texture2D>("LooseSprites\\Fence" + fence_.whichType.Value);
-								break;
-							}
-						}
-					} else {
-						//__result = Game1.content.Load<Texture2D>("LooseSprites\\Fence" + fence.whichType.Value);
-					}
-					if (fence.isGate.Value) this.Monitor.Log($"Gate type {fence.whichType} at {tile}");
-					else this.Monitor.Log($"Fence type {fence.whichType} at {tile}");
-				}
-			}
+			//foreach (var tile in Utility.getAdjacentTileLocations(__instance.TileLocation)) {
+			//	if (Game1.player.currentLocation.objects.ContainsKey(tile) && Game1.player.currentLocation.objects[tile] is Fence fence) {
+			//		if (fence.whichType.Value == 4) {
+			//			var gate = fence;
+			//			foreach (var possibleFence in Utility.getAdjacentTileLocations(gate.TileLocation)) {
+			//				if (Game1.player.currentLocation.objects.ContainsKey(possibleFence) && Game1.player.currentLocation.objects[tile] is Fence fence_ && !fence_.isGate.Value) {
+			//					//__result = Game1.content.Load<Texture2D>("LooseSprites\\Fence" + fence_.whichType.Value);
+			//					break;
+			//				}
+			//			}
+			//		} else {
+			//			//__result = Game1.content.Load<Texture2D>("LooseSprites\\Fence" + fence.whichType.Value);
+			//		}
+			//		if (fence.isGate.Value) this.Monitor.Log($"Gate type {fence.whichType} at {tile}");
+			//		else this.Monitor.Log($"Fence type {fence.whichType} at {tile}");
+			//	}
+			//}
 #endif
 			if (__instance.whichType.Value == 4) {
 				Dictionary<Vector2, int> fenceDict = new Dictionary<Vector2, int>();

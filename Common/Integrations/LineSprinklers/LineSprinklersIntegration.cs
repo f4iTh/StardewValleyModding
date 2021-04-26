@@ -2,8 +2,7 @@
 using StardewModdingAPI;
 using System.Collections.Generic;
 
-namespace ActivateSprinklers.Integrations.LineSprinklers {
-
+namespace Common.Integrations.LineSprinklers {
 	internal class LineSprinklersIntegration : BaseIntegration {
 		private readonly ILineSprinklersApi ModApi;
 

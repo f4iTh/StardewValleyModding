@@ -20,7 +20,7 @@ namespace ActivateSprinklers {
 		private bool IsReady() => Context.IsWorldReady && Game1.currentLocation != null && Game1.player.CanMove && !Game1.player.hasMenuOpen.Value;
 
 		public override void Entry(IModHelper helper) {
-			this.Config = this.Helper.ReadConfig<ModConfig>();
+			this.Config = helper.ReadConfig<ModConfig>();
 
 			IModEvents events = helper.Events;
 			events.GameLoop.GameLaunched += this.Initialize;
