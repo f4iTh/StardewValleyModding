@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Common.Integrations.BetterSprinklers
-{
-	public interface IBetterSprinklersApi
-	{
+namespace ActivateSprinklers.Integrations.LineSprinklers {
+
+	public interface ILineSprinklersApi {
+
 		int GetMaxGridSize();
 
 		IDictionary<int, Vector2[]> GetSprinklerCoverage();
