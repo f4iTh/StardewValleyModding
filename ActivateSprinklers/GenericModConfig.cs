@@ -4,17 +4,15 @@ using System;
 
 namespace ActivateSprinklers {
 
-	public class GenericModConfigMenu {
+	public class GenericModConfig {
 		private readonly GenericModConfigMenuIntegration<ModConfig> ConfigMenu;
 
-		private readonly IModRegistry ModRegistry;
-
-		public GenericModConfigMenu(IModRegistry modRegistry, IMonitor monitor, IManifest manifest, Func<ModConfig> getConfig, Action reset, Action saveAndApply) {
-			this.ModRegistry = modRegistry;
+		public GenericModConfig(IModRegistry modRegistry, IMonitor monitor, IManifest manifest, Func<ModConfig> getConfig, Action reset, Action saveAndApply) {
 			this.ConfigMenu = new GenericModConfigMenuIntegration<ModConfig>(modRegistry, monitor, manifest, getConfig, reset, saveAndApply);
+			this.Register();
 		}
 
-		public void Register() {
+		private void Register() {
 			GenericModConfigMenuIntegration<ModConfig> menu = this.ConfigMenu;
 			if (!menu.IsLoaded)
 				return;

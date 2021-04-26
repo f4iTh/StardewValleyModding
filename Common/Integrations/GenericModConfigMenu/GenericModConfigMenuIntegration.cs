@@ -3,7 +3,6 @@ using StardewModdingAPI.Utilities;
 using System;
 
 namespace Common.Integrations.GenericModConfigMenu {
-
 	internal class GenericModConfigMenuIntegration<TConfig> : BaseIntegration
 		where TConfig : new() {
 		private readonly IGenericModConfigMenuApi ModApi;
