@@ -1,4 +1,4 @@
-﻿using Common.Integrations.GenericModConfigMenu;
+﻿using ModCommon.Integrations.GenericModConfigMenu;
 using StardewModdingAPI;
 using System;
 
