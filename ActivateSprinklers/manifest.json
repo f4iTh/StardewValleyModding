@@ -23,6 +23,10 @@
     {
       "UniqueID": "tZed.SimpleSprinkler",
       "IsRequired": false
+    },
+    {
+      "UniqueID": "spacechase0.GenericModConfigMenu",
+      "IsRequired": false
     }
   ]
 }

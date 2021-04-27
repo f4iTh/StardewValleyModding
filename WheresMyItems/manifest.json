@@ -6,5 +6,15 @@
   "Description": "Helps you find the items you're seeking for.",
   "EntryDll": "WheresMyItems.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "GitHub:f4iTh/WheresMyItems" ]
+  "UpdateKeys": [ "GitHub:f4iTh/WheresMyItems" ],
+  "Dependencies": [
+    {
+      "UniqueID": "spacechase0.GenericModConfigMenu",
+      "IsRequired": false
+    },
+    {
+      "UniqueID": "spacechase0.JsonAssets",
+      "IsRequired": false
+    }
+  ]
 }

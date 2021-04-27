@@ -4,83 +4,112 @@ using Microsoft.Xna.Framework.Input;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Objects;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace WheresMyItems
-{
-    public class ModMenu : IClickableMenu
-    {
-        private TextBox textBox;
+namespace WheresMyItems {
 
-        private TextBoxEvent e;
+	public class ModMenu : IClickableMenu {
+		private readonly TextBox textBox;
+		private readonly TextBoxEvent e;
 
-        public ModMenu(int x, int y, int width, int height, bool showUpperRightCloseButton = false)
-            : base(x, y, width, height)
-        {
-            this.textBox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor)
-            {
-                X = Game1.viewport.Width / 2 - Game1.tileSize * 4,
-                Y = Game1.viewport.Height - Game1.tileSize * 2,
-                Width = Game1.tileSize * 8,
-                Height = Game1.tileSize * 3
-            };
-            this.textBox.Selected = true;
-            this.e = this.textBoxEnter;
-            this.textBox.OnEnterPressed += this.e;
-        }
+		public ModMenu(int x, int y, int width, int height, bool showUpperRightCloseButton = false)
+			: base(x, y, width, height) {
+			this.textBox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor) {
+				//X = Game1.viewport.Width / 2 - Game1.tileSize * 4,
+				X = Game1.viewport.Width / 2  - Game1.viewport.Width / 4,
+				Y = Game1.viewport.Height - Game1.tileSize * 2,
+				//Width = Game1.tileSize * 8,
+				Width = Game1.viewport.Width / 2,
+				Height = Game1.tileSize * 3
+			};
+			this.textBox.Selected = true;
+			this.e = this.textBoxEnter;
+			this.textBox.OnEnterPressed += this.e;
+		}
 
-        public override void clickAway()
-        {
-            Game1.exitActiveMenu();
-        }
+		public override void clickAway() {
+			Game1.exitActiveMenu();
+		}
 
-        public override void receiveRightClick(int x, int y, bool playSound = true)
-        {
-        }
+		public override void receiveRightClick(int x, int y, bool playSound = true) {
+		}
 
-        private void textBoxEnter(TextBox sender)
-        {
-            if (sender.Text.Length >= 0)
-            {
-                foreach (var obj in Game1.currentLocation.objects.Pairs.Where(x => x.Value is Chest).ToArray())
-                {
-                    foreach (var item in (obj.Value as Chest).items.ToArray())
-                    {
-                        if (textBox.Text != string.Empty && item.Name.ToLower().Contains(textBox.Text.ToLower()))
-                        {
-                            Game1.player.currentLocation.temporarySprites.Add(new TemporaryAnimatedSprite(Game1.animationsName, new Rectangle(0, 320, Game1.tileSize, Game1.tileSize), 60f, 8, 0, obj.Key * 64, false, false, 1f, 0f, Color.White, 1f, 0f, 0f, 0f));
-                        }
-                    }
-                }
-                Game1.playSound("bigDeSelect");
-                Game1.exitActiveMenu();
-            }
-        }
+		private void textBoxEnter(TextBox sender) {
+			if (sender.Text.Length < 0)
+				return;
+			//IEnumerable<KeyValuePair<Vector2, Object>> chests =
+			//	from pair in Game1.currentLocation.objects.Pairs
+			//	where pair.Value is Chest
+			//	select pair;
+			//foreach(KeyValuePair<Vector2, Object> o in chests) {
+			//	Chest chest = o.Value as Chest;
+			//	IEnumerable<Item> items =
+			//		from item in chest.items.ToArray()
+			//		where !string.IsNullOrEmpty(textBox.Text) && item.Name.ToLower().Contains(textBox.Text.ToLower())
+			//		select item;
+			//	foreach(Item item in items) {
+			//	}
+			//}
+			doSearch();
+			Game1.playSound("bigDeSelect");
+			Game1.exitActiveMenu();
+		}
 
-        public override void receiveKeyPress(Keys key)
-        {
-            if (key.Equals(Keys.Escape))
-            {
-                Game1.playSound("bigDeSelect");
-                Game1.exitActiveMenu();
-            }
+		public override void receiveKeyPress(Keys key) {
+			if (key.Equals(Keys.Escape)) {
+				Game1.playSound("bigDeSelect");
+				Game1.exitActiveMenu();
+				_items.Clear();
+			}
+			doSearch();
+		}
 
-            foreach (var obj in Game1.currentLocation.objects.Pairs.Where(x => x.Value is Chest).ToArray())
-            {
-                foreach (var item in (obj.Value as Chest).items.ToArray())
-                {
-                    if (textBox.Text != string.Empty && textBox.Text.Length > 1 && item.Name.ToLower().Contains(textBox.Text.ToLower()))
-                    {
-                        Game1.player.currentLocation.temporarySprites.Add(new TemporaryAnimatedSprite(Game1.animationsName, new Rectangle(0, 0, Game1.tileSize, Game1.tileSize), 60f, 8, 0, obj.Key * 64, false, false, 1f, 0f, Color.White, 1f, 0f, 0f, 0f));
-                    }
-                }
-            }
-        }
+		private void doSearch() {
+			if(string.IsNullOrEmpty(textBox.Text)) {
+				_items.Clear();
+				return;
+			}
+			foreach (var obj in Game1.currentLocation.objects.Pairs.Where(x => x.Value is Chest).ToArray()) {
+				List<Item> itemList = new List<Item>();
+				foreach (var item in (obj.Value as Chest).items.ToArray()) {
+					if (item.Name.ToLower().Contains(textBox.Text.ToLower())) {
+						if (!itemList.Contains(item)) 
+							itemList.Add(item);
+						Game1.player.currentLocation.temporarySprites.Add(
+							new TemporaryAnimatedSprite(Game1.animationsName, new Rectangle(0, 320, Game1.tileSize, Game1.tileSize), 60f, 8, 0, obj.Key * Game1.tileSize, false, false, 1f, 0f, Color.White, 1f, 0f, 0f, 0f));
+					} else {
+						if (itemList.Contains(item)) 
+							itemList.Remove(item);
+						if (_items.ContainsKey(obj.Key))
+							_items[obj.Key] = _items[obj.Key].Where(n => n.Name.ToLower().Contains(textBox.Text.ToLower())).ToList();
+						//else 
+						//	_items.Add(obj.Key, itemList);
+					}
+				}
+				if(!_items.ContainsKey(obj.Key))
+					_items.Add(obj.Key, itemList);
+			}
+		}
 
-        public override void draw(SpriteBatch b)
-        {
-            base.draw(b);
-            this.textBox.Draw(b);
-        }
-    }
+		private IDictionary<Vector2, List<Item>> _items = new Dictionary<Vector2, List<Item>>();
+		public override void draw(SpriteBatch b) {
+			base.draw(b);
+			this.textBox.Draw(b);
+			foreach(KeyValuePair<Vector2, List<Item>> pair in _items) {
+				int count = 0;
+				foreach(Item item in pair.Value) {
+					Vector2 pos = Game1.GlobalToLocal(Game1.viewport, (pair.Key * Game1.tileSize) + new Vector2(count * 40f, 0f));
+					// no texture if not fruit tree or crop, dumb
+					//if (WheresMyItems.Integrations.JsonAssets.IsLoaded && WheresMyItems.Integrations.JsonAssets.TryGetCustomSpriteSheet(item, out Texture2D texture, out Rectangle sourceRect, true)) {
+					//	b.Draw(texture, pos, sourceRect, Color.White, 0f, new Vector2(8f, 8f), 2f, SpriteEffects.None, 1f);
+					//} else {
+					//	b.Draw(Game1.objectSpriteSheet, pos, new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.objectSpriteSheet, item.ParentSheetIndex, 16, 16)), Color.White, 0f, new Vector2(8f, 8f), 2f, SpriteEffects.None, 1f);
+					//}
+					b.Draw(Game1.objectSpriteSheet, pos, new Rectangle?(Game1.getSourceRectForStandardTileSheet(Game1.objectSpriteSheet, item.ParentSheetIndex, 16, 16)), Color.White, 0f, new Vector2(8f, 8f), 2f, SpriteEffects.None, 1f);
+					count++;
+				}
+			}
+		}
+	}
 }
