@@ -10,9 +10,7 @@ namespace ShowCatchQuality {
 
 	public class ModEntry : Mod {
 
-		public override void Entry(IModHelper helper) {
-			helper.Events.Display.RenderedWorld += this.RenderedWorld;
-		}
+		public override void Entry(IModHelper helper) => helper.Events.Display.RenderedWorld += this.RenderedWorld;
 
 		private void RenderedWorld(object sender, RenderedWorldEventArgs e) {
 			if (Game1.activeClickableMenu != null || Game1.player.CurrentTool == null || !(Game1.player.CurrentTool is FishingRod fishingRod) || !(Game1.player.CurrentTool as FishingRod).fishCaught)
