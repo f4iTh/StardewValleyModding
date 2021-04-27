@@ -11,4 +11,7 @@ bld/
 assets/
 *.py
 *.csproj
-*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
