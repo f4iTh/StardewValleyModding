@@ -12,7 +12,7 @@ namespace ActivateSprinklers {
 		public PrismaticToolsIntegration PrismaticTools { get; }
 		public SimpleSprinklerIntegration SimpleSprinkler { get; }
 
-		public ModIntegrations(IMonitor monitor, IModRegistry modRegistry, IModHelper helper) {
+		public ModIntegrations(IMonitor monitor, IModRegistry modRegistry) {
 			this.BetterSprinklers = new BetterSprinklersIntegration(modRegistry, monitor);
 			this.LineSprinklers = new LineSprinklersIntegration(modRegistry, monitor);
 			this.PrismaticTools = new PrismaticToolsIntegration(modRegistry, monitor);

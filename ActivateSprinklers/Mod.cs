@@ -37,7 +37,7 @@ namespace ActivateSprinklers {
 		}
 
 		private void Initialize(object sender, EventArgs e) {
-			this.Integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry, this.Helper);
+			this.Integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry);
 			this.CustomSprinklerCoverage = this.GetCustomSprinklerCoverage();
 
 			new GenericModConfig(
