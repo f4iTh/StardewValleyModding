@@ -12,4 +12,5 @@
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.3.0" />
   </ItemGroup>
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>
