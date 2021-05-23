@@ -1,11 +1,12 @@
 ﻿using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Menus;
 
 namespace WheresMyItems {
 
-	public class WheresMyItems : StardewModdingAPI.Mod {
-		internal static ModIntegrations Integrations;
+	public class WheresMyItems : Mod {
+		private ModIntegrations Integrations;
 
 		private ModConfig Config;
 
@@ -18,7 +19,7 @@ namespace WheresMyItems {
 		}
 
 		private void Initialize(object sender, GameLaunchedEventArgs e) {
-			WheresMyItems.Integrations = new ModIntegrations(this.Helper.ModRegistry, this.Monitor);
+			this.Integrations = new ModIntegrations(this.Helper.ModRegistry, this.Monitor);
 
 			new GenericModConfig(
 				modRegistry: this.Helper.ModRegistry,
@@ -34,13 +35,17 @@ namespace WheresMyItems {
 					this.Helper.WriteConfig(this.Config);
 					this.Helper.ReadConfig<ModConfig>();
 				}
-			);
+			).Register();
 		}
 
 		private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e) {
 			if (!Context.IsWorldReady || Game1.player.currentLocation == null || Game1.activeClickableMenu != null || !Context.CanPlayerMove || !this.Config.ToggleButton.JustPressed())
 				return;
-			Game1.activeClickableMenu = new ModMenu(Game1.viewport.Width / 2 - (600 + global::WheresMyItems.ModMenu.borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + global::WheresMyItems.ModMenu.borderWidth * 2) / 2, 800 + global::WheresMyItems.ModMenu.borderWidth * 2, 600 + global::WheresMyItems.ModMenu.borderWidth * 2);
+			Game1.activeClickableMenu = new ModMenu(
+				Game1.viewport.Width / 2 - (600 + StardewValley.Menus.IClickableMenu.borderWidth * 2) / 2,
+				Game1.viewport.Height / 2 - (600 + IClickableMenu.borderWidth * 2) / 2,
+				800 + IClickableMenu.borderWidth * 2,
+				600 + IClickableMenu.borderWidth * 2);
 		}
 	}
 }

@@ -11,21 +11,21 @@ namespace WheresMyItems {
 
 	public class ModMenu : IClickableMenu {
 		private readonly TextBox textBox;
-		private readonly TextBoxEvent e;
+		private readonly TextBoxEvent textBoxEvent;
 
 		public ModMenu(int x, int y, int width, int height, bool showUpperRightCloseButton = false)
 			: base(x, y, width, height) {
 			this.textBox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor) {
 				//X = Game1.viewport.Width / 2 - Game1.tileSize * 4,
-				X = Game1.viewport.Width / 2  - Game1.viewport.Width / 4,
+				X = Game1.viewport.Width / 2 - Game1.viewport.Width / 4,
 				Y = Game1.viewport.Height - Game1.tileSize * 2,
 				//Width = Game1.tileSize * 8,
 				Width = Game1.viewport.Width / 2,
-				Height = Game1.tileSize * 3
+				Height = Game1.tileSize * 3,
+				Selected = true
 			};
-			this.textBox.Selected = true;
-			this.e = this.textBoxEnter;
-			this.textBox.OnEnterPressed += this.e;
+			this.textBoxEvent = this.TextBoxEnter;
+			this.textBox.OnEnterPressed += this.textBoxEvent;
 		}
 
 		public override void clickAway() {
@@ -35,7 +35,7 @@ namespace WheresMyItems {
 		public override void receiveRightClick(int x, int y, bool playSound = true) {
 		}
 
-		private void textBoxEnter(TextBox sender) {
+		private void TextBoxEnter(TextBox sender) {
 			if (sender.Text.Length < 0)
 				return;
 			//IEnumerable<KeyValuePair<Vector2, Object>> chests =
@@ -51,7 +51,7 @@ namespace WheresMyItems {
 			//	foreach(Item item in items) {
 			//	}
 			//}
-			doSearch();
+			this.DoSearch();
 			Game1.playSound("bigDeSelect");
 			Game1.exitActiveMenu();
 		}
@@ -60,20 +60,21 @@ namespace WheresMyItems {
 			if (key.Equals(Keys.Escape)) {
 				Game1.playSound("bigDeSelect");
 				Game1.exitActiveMenu();
-				_items.Clear();
+				this._items.Clear();
 			}
-			doSearch();
+
+			this.DoSearch();
 		}
 
-		private void doSearch() {
-			if(string.IsNullOrEmpty(textBox.Text)) {
-				_items.Clear();
+		private void DoSearch() {
+			if(string.IsNullOrEmpty(this.textBox.Text)) {
+				this._items.Clear();
 				return;
 			}
-			foreach (var obj in Game1.currentLocation.objects.Pairs.Where(x => x.Value is Chest).ToArray()) {
+			foreach (KeyValuePair<Vector2, Object> obj in Game1.currentLocation.objects.Pairs.Where(x => x.Value is Chest).ToArray()) {
 				List<Item> itemList = new List<Item>();
-				foreach (var item in (obj.Value as Chest).items.ToArray()) {
-					if (item.Name.ToLower().Contains(textBox.Text.ToLower())) {
+				foreach (Item item in ((Chest) obj.Value).items.ToArray()) {
+					if (item.Name.ToLower().Contains(this.textBox.Text.ToLower())) {
 						if (!itemList.Contains(item)) 
 							itemList.Add(item);
 						Game1.player.currentLocation.temporarySprites.Add(
@@ -81,14 +82,12 @@ namespace WheresMyItems {
 					} else {
 						if (itemList.Contains(item)) 
 							itemList.Remove(item);
-						if (_items.ContainsKey(obj.Key))
-							_items[obj.Key] = _items[obj.Key].Where(n => n.Name.ToLower().Contains(textBox.Text.ToLower())).ToList();
+						if (this._items.ContainsKey(obj.Key)) this._items[obj.Key] = this._items[obj.Key].Where(n => n.Name.ToLower().Contains(this.textBox.Text.ToLower())).ToList();
 						//else 
 						//	_items.Add(obj.Key, itemList);
 					}
 				}
-				if(!_items.ContainsKey(obj.Key))
-					_items.Add(obj.Key, itemList);
+				if(!this._items.ContainsKey(obj.Key)) this._items.Add(obj.Key, itemList);
 			}
 		}
 
@@ -96,7 +95,7 @@ namespace WheresMyItems {
 		public override void draw(SpriteBatch b) {
 			base.draw(b);
 			this.textBox.Draw(b);
-			foreach(KeyValuePair<Vector2, List<Item>> pair in _items) {
+			foreach(KeyValuePair<Vector2, List<Item>> pair in this._items) {
 				int count = 0;
 				foreach(Item item in pair.Value) {
 					Vector2 pos = Game1.GlobalToLocal(Game1.viewport, (pair.Key * Game1.tileSize) + new Vector2(count * 40f, 0f));
