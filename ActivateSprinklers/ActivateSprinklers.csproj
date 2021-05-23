@@ -12,6 +12,7 @@
     <IgnoreModFilePatters>\.png$</IgnoreModFilePatters>
     <EnableModDeploy>false</EnableModDeploy>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.3.0" />
