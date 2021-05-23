@@ -30,12 +30,6 @@ namespace ActivateSprinklers {
             helper.Events.GameLoop.UpdateTicking += this.OnGameTick;
         }
 
-        private void OnGameTick(object sender, UpdateTickingEventArgs e) {
-            if (!IsReady())
-                return;
-            this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
-        }
-
         private void Initialize(object sender, EventArgs e) {
             this._integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry);
             this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
@@ -69,6 +63,12 @@ namespace ActivateSprinklers {
             if (this._integrations.PrismaticTools.IsLoaded && this._integrations.PrismaticTools.IsScarecrow() && sprinkler.ParentSheetIndex.Equals(this._integrations.PrismaticTools.GetSprinklerID()))
                 this.Helper.Input.Suppress(actionButton);
             this.DoActivateSprinkler(sprinkler);
+        }
+
+        private void OnGameTick(object sender, UpdateTickingEventArgs e) {
+            if (!IsReady())
+                return;
+            this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
         }
 
         private void DoActivateSprinkler(SObject sprinkler) {
