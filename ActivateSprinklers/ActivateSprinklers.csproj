@@ -3,7 +3,7 @@
     <AssemblyName>ActivateSprinklers</AssemblyName>
     <RootNamespace>ActivateSprinklers</RootNamespace>
     <Version>1.0.0</Version>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU</Platforms>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableHarmony>false</EnableHarmony>
@@ -12,10 +12,10 @@
     <IgnoreModFilePatters>\.png$</IgnoreModFilePatters>
     <EnableModDeploy>false</EnableModDeploy>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <LangVersion>8</LangVersion>
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.3.0" />
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
