@@ -1,5 +1,4 @@
-﻿using Harmony;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
@@ -7,14 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using HarmonyLib;
 
 namespace GateFix {
 
 	public class ModEntry : Mod {
-		private HarmonyInstance _harmony;
+		private Harmony _harmony;
 
 		public override void Entry(IModHelper helper) {
-			this._harmony = HarmonyInstance.Create("com.f4iTh.gatefix");
+			this._harmony = new Harmony("com.f4iTh.gatefix");
 			this._harmony.Patch(helper.Reflection.GetMethod(new Fence(), "loadFenceTexture").MethodInfo, new HarmonyMethod(typeof(LoadFenceTexturePatch), "Prefix"));
 		}
 	}
