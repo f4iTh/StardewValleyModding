@@ -6,5 +6,7 @@
   "UniqueID": "f4iTh.CustomWarps",
   "EntryDll": "CustomWarps.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": ["GitHub:f4iTh/CustomWarps"]
+  "UpdateKeys": [
+    "Nexus:3445"
+  ]
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using StardewValley;
-using StardewValley.Menus;
-
-namespace CustomWarps.Framework.Menus.Elements {
+﻿namespace CustomWarps.Framework.Menus.Elements {
 /*
     public class WarpMenuCheckBox : OptionsElement {
         private readonly Action<bool> setValue;

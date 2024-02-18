@@ -6,5 +6,7 @@
   "UniqueID": "f4iTh.AdjustBabyChance",
   "EntryDll": "AdjustBabyChance.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "Nexus:3311" ]
+  "UpdateKeys": [
+    "Nexus:3311"
+  ]
 }

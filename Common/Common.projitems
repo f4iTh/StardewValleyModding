@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-    <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>7bae9199-15df-41a8-ab1f-24d9e8394384</SharedGUID>
-  </PropertyGroup>
-  <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ModCommon</Import_RootNamespace>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\BaseIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\BetterSprinklersIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\IBetterSprinklersApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\GenericModConfigMenu\GenericModConfigMenuIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\GenericModConfigMenu\IGenericModConfigMenuApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\IModIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\JsonAssets\IJsonAssetsApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\JsonAssets\JsonAssetsIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\ILineSprinklersApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\LineSprinklersIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\IPrismaticToolsApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\PrismaticToolsIntegration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\ISimpleSprinklerApi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\SimpleSprinklerIntegration.cs" />
-  </ItemGroup>
+    <PropertyGroup>
+        <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+        <HasSharedItems>true</HasSharedItems>
+        <SharedGUID>7bae9199-15df-41a8-ab1f-24d9e8394384</SharedGUID>
+    </PropertyGroup>
+    <PropertyGroup Label="Configuration">
+        <Import_RootNamespace>ModCommon</Import_RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\BaseIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\BetterSprinklersIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\BetterSprinklers\IBetterSprinklersApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\GenericModConfigMenu\GenericModConfigMenuIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\GenericModConfigMenu\IGenericModConfigMenuApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\IModIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\JsonAssets\IJsonAssetsApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\JsonAssets\JsonAssetsIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\ILineSprinklersApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\LineSprinklers\LineSprinklersIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\IPrismaticToolsApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\PrismaticTools\PrismaticToolsIntegration.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\ISimpleSprinklerApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Integrations\SimpleSprinkler\SimpleSprinklerIntegration.cs"/>
+    </ItemGroup>
 </Project>

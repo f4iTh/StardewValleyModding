@@ -10,7 +10,7 @@
   "Dependencies": [
     {
       "UniqueID": "spacechase0.SpaceCore",
-      "IsRequired":  false
+      "IsRequired": false
     }
   ]
 }
