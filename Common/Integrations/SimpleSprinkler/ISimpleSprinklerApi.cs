@@ -1,10 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
-namespace Common.Integrations.SimpleSprinkler
-{
-	public interface ISimpleSprinklerApi
-	{
-		IDictionary<int, Vector2[]> GetNewSprinkerCoverage();
-	}
+namespace ModCommon.Integrations.SimpleSprinkler {
+    public interface ISimpleSprinklerApi {
+        IDictionary<int, Vector2[]> GetNewSprinklerCoverage();
+    }
 }

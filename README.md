@@ -1,7 +1,9 @@
-f4iTh's Stardew Valley Mod Repository
+# f4iTh's Stardew Valley Mod Repository
 
 ## Mods
-Active Mods
+
+### Released/Active Mods
+
 * **[Activate Sprinklers](https://www.nexusmods.com/stardewvalley/mods/2088)** <small>([source](ActivateSprinklers))</small>
 
 * **[Adjust Baby Chance](https://www.nexusmods.com/stardewvalley/mods/3311)** <small>([source](AdjustBabyChance))</small>
@@ -22,8 +24,10 @@ Active Mods
 
 * **[Where's My Items](https://www.nexusmods.com/stardewvalley/mods/2086)** <small>([source](WheresMyItems))</small>
 
-Unreleased Mods
+### Unreleased Mods
+
 * **Babies Galore** <small>([source](BabiesGalore))</small>
 
-Inactive Mods
+### Inactive Mods
+
 * ~~Fixed Secret Woods Debris~~ <small>([source](WoodsDebrisFix))</small>

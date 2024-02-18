@@ -1,171 +1,112 @@
-﻿using CustomWarps.Framework.Models;
-using StardewModdingAPI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CustomWarps.Framework.Models;
+using StardewModdingAPI;
 
-namespace CustomWarps.Framework
-{
-	public class WarpHelper
-	{
-		private readonly IModHelper Helper;
-		private readonly IMonitor Monitor;
+namespace CustomWarps.Framework {
+    public class WarpHelper {
+        private readonly IModHelper _helper;
+        private readonly IMonitor _monitor;
+        private Dictionary<string, CustomWarp> _globalWarps;
+        private Dictionary<string, CustomWarp> _localWarps;
+        public SortedDictionary<string, CustomWarp> CustomWarps;
 
-		public Dictionary<string, CustomWarp> CustomWarps;
+        public WarpHelper(IModHelper helper, IMonitor monitor) {
+            this._helper = helper;
+            this._monitor = monitor;
+            this._localWarps = this.LoadLocalCustomWarps();
+            this._globalWarps = this.LoadGlobalCustomWarps();
+            Dictionary<string, CustomWarp> dictionary = new Dictionary<string, CustomWarp>();
+            foreach (KeyValuePair<string, CustomWarp> gWarp in this._globalWarps.Where(gWarp => !dictionary.ContainsKey(gWarp.Key)))
+                dictionary.Add(gWarp.Key, gWarp.Value);
+            foreach (KeyValuePair<string, CustomWarp> lWarp in this._localWarps.Where(lWarp => !dictionary.ContainsKey(lWarp.Key)))
+                dictionary.Add(lWarp.Key, lWarp.Value);
+            this.CustomWarps = new SortedDictionary<string, CustomWarp>(dictionary);
+        }
 
-		private Dictionary<string, CustomWarp> LocalWarps;
-		private Dictionary<string, CustomWarp> GlobalWarps;
+        public bool HasKey(string key) {
+            return this.CustomWarps.ContainsKey(key);
+        }
 
-		//private SortStyle OrderBy { get; set; } = SortStyle.Default;
+        public CustomWarp GetWarp(string key) {
+            return !this.CustomWarps.ContainsKey(key) ? null : this.CustomWarps[key];
+        }
 
-		public WarpHelper(IModHelper Helper, IMonitor Monitor)
-		{
-			this.Helper = Helper;
-			this.Monitor = Monitor;
-			this.LocalWarps = this.LoadLocalCustomWarps();
-			this.GlobalWarps = this.LoadGlobalCustomWarps();
-			Dictionary<string, CustomWarp> dictionary = new Dictionary<string, CustomWarp>();
-			foreach (KeyValuePair<string, CustomWarp> gWarp in this.GlobalWarps)
-				if (!dictionary.ContainsKey(gWarp.Key))
-					dictionary.Add(gWarp.Key, gWarp.Value);
-			foreach (KeyValuePair<string, CustomWarp> lWarp in this.LocalWarps)
-				if (!dictionary.ContainsKey(lWarp.Key))
-					dictionary.Add(lWarp.Key, lWarp.Value);
-			this.CustomWarps = dictionary;
-			this.CustomWarps.OrderBy(n => n.Value.WarpName);
-		}
+        public void Add(string name, CustomWarp warp, bool isGlobal) {
+            if (isGlobal) {
+                if (!this._globalWarps.ContainsKey(name))
+                    this._globalWarps.Add(name, warp);
+            }
+            else {
+                if (!this._localWarps.ContainsKey(name))
+                    this._localWarps.Add(name, warp);
+            }
 
-		public bool HasKey(string Key)
-		{
-			return this.CustomWarps.ContainsKey(Key);
-		}
+            this.SaveWarps(isGlobal);
+        }
 
-		public CustomWarp GetWarp(string Key)
-		{
-			if (!this.CustomWarps.ContainsKey(Key))
-				return null;
-			return this.CustomWarps[Key];
-		}
+        public bool TryAdd(string name, CustomWarp warp, bool isGlobal) {
+            if (isGlobal) {
+                if (this._globalWarps.ContainsKey(name)) return false;
+                this._globalWarps.Add(name, warp);
+                this.SaveWarps(true);
+            }
+            else {
+                if (this._localWarps.ContainsKey(name)) return false;
+                this._localWarps.Add(name, warp);
+                this.SaveWarps(false);
+            }
 
-		public void Add(string name, CustomWarp warp, bool isGlobal)
-		{
-			if (isGlobal)
-			{
-				if (!this.GlobalWarps.ContainsKey(name))
-					this.GlobalWarps.Add(name, warp);
-				this.SaveWarps(isGlobal);
-				return;
-			}
-			if (!this.LocalWarps.ContainsKey(name))
-				this.LocalWarps.Add(name, warp);
-			this.SaveWarps(isGlobal);
-		}
+            this.SaveWarps(isGlobal);
+            return true;
+        }
 
-		public bool BooleanAdd(string name, CustomWarp warp, bool isGlobal)
-		{
-			if (isGlobal)
-			{
-				if (!this.GlobalWarps.ContainsKey(name))
-				{
-					this.GlobalWarps.Add(name, warp);
-					this.SaveWarps(isGlobal);
-					return true;
-				}
-				return false;
-			}
-			if (!this.LocalWarps.ContainsKey(name))
-			{
-				this.LocalWarps.Add(name, warp);
-				this.SaveWarps(isGlobal);
-				return true;
-			}
-			return false;
-		}
+        public void Remove(string name, bool isGlobal) {
+            if (!this.CustomWarps.ContainsKey(name)) return;
+            if (isGlobal)
+                this._globalWarps.Remove(name);
+            else
+                this._localWarps.Remove(name);
+            this.CustomWarps.Remove(name);
+            this.SaveWarps(isGlobal);
+        }
 
-		public void Remove(string name, bool isGlobal)
-		{
-			if (!this.CustomWarps.ContainsKey(name))
-				return;
-			if (isGlobal)
-				this.GlobalWarps.Remove(name);
-			else
-				this.LocalWarps.Remove(name);
-			this.CustomWarps.Remove(name);
-			this.SaveWarps(isGlobal);
-		}
+        private void SaveWarps(bool isGlobal) {
+            this._helper.Data.WriteJsonFile($"{(isGlobal ? "warps/global.json" : "warps/{Constants.SaveFolderName}.json")}",
+                isGlobal ? this._globalWarps : this._localWarps);
+            // if (isGlobal) this._helper.Data.WriteJsonFile("warps/global.json", this._globalWarps);
+            // else this._helper.Data.WriteJsonFile($"warps/{Constants.SaveFolderName}.json", this._localWarps);
+            this.Update();
+        }
 
-		public void SaveWarps(bool isGlobal)
-		{
-			if (isGlobal)
-				this.Helper.Data.WriteJsonFile<Dictionary<string, CustomWarp>>($"warps/global.json", this.GlobalWarps);
-			else
-				this.Helper.Data.WriteJsonFile<Dictionary<string, CustomWarp>>($"warps/{Constants.SaveFolderName}.json", this.LocalWarps);
-			this.Update();
-		}
+        private Dictionary<string, CustomWarp> LoadLocalCustomWarps() {
+            return this._helper.Data.ReadJsonFile<Dictionary<string, CustomWarp>>($"warps/{Constants.SaveFolderName}.json") ?? new Dictionary<string, CustomWarp>();
+        }
 
-		//public void SwitchSort(SortStyle which)
-		//{
-		//	this.OrderBy = which;
-		//	this.Sort();
-		//}
+        private Dictionary<string, CustomWarp> LoadGlobalCustomWarps() {
+            return this._helper.Data.ReadJsonFile<Dictionary<string, CustomWarp>>("warps/global.json") ?? new Dictionary<string, CustomWarp>();
+        }
 
-		//public void Sort()
-		//{
-		//	switch (this.OrderBy)
-		//	{
-		//		case SortStyle.Default:
-		//			break;
-		//		case SortStyle.LocationName:
-		//			this.CustomWarps.OrderBy(n => n.Value.MapName);
-		//			break;
-		//		case SortStyle.WarpName:
-		//			this.CustomWarps.OrderBy(n => n.Value.WarpName);
-		//			break;
-		//	}
-		//}
+        private void Update() {
+            this._localWarps.Clear();
+            this._globalWarps.Clear();
+            this.CustomWarps.Clear();
 
-		private Dictionary<string, CustomWarp> LoadLocalCustomWarps()
-		{
-			return this.Helper.Data.ReadJsonFile<Dictionary<string, CustomWarp>>($"warps/{Constants.SaveFolderName}.json") ?? new Dictionary<string, CustomWarp>();
-		}
+            this._localWarps = this.LoadLocalCustomWarps();
+            this._globalWarps = this.LoadGlobalCustomWarps();
 
-		private Dictionary<string, CustomWarp> LoadGlobalCustomWarps()
-		{
-			return this.Helper.Data.ReadJsonFile<Dictionary<string, CustomWarp>>($"warps/global.json") ?? new Dictionary<string, CustomWarp>();
-		}
-
-		private void Update()
-		{
-			this.LocalWarps.Clear();
-			this.GlobalWarps.Clear();
-			this.CustomWarps.Clear();
-
-			this.LocalWarps = this.LoadLocalCustomWarps();
-			this.GlobalWarps = this.LoadGlobalCustomWarps();
-
-			try
-			{
-				Dictionary<string, CustomWarp> dictionary = new Dictionary<string, CustomWarp>();
-				foreach (KeyValuePair<string, CustomWarp> gWarp in this.GlobalWarps)
-					if (!dictionary.ContainsKey(gWarp.Key))
-						dictionary.Add(gWarp.Key, gWarp.Value);
-				foreach (KeyValuePair<string, CustomWarp> lWarp in this.LocalWarps)
-					if (!dictionary.ContainsKey(lWarp.Key))
-						dictionary.Add(lWarp.Key, lWarp.Value);
-				this.CustomWarps = dictionary;
-			}
-			catch (ArgumentException ae)
-			{
-				this.Monitor.Log($"Something went wrong!\n{ae}", LogLevel.Error);
-			}
-			//this.Sort();
-		}
-
-		//public enum SortStyle
-		//{
-		//	Default = 1,
-		//	WarpName = 2,
-		//	LocationName = 3
-		//}
-	}
+            try {
+                Dictionary<string, CustomWarp> dictionary = new Dictionary<string, CustomWarp>();
+                foreach (KeyValuePair<string, CustomWarp> gWarp in this._globalWarps.Where(gWarp => !dictionary.ContainsKey(gWarp.Key)))
+                    dictionary.Add(gWarp.Key, gWarp.Value);
+                foreach (KeyValuePair<string, CustomWarp> lWarp in this._localWarps.Where(lWarp => !dictionary.ContainsKey(lWarp.Key)))
+                    dictionary.Add(lWarp.Key, lWarp.Value);
+                this.CustomWarps = new SortedDictionary<string, CustomWarp>(dictionary);
+            }
+            catch (ArgumentException ae) {
+                this._monitor.Log($"Something went wrong!\n{ae}", LogLevel.Error);
+            }
+        }
+    }
 }

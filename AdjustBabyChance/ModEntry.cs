@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 
@@ -22,7 +22,7 @@ namespace AdjustBabyChance
 				config.QuestionChance = 0.05;
 			}
 
-			HarmonyInstance harmony = HarmonyInstance.Create("com.f4iTh.AdjustBabyChance");
+			Harmony harmony = new Harmony("com.f4iTh.AdjustBabyChance");
 			harmony.Patch(helper.Reflection.GetMethod(typeof(Utility), "pickPersonalFarmEvent").MethodInfo, new HarmonyMethod(typeof(EventPatch), "Prefix", null), null);
 		}
 
