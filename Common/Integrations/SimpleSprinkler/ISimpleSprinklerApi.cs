@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 
 namespace ModCommon.Integrations.SimpleSprinkler {
-    public interface ISimpleSprinklerApi {
-        IDictionary<int, Vector2[]> GetNewSprinklerCoverage();
-    }
+  public interface ISimpleSprinklerApi {
+    IDictionary<int, Vector2[]> GetNewSprinklerCoverage();
+  }
 }

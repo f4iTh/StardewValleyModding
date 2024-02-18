@@ -6,7 +6,9 @@
   "Description": "Helps you find the items you're seeking for.",
   "EntryDll": "WheresMyItems.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "GitHub:f4iTh/WheresMyItems" ],
+  "UpdateKeys": [
+    "Nexus:2086"
+  ],
   "Dependencies": [
     {
       "UniqueID": "spacechase0.GenericModConfigMenu",

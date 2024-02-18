@@ -6,8 +6,8 @@ from shutil import copyfile
 
 # constants
 SEPARATOR = "#SPLIT#"
-BUILDPATHFILES = [ "ActivateSprinklers.dll", "ActivateSprinklers.pdb" ]
-SOURCEPATHFILES = [ "manifest.json" ]
+BUILDPATHFILES = ["ActivateSprinklers.dll", "ActivateSprinklers.pdb"]
+SOURCEPATHFILES = ["manifest.json"]
 
 # variables
 modPath = ""
@@ -15,8 +15,9 @@ buildPath = ""
 sourcePath = ""
 configuration = ""
 
+
 # edit manifest.json file if using debug build configuration
-def editmanifest(path : str):
+def editmanifest(path: str):
     try:
         data = []
         # read manifest.json
@@ -41,6 +42,7 @@ def editmanifest(path : str):
     except Exception:
         raise Exception
 
+
 try:
     # get paths; format: [file, source path, mod path]
     args = sys.argv[1].replace("\\", "/").split(SEPARATOR)
@@ -56,7 +58,7 @@ try:
     # copy files to mod path
     for file in BUILDPATHFILES:
         # don't copy debug files if not debug
-        if(configuration != "debug" and file.endswith(".pdb")): 
+        if (configuration != "debug" and file.endswith(".pdb")):
             continue
         print(f"[post-build::] Copying '{file}' from '{buildPath}' to '{modPath}'.")
         copyfile(rf"{buildPath}{file}", rf"{modPath}{file}")
@@ -64,7 +66,7 @@ try:
         print(f"[post-build::] Copying '{file}' from '{sourcePath}' to '{modPath}'.")
         copyfile(rf"{sourcePath}{file}", rf"{modPath}{file}")
 
-    if(configuration != "release"):
+    if (configuration != "release"):
         print(f"[post-build::] Editing 'manifest.json' of '{modPath}{SOURCEPATHFILES[0]}'.")
         editmanifest(f"{modPath}{SOURCEPATHFILES[0]}")
 

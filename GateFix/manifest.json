@@ -6,5 +6,7 @@
   "UniqueID": "f4iTh.GateFix",
   "EntryDll": "GateFix.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "GitHub:f4iTh/GateFix" ]
+  "UpdateKeys": [
+    "GitHub:f4iTh/GateFix"
+  ]
 }

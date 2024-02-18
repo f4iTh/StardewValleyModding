@@ -6,5 +6,7 @@
   "UniqueID": "f4iTh.ShowCatchQuality",
   "EntryDll": "ShowCatchQuality.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "GitHub:f4iTh/ShowCatchQuality" ]
+  "UpdateKeys": [
+    "Nexus:3326"
+  ]
 }

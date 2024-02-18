@@ -6,7 +6,9 @@
   "Description": "Activate sprinklers by right clicking them.",
   "EntryDll": "ActivateSprinklers.dll",
   "MinimumApiVersion": "3.0.0",
-  "UpdateKeys": [ "GitHub:f4iTh/ActivateSprinklers" ],
+  "UpdateKeys": [
+    "Nexus:2088"
+  ],
   "Dependencies": [
     {
       "UniqueID": "Speeder.BetterSprinklers",
