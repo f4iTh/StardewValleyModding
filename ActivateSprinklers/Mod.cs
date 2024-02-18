@@ -1,202 +1,110 @@
-﻿using ActivateSprinklers.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using SObject = StardewValley.Object;
 
-namespace ActivateSprinklers
-{
-	internal class ActivateSprinklers : Mod
-    {
-        #region fields
-        private ModConfig Config;
-		private ModIntegrations Integrations;
-		private IDictionary<int, Vector2[]> StaticSprinklerCoverage;
-		private readonly string[] LineSprinklersNames = {
-			"Iridium Line Sprinkler (D)",
-			"Iridium Line Sprinkler (L)",
-			"Iridium Line Sprinkler (R)",
-			"Iridium Line Sprinkler (U)",
-			"Line Sprinkler (D)",
-			"Line Sprinkler (L)",
-			"Line Sprinkler (R)",
-			"Line Sprinkler (U)",
-			"Quality Line Sprinkler (D)",
-			"Quality Line Sprinkler (L)",
-			"Quality Line Sprinkler (R)",
-			"Quality Line Sprinkler (U)"
-		};
-		#endregion
+namespace ActivateSprinklers {
+    public class ActivateSprinklers : Mod {
+        private ModConfig _config;
+        private IDictionary<int, Vector2[]> _customSprinklerCoverage;
+        private ModIntegrations _integrations;
 
-		public override void Entry(IModHelper helper)
-        {
-			helper.Events.GameLoop.GameLaunched += this.Initialize;
-            helper.Events.Input.ButtonPressed += this.ButtonPressed;
+        private bool IsSprinkler(SObject obj) {
+            return obj.IsSprinkler() || obj.bigCraftable.Value && this._customSprinklerCoverage.ContainsKey(obj.ParentSheetIndex);
+        }
 
-			this.Config = this.Helper.ReadConfig<ModConfig>();
-		}
+        private static bool IsReady() {
+            return Context.IsWorldReady && Game1.currentLocation != null && Game1.player.CanMove && !Game1.player.hasMenuOpen.Value;
+        }
 
-		private void Initialize(object sender, EventArgs e)
-		{
-			this.Integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry, this.Helper.Reflection);
-			this.StaticSprinklerCoverage = this.GetStaticSprinklerTiles(this.Integrations);
-		}
+        public override void Entry(IModHelper helper) {
+            this._config = helper.ReadConfig<ModConfig>();
+            helper.Events.GameLoop.GameLaunched += this.Initialize;
+            helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
+            helper.Events.GameLoop.UpdateTicking += this.OnGameTick;
+        }
 
-		//private void OnTick(object sender, UpdateTickedEventArgs e)
-		//{
-		//	if (!Context.IsWorldReady || Game1.currentLocation == null)
-		//		return;
+        private void Initialize(object sender, EventArgs e) {
+            this._integrations = new ModIntegrations(this.Monitor, this.Helper.ModRegistry);
+            this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
+            new GenericModConfig(
+                this.Helper.ModRegistry,
+                this.Monitor,
+                this.ModManifest,
+                () => this._config,
+                () => {
+                    this._config = new ModConfig();
+                    this.Helper.WriteConfig(this._config);
+                    this.Helper.ReadConfig<ModConfig>();
+                },
+                () => {
+                    this.Helper.WriteConfig(this._config);
+                    this.Helper.ReadConfig<ModConfig>();
+                }
+            ).Register();
+        }
 
-		//	if (e.IsMultipleOf(30))
-		//	{
-		//		MouseState mouse = Mouse.GetState();
-		//		GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
+        private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e) {
+            SButton actionButton;
+            if (!IsReady() || (actionButton = e.Pressed.FirstOrDefault(button => button.IsActionButton())) == default)
+                return;
+            Vector2 tile = Game1.options.gamepadControls
+                ? Game1.player.GetGrabTile()
+                : this._config.InfiniteReach
+                    ? Game1.currentCursorTile
+                    : e.Cursor.GrabTile;
+            if (!Game1.player.currentLocation.Objects.TryGetValue(tile, out SObject sprinkler) || !this.IsSprinkler(sprinkler)) return;
+            if (this._integrations.PrismaticTools.IsLoaded && this._integrations.PrismaticTools.IsScarecrow() && sprinkler.ParentSheetIndex.Equals(this._integrations.PrismaticTools.GetSprinklerID()))
+                this.Helper.Input.Suppress(actionButton);
+            this.DoActivateSprinkler(sprinkler);
+        }
 
-		//		int oldPower = Game1.player.toolPower;
-		//		float stamina = Game1.player.Stamina;
-		//		SObject sprinkler;
+        private void OnGameTick(object sender, UpdateTickingEventArgs e) {
+            if (!IsReady())
+                return;
+            this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
+        }
 
-		//		if ((mouse.RightButton == ButtonState.Pressed || gamepad.Buttons.A == ButtonState.Pressed) && Game1.player.currentLocation.Objects.TryGetValue(Game1.currentCursorTile, out SObject sobj) /*&& this.IsSprinkler(sobj)*/)
-		//		{
-		//			sprinkler = sobj;
-		//			if (this.Config.EXPERIMENTAL_NOT_RECOMMENDED_AllowTheSprinklersToMakeTheGameLagLikeTheresNoTomorrow && !Game1.options.gamepadControls)
-		//			{
-		//				Game1.player.currentLocation.Objects.TryGetValue(Game1.currentCursorTile, out SObject Sobj);
-		//				sprinkler = Sobj;
-		//			}
+        private void DoActivateSprinkler(SObject sprinkler) {
+            int oldPower = Game1.player.toolPower;
+            float currentStamina = Game1.player.Stamina;
+            WateringCan can = new WateringCan {WaterLeft = 100};
+            Game1.player.toolPower = 0;
+            foreach (Vector2 tile in GetCoverage(sprinkler, sprinkler.TileLocation, this._customSprinklerCoverage)) {
+                can.DoFunction(Game1.player.currentLocation, (int) tile.X * 64, (int) tile.Y * 64, 0, Game1.player);
+                can.WaterLeft = can.waterCanMax;
+                Game1.player.Stamina = currentStamina;
+            }
 
-		//			WateringCan can = new WateringCan { WaterLeft = 100 };
-		//			Game1.player.toolPower = 0;
+            Game1.player.toolPower = oldPower;
+        }
 
-		//			foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetCurrentSprinklerTiles(this.StaticSprinklerCoverage)))
-		//			{
-		//				can.DoFunction(Game1.player.currentLocation, (int)tile.X * 64, (int)tile.Y * 64, 0, Game1.player);
-		//				can.WaterLeft = can.waterCanMax;
-		//				Game1.player.Stamina = stamina;
-		//			}
-		//			Game1.player.toolPower = oldPower;
-		//		}
-		//	}
-		//}
+        [SuppressMessage("ReSharper", "InvertIf")]
+        private IDictionary<int, Vector2[]> GetCustomSprinklerCoverage() {
+            IDictionary<int, Vector2[]> sprinklerCoverage = new Dictionary<int, Vector2[]>();
+            if (this._integrations.BetterSprinklers.IsLoaded)
+                foreach (KeyValuePair<int, Vector2[]> kvp in this._integrations.BetterSprinklers.GetSprinklerTiles())
+                    sprinklerCoverage[kvp.Key] = kvp.Value;
+            if (this._integrations.LineSprinklers.IsLoaded)
+                foreach (KeyValuePair<int, Vector2[]> kvp in this._integrations.LineSprinklers.GetSprinklerTiles())
+                    sprinklerCoverage[kvp.Key] = kvp.Value;
+            if (this._integrations.SimpleSprinkler.IsLoaded)
+                foreach (KeyValuePair<int, Vector2[]> kvp in this._integrations.SimpleSprinkler.GetSprinklerTiles())
+                    sprinklerCoverage[kvp.Key] = kvp.Value;
+            return sprinklerCoverage;
+        }
 
-		private void ButtonPressed(object sender, ButtonPressedEventArgs e)
-		{
-			if (!Context.IsWorldReady || Game1.currentLocation == null)
-				return;
-			
-			int oldPower = Game1.player.toolPower;
-			float stamina = Game1.player.Stamina;
-			SObject sprinkler;
-
-			if (e.Button.IsActionButton() && Game1.player.currentLocation.Objects.TryGetValue(e.Cursor.GrabTile, out SObject sobj) && this.IsSprinkler(sobj))
-			{
-				sprinkler = sobj;
-
-				if (this.Config.AbleToActivateSprinklersWithoutBeingDirectlyInFrontOfOne && !Game1.options.gamepadControls)
-				{
-					Game1.player.currentLocation.Objects.TryGetValue(Game1.currentCursorTile, out SObject Sobj);
-					sprinkler = Sobj;
-				}
-
-				//if (!this.Config.EXPERIMENTAL_NOT_RECOMMENDED_AllowTheSprinklersToMakeTheGameLagLikeTheresNoTomorrow)
-				//	this.Helper.Events.GameLoop.UpdateTicked += this.OnTick;
-
-				WateringCan can = new WateringCan { WaterLeft = 100 };
-				Game1.player.toolPower = 0;
-
-				if (this.Integrations.PrismaticTools.IsLoaded && this.Integrations.PrismaticTools.IsScarecrow() && sprinkler.ParentSheetIndex.Equals(this.Integrations.PrismaticTools.GetSprinklerID()))
-					this.Helper.Input.Suppress(e.Button);
-
-				foreach (var tile in this.GetCoverageTiles(sprinkler, sprinkler.TileLocation, this.GetCurrentSprinklerTiles(this.StaticSprinklerCoverage)))
-				{
-					can.DoFunction(Game1.player.currentLocation, (int)tile.X * 64, (int)tile.Y * 64, 0, Game1.player);
-					can.WaterLeft = can.waterCanMax;
-					Game1.player.Stamina = stamina;
-				}
-				Game1.player.toolPower = oldPower;
-			}
-		}
-
-		/******************
-		* From DataLayers *
-		******************/
-		// https://github.com/Pathoschild/StardewMods/blob/develop/DataLayers/Layers/Coverage/SprinklerLayer.cs
-
-		private IDictionary<int, Vector2[]> GetStaticSprinklerTiles(ModIntegrations integrations)
-		{
-			IDictionary<int, Vector2[]> tiles = new Dictionary<int, Vector2[]>();
-			{
-				Vector2 center = Vector2.Zero;
-
-				tiles[599] = Utility.getAdjacentTileLocations(center).Concat(new[] { center }).ToArray();
-
-				tiles[621] = Utility.getSurroundingTileLocationsArray(center).Concat(new[] { center }).ToArray();
-
-				List<Vector2> iridiumTiles = new List<Vector2>();
-				for (int x = -2; x <= 2; x++)
-				{
-					for (int y = -2; y <= 2; y++)
-						iridiumTiles.Add(new Vector2(x, y));
-				}
-				tiles[645] = iridiumTiles.ToArray();
-			}
-
-			if (integrations.PrismaticTools.IsLoaded)
-				tiles[integrations.PrismaticTools.GetSprinklerID()] = integrations.PrismaticTools.GetSprinklerCoverage().ToArray();
-
-			if (integrations.Cobalt.IsLoaded)
-				tiles[integrations.Cobalt.GetSprinklerID()] = integrations.Cobalt.GetSprinklerTiles().ToArray();
-
-			if (integrations.SimpleSprinkler.IsLoaded)
-			{
-				foreach (var pair in integrations.SimpleSprinkler.GetSprinklerTiles())
-				{
-					int id = pair.Key;
-					if (tiles.TryGetValue(id, out Vector2[] currentTiles))
-						tiles[id] = currentTiles.Union(pair.Value).ToArray();
-					else
-						tiles[id] = pair.Value;
-				}
-			}
-			return tiles;
-		}
-
-		private IDictionary<int, Vector2[]> GetCurrentSprinklerTiles(IDictionary<int, Vector2[]> staticTiles)
-		{
-			if (!this.Integrations.BetterSprinklers.IsLoaded && !this.Integrations.LineSprinklers.IsLoaded) return staticTiles;
-
-			IDictionary<int, Vector2[]> tilesBySprinklerID = new Dictionary<int, Vector2[]>(staticTiles);
-			if (this.Integrations.BetterSprinklers.IsLoaded)
-			{
-				foreach (var pair in this.Integrations.BetterSprinklers.GetSprinklerTiles())
-					tilesBySprinklerID[pair.Key] = pair.Value;
-			}
-			if (this.Integrations.LineSprinklers.IsLoaded)
-			{
-				foreach (var pair in this.Integrations.LineSprinklers.GetSprinklerTiles())
-					tilesBySprinklerID[pair.Key] = pair.Value;
-			}
-			return tilesBySprinklerID;
-		}
-
-		private IEnumerable<Vector2> GetCoverageTiles(SObject sprinkler, Vector2 origin, IDictionary<int, Vector2[]> radius)
-		{
-			if (!radius.TryGetValue(sprinkler.ParentSheetIndex, out Vector2[] tiles))
-				throw new NotSupportedException($"Unknown sprinkler ID: {sprinkler.ParentSheetIndex}");
-
-			foreach (Vector2 tile in tiles)
-				yield return origin + tile;
-		}
-
-		private bool IsSprinkler(SObject obj)
-		{
-			return obj != null && (this.StaticSprinklerCoverage.ContainsKey(obj.ParentSheetIndex) || this.LineSprinklersNames.Contains(obj.Name));
-		}
-	}
+        private static IEnumerable<Vector2> GetCoverage(SObject sprinkler, Vector2 origin, IDictionary<int, Vector2[]> customSprinklerCoverage) {
+            IEnumerable<Vector2> sprinklerCoverage = sprinkler.GetSprinklerTiles();
+            if (customSprinklerCoverage.TryGetValue(sprinkler.ParentSheetIndex, out Vector2[] sprinklerCoverageTiles))
+                sprinklerCoverage = new HashSet<Vector2>(sprinklerCoverage.Concat(sprinklerCoverageTiles.Select(tile => tile + origin)));
+            return sprinklerCoverage;
+        }
+    }
 }

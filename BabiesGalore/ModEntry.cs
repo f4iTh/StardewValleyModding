@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 #if DEBUG
@@ -15,14 +15,14 @@ namespace BabiesGalore
 	{
 		public static IModHelper helper;
 		public static ModConfig config;
-		private HarmonyInstance harmony;
+		private Harmony harmony;
 
 		public override void Entry(IModHelper helper)
 		{
 			ModEntry.helper = helper;
 			ModEntry.config = helper.ReadConfig<ModConfig>() ?? new ModConfig();
 
-			harmony = HarmonyInstance.Create("com.f4iTh.babiesgalore");
+			harmony = new Harmony("com.f4iTh.babiesgalore");
 			harmony.Patch(helper.Reflection.GetMethod(new NPC(), "canGetPregnant").MethodInfo, prefix: new HarmonyMethod(typeof(Patches.NPC.canGetPregnantPatch), "Prefix", null));
 			harmony.Patch(helper.Reflection.GetMethod(typeof(Utility), "playersCanGetPregnantHere").MethodInfo, prefix: new HarmonyMethod(typeof(Patches.Utility.playersCanGetPregnantHerePatch), "Prefix", null));
 
