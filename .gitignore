@@ -23,7 +23,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-output/
+_releases/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -329,3 +329,9 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Custom
+MeteorsNoMore/
+TestMod/
+HookGen/ref/
+ConsoleREPL/

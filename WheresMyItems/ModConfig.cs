@@ -1,9 +1,9 @@
 ﻿using StardewModdingAPI;
+using StardewModdingAPI.Utilities;
 
-namespace WheresMyItems
-{
-    internal class ModConfig
-    {
-        public SButton ToggleButton { get; set; } = SButton.F5;
-    }
+namespace WheresMyItems {
+
+	public class ModConfig {
+		public KeybindList ToggleButton { get; set; } = new KeybindList(SButton.F5);
+	}
 }

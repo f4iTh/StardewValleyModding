@@ -1,0 +1,17 @@
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+assets/
+*.py
+*.csproj
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
