@@ -14,7 +14,7 @@
 
 * **[Gate Fix](https://www.nexusmods.com/stardewvalley/mods/4859)** <small>([source](GateFix))</small>
 
-* **[Garlics](https://www.nexusmods.com/stardewvalley/mods/3524)** <small>([source](Garlics))</small>
+* **[Garlics](https://www.nexusmods.com/stardewvalley/mods/3524)** <small>([source](ParsnipsAbsolutelyEverywhereButItsGarlic))</small>
 
 * **[Show Catch Quality](https://www.nexusmods.com/stardewvalley/mods/3326)** <small>([source](ShowCatchQuality))</small>
 
