@@ -28,8 +28,6 @@
 
 * **Babies Galore** <small>([source](BabiesGalore))</small>
 
-* **ConsoleREPL** <small>([source](ConsoleREPL))</small>
-
 ### Inactive Mods
 
 * ~~Fixed Secret Woods Debris~~ <small>([source](WoodsDebrisFix))</small>
