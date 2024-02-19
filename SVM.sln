@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParsnipsAbsolutelyEverywher
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = ".ModCommon", "Common\.ModCommon.shproj", "{7BAE9199-15DF-41A8-AB1F-24D9E8394384}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateFix", "GateFix\GateFix.csproj", "{22F1A362-6F28-4ED8-B366-8661E9CDFE70}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D1C00B88-3393-4D16-9F5F-C162A9F6460A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
@@ -90,14 +88,6 @@ Global
 		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|x86.ActiveCfg = Release|x86
 		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|x86.Build.0 = Release|x86
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Debug|x86.ActiveCfg = Debug|x86
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Debug|x86.Build.0 = Debug|x86
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|x86.ActiveCfg = Release|x86
-		{22F1A362-6F28-4ED8-B366-8661E9CDFE70}.Release|x86.Build.0 = Release|x86
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Debug|Any CPU.Build.0 = Debug|x86
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Debug|x86.ActiveCfg = Debug|x86
