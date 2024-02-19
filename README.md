@@ -12,8 +12,6 @@
 
 * **[Custom Warps](https://www.nexusmods.com/stardewvalley/mods/3445)** <small>([source](CustomWarps))</small>
 
-* **[Gate Fix](https://www.nexusmods.com/stardewvalley/mods/4859)** <small>([source](GateFix))</small>
-
 * **[Garlics](https://www.nexusmods.com/stardewvalley/mods/3524)** <small>([source](ParsnipsAbsolutelyEverywhereButItsGarlic))</small>
 
 * **[Show Catch Quality](https://www.nexusmods.com/stardewvalley/mods/3326)** <small>([source](ShowCatchQuality))</small>
@@ -24,9 +22,11 @@
 
 * **Babies Galore** <small>([source](BabiesGalore))</small>
 
-### Inactive Mods
+### Outdated/Inactive Mods
 
 * ~~Baby Gender Interface~~ <small>([source](.old/BabyGenderInterface))</small>
+
+* ~~Gate Fix~~ <small>([source](.old/GateFix))</small>
 
 * ~~Fixed Secret Woods Debris~~ <small>([source](.old/WoodsDebrisFix))</small>
 
