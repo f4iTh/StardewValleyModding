@@ -9,6 +9,7 @@
         <Import_RootNamespace>ModCommon</Import_RootNamespace>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)Api\UniqueModIds.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Api\BetterSprinklers\IBetterSprinklersApi.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Api\GenericModConfigMenu\IGenericModConfigMenuApi.cs"/>
