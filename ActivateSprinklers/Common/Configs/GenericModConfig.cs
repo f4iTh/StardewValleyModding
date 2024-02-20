@@ -1,5 +1,6 @@
 ﻿using System;
 using ActivateSprinklers.Common.Enums;
+using ModCommon.Api;
 using ModCommon.Api.GenericModConfigMenu;
 using StardewModdingAPI;
 
@@ -13,7 +14,7 @@ namespace ActivateSprinklers.Common.Configs {
     private readonly Action _save;
 
     public GenericModConfig(IModRegistry modRegistry, IManifest modManifest, Func<ModConfig> getConfig, Action reset, Action save) {
-      this._configMenu = modRegistry.GetApi<IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+      this._configMenu = modRegistry.GetApi<IGenericModConfigMenuApi>(UniqueModIds.GENERIC_MOD_CONFIG_MENU);
 
       this._modManifest = modManifest;
       this._getConfig = getConfig;
