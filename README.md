@@ -1,4 +1,4 @@
-# f4iTh's Stardew Valley Mod Repository
+# Stardew Valley Mod Repository
 
 ## Mods
 
@@ -18,11 +18,9 @@
 
 * **[Where's My Items](https://www.nexusmods.com/stardewvalley/mods/2086)** <small>([source](WheresMyItems))</small>
 
-### Unreleased Mods
-
-* **Babies Galore** <small>([source](BabiesGalore))</small>
-
 ### Outdated/Inactive Mods
+
+* ~~Babies Galore~~ <small>([source](.old/BabiesGalore))</small>
 
 * ~~Baby Gender Interface~~ <small>([source](.old/BabyGenderInterface))</small>
 
