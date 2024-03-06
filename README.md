@@ -1,8 +1,4 @@
-# Stardew Valley Mod Repository
-
-## Mods
-
-### Released/Active Mods
+## Released/Active Mods
 
 * **[Activate Sprinklers](https://www.nexusmods.com/stardewvalley/mods/2088)** <small>([source](ActivateSprinklers))</small>
 
@@ -18,7 +14,7 @@
 
 * **[Where's My Items](https://www.nexusmods.com/stardewvalley/mods/2086)** <small>([source](WheresMyItems))</small>
 
-### Outdated/Inactive Mods
+## Outdated/Inactive Mods
 
 * ~~Babies Galore~~ <small>([source](.old/BabiesGalore))</small>
 
