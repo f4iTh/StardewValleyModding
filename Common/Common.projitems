@@ -18,6 +18,7 @@
         <Compile Include="$(MSBuildThisFileDirectory)Api\PrismaticTools\IPrismaticToolsApi.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Api\RadioactiveTools\IRadioactiveToolsApi.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Api\SimpleSprinkler\ISimpleSprinklerApi.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Extensions\DictionaryExtensions.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Extensions\DoubleExtensions.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Extensions\Vector2Extensions.cs"/>
     </ItemGroup>
