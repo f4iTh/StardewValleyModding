@@ -52,13 +52,11 @@ namespace CustomWarps {
         return;
 
       WarpHelper warpHelper = new(this.Helper.Data);
-
-      if (this._config.MenuStyle == MenuStyle.VerticalList) {
-        Game1.activeClickableMenu = new VerticalListWarpMenu(this.Helper, warpHelper);
-        return;
-      }
-
-      Game1.activeClickableMenu = new GridWarpMenu(this.Helper, warpHelper, /* this._config.MaxItemsPerGridRow */ maxItemsPerColumn: this._config.MaxItemsPerGridColumn);
+      Game1.activeClickableMenu = this._config.MenuStyle switch {
+        MenuStyle.LegacyGrid => new GridWarpMenu(this.Helper, warpHelper, maxItemsPerColumn: this._config.MaxItemsPerGridColumn),
+        MenuStyle.VerticalList => new VerticalListWarpMenu(this.Helper, warpHelper),
+        _ => Game1.activeClickableMenu
+      };
     }
 
     //private void SwitchSortStyleCommand(string command, string[] args)

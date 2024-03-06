@@ -13,7 +13,6 @@ using StardewValley.Buildings;
 using StardewValley.Menus;
 
 namespace CustomWarps.Common.Menus {
-  [SuppressMessage("ReSharper", "PossibleLossOfFraction")]
   // TODO: custom sorting for warp items?
   // TODO: custom warp icons, categories, etc.?
   // TODO: visualize/show all currently created custom warps in current location?
@@ -132,6 +131,7 @@ namespace CustomWarps.Common.Menus {
       }
 
       if (this._isAddingNewWarp && !this._isNamingWarp) {
+        // ReSharper disable twice PossibleLossOfFraction
         Vector2 tileLocation = new((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         this._hoverText = $"({tileLocation.X}, {tileLocation.Y})";
         return;
@@ -236,6 +236,7 @@ namespace CustomWarps.Common.Menus {
       }
 
       if (this._isAddingNewWarp && !this._isNamingWarp) {
+        // ReSharper disable twice PossibleLossOfFraction
         this._newWarpTile = new Vector2((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         this._isNamingWarp = !this._isNamingWarp;
         return;
@@ -341,6 +342,7 @@ namespace CustomWarps.Common.Menus {
       }
       else if (this._isAddingNewWarp && !this._isNamingWarp) {
         GridWarpMenu.DrawTopScrollBackgroundString(b, "Add new warp");
+        // ReSharper disable twice PossibleLossOfFraction
         Vector2 tileLocation = new((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, tileLocation * 64f), new Rectangle(194, 388, 16, 16), Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.999f);
       }

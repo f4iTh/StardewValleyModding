@@ -48,7 +48,7 @@ namespace ActivateSprinklers.Common.Configs {
         I18n.Config_Animation_Name,
         I18n.Config_Animation_Tooltip,
         Enum.GetNames(typeof(SprinklerAnimation)),
-        TranslateSprinklerAnimation
+        GenericModConfig.TranslateSprinklerAnimation
       );
 
       genericModConfig.AddTextOption(
@@ -58,7 +58,7 @@ namespace ActivateSprinklers.Common.Configs {
         I18n.Config_Adjacent_Name,
         I18n.Config_Adjacent_Tooltip,
         Enum.GetNames(typeof(AdjacentTileDirection)),
-        TranslateAdjacentTileDirection
+        GenericModConfig.TranslateAdjacentTileDirection
       );
     }
 

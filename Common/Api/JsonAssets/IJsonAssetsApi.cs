@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
 
 namespace ModCommon.Api.JsonAssets {
-  [SuppressMessage("ReSharper", "InconsistentNaming")]
   public interface IJsonAssetsApi {
     /// <summary>Load a folder as a Json Assets content pack.</summary>
     /// <param name="path">The absolute path to the content pack folder.</param>
@@ -58,6 +56,7 @@ namespace ModCommon.Api.JsonAssets {
     bool TryGetCustomSprite(object entity, out Texture2D texture, out Rectangle sourceRect);
     bool TryGetCustomSpriteSheet(object entity, out Texture2D texture, out Rectangle sourceRect);
 
+    // ReSharper disable once InconsistentNaming
     bool TryGetGiantCropSprite(int productID, out Lazy<Texture2D> texture);
 
     int[] GetGiantCropIndexes();
