@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ActivateSprinklers.ModCommon.Extensions;
+using ModCommon.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;

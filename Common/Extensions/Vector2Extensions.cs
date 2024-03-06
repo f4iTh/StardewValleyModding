@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace ActivateSprinklers.ModCommon.Extensions {
+namespace ModCommon.Extensions {
   public static class Vector2Extensions {
     public static double CalculateAngleToTarget(this Vector2 origin, Vector2 target, bool toDegrees = false) {
       float xDiff = target.X - origin.X;
