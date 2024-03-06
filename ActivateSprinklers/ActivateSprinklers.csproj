@@ -10,7 +10,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ModZipPath>$(SolutionDir)\_releases</ModZipPath>
         <IgnoreModFilePatterns>\.png$</IgnoreModFilePatterns>
-        <EnableModDeploy>false</EnableModDeploy>
+        <EnableModDeploy>true</EnableModDeploy>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
         <LangVersion>9</LangVersion>
     </PropertyGroup>
