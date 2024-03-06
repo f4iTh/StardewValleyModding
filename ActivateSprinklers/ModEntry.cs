@@ -31,7 +31,7 @@ namespace ActivateSprinklers {
       this._config = helper.ReadConfig<ModConfig>();
 
       helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
-      helper.Events.GameLoop.UpdateTicking += this.HandleGetCustomSprinklerCoverage;
+      helper.Events.GameLoop.OneSecondUpdateTicking += this.HandleGetCustomSprinklerCoverage;
       helper.Events.GameLoop.UpdateTicking += this.HandleActionButtonHeldController;
       helper.Events.GameLoop.UpdateTicking += this.HandleActionButtonHeldKeyboard;
       // helper.Events.Input.ButtonsChanged += this.HandleActionButton;
@@ -54,15 +54,15 @@ namespace ActivateSprinklers {
       ).Register();
     }
 
-    private void HandleGetCustomSprinklerCoverage(object sender, UpdateTickingEventArgs e) {
-      if (!IsReady() || !e.IsOneSecond)
+    private void HandleGetCustomSprinklerCoverage(object sender, OneSecondUpdateTickingEventArgs e) {
+      if (!IsReady())
         return;
 
       this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
     }
 
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
-      if (!IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck)
+      if (!IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
         return;
 
       // if (!this.Helper.Input.IsDown(SButton.ControllerA))
@@ -103,7 +103,7 @@ namespace ActivateSprinklers {
     }
 
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
-      if (!IsReady())
+      if (!IsReady() || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
         return;
 
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
@@ -125,25 +125,16 @@ namespace ActivateSprinklers {
       this._tilesCheckedKeyboard.Add(tile);
     }
 
-    // private void HandleActionButton(object sender, ButtonsChangedEventArgs e) {
-    //   SButton actionButton = e.Pressed.FirstOrDefault(button => button.IsActionButton());
-    //   if (!IsReady() || actionButton == default)
-    //     return;
-    //
-    //   Vector2 tile = e.Cursor.GrabTile;
-    //   if (this._config.InfiniteReach)
-    //     tile = Game1.currentCursorTile;
-    //   if (Game1.options.gamepadControls)
-    //     tile = Game1.player.GetGrabTile();
-    //
-    //   if (!Game1.player.currentLocation.Objects.TryGetValue(tile, out SObject sprinkler) || !this.IsSprinkler(sprinkler))
-    //     return;
-    //
-    //   // this.SuppressPrismaticToolsScarecrow(sprinkler, actionButton);
-    //   // this.SuppressRadioactiveToolsScarecrow(sprinkler, actionButton);
-    //
-    //   this.HandleActivateSprinkler(sprinkler);
-    // }
+    // TODO: handle button logic here instead?
+    private void HandleActionButton(object sender, ButtonsChangedEventArgs e) {
+      if (e.Held.Any(b => b.IsActionButton())) {
+        // ...
+      }
+      
+      if (e.Pressed.Any(button => button.IsActionButton())) {
+        // ...
+      }
+    }
 
     private void HandleClearCheckedTiles(object sender, ButtonReleasedEventArgs e) {
       if (!e.Button.IsActionButton())
