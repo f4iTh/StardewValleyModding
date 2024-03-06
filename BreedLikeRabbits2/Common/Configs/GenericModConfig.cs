@@ -47,7 +47,7 @@ namespace BreedLikeRabbits2.Common.Configs {
         I18n.Config_Ignoregender_Name,
         I18n.Config_Ignoregender_Tooltip
       );
-      
+
       // genericModConfig.AddBoolOption(
       //   this._modManifest,
       //   () => this._getConfig().CheckGendersPerCoop,

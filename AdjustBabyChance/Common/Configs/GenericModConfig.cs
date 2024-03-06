@@ -35,7 +35,7 @@ namespace AdjustBabyChance.Common.Configs {
       genericModConfig.AddNumberOption(
         this._modManifest,
         () => this._getConfig().QuestionChance,
-        value => this._getConfig().QuestionChance = (float)value,
+        value => this._getConfig().QuestionChance = value,
         I18n.Config_Questionchance_Name,
         () => I18n.Config_Questionchance_Tooltip("value"),
         0f,

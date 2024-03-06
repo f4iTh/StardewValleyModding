@@ -39,7 +39,7 @@ namespace CustomWarps.Common.Menus {
     private readonly ClickableTextureComponent _upArrow;
     private readonly ClickableTextureComponent _upperRightCloseButton;
     private readonly WarpHelper _warpHelper;
-    
+
     private int _currentItemIndex;
     private List<CustomWarp> _customWarps = new();
     private string _hoverText = "";
@@ -335,7 +335,7 @@ namespace CustomWarps.Common.Menus {
         }
 
         const float tabRotation = (float)(-90f * (Math.PI / 180f));
-        
+
         // ReSharper disable PossibleLossOfFraction
         b.Draw(Game1.mouseCursors, new Vector2(_lastSelectedTab == this._allWarpsTab.name ? this._allWarpsTab.bounds.X + 8 : this._allWarpsTab.bounds.X, this._allWarpsTab.bounds.Y + 64), new Rectangle(16, 368, 16, 16), Color.White, tabRotation, Vector2.Zero, 4f, SpriteEffects.None, 1f);
         b.Draw(Game1.mouseCursors, new Vector2(_lastSelectedTab == this._allWarpsTab.name ? this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 2 + 8 : this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 2, this._allWarpsTab.bounds.Y + 40), new Rectangle(52, 372, 8, 10), Color.White, tabRotation, Vector2.Zero, 3f, SpriteEffects.None, 1f);

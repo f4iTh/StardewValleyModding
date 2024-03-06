@@ -25,12 +25,12 @@ namespace AdjustBabyChance {
         switch (_config.QuestionChance) {
           case < 0f:
             this.Monitor.Log(I18n.Errors_Value_Under(_config.QuestionChance, "value"), LogLevel.Error);
-            break; 
+            break;
           case > 1f:
             this.Monitor.Log(I18n.Errors_Value_Over(_config.QuestionChance, "value"), LogLevel.Error);
             break;
         }
-        
+
         _config.QuestionChance = 0.05f;
         this.Helper.WriteConfig(_config);
       }

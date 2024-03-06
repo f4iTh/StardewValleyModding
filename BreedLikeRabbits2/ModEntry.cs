@@ -161,7 +161,7 @@ namespace BreedLikeRabbits2 {
       int minValue = -1 + animal.happiness.Value / 80;
       int maxValue = 4 + animal.happiness.Value / 16;
       int value = Math.Min(freeSpace, Game1.random.Next(minValue, maxValue));
-      
+
       return Math.Max(0, value);
     }
 
@@ -195,7 +195,7 @@ namespace BreedLikeRabbits2 {
 
     private static void HandleAddAndNameRabbit(string name, FarmAnimal farmAnimal) {
       string randomName = Dialogue.randomName();
-      
+
       farmAnimal.Name = !string.IsNullOrWhiteSpace(name) ? name : randomName;
       farmAnimal.displayName = !string.IsNullOrWhiteSpace(name) ? name : randomName;
 
@@ -204,7 +204,7 @@ namespace BreedLikeRabbits2 {
       (farmAnimal.home.indoors.Value as AnimalHouse)?.animalsThatLiveHere.Add(farmAnimal.myID.Value);
       // farmAnimal.home.currentOccupants.Value++;
     }
-    
+
     private static bool HasMaleAndFemaleInCoop(AnimalHouse animalHouse) {
       bool hasMale = false;
       bool hasFemale = false;
@@ -233,7 +233,7 @@ namespace BreedLikeRabbits2 {
 
     private static IEnumerable<FarmAnimal> GetBreeders(Farm farm) {
       return farm.getAllFarmAnimals().Where(farmAnimal => farmAnimal.type.Value == "Rabbit" && farmAnimal.age.Value >= farmAnimal.ageWhenMature.Value + 14);
-      
+
       // int totalRabbits = 0;
       // int totalBreeders = 0;
       // foreach (FarmAnimal farmAnimal in farm.getAllFarmAnimals().Where(farmAnimal => farmAnimal.type.Value == "Rabbit")) {
