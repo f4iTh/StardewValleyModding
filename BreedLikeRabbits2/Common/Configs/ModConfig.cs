@@ -1,6 +1,6 @@
 namespace BreedLikeRabbits2.Common.Configs {
   public class ModConfig {
-    public bool NameNewRabbits { get; set; }
+    public bool NameNewRabbits { get; set; } = true;
     public bool IgnoreGender { get; set; }
     // public bool CheckGendersPerCoop { get; set; } = true;
     // public bool CheckBucksPerCoop { get; set; } = true;
