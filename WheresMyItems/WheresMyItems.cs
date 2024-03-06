@@ -43,11 +43,7 @@ namespace WheresMyItems {
     }
 
     private void OnUpdateTicked(object sender, UpdateTickedEventArgs e) {
-      if (this._config.GuideArrowOption != GuideArrowOptions.UntilNextMenu)
-        return;
-
-      // ReSharper disable once ConvertIfStatementToSwitchStatement
-      if (Game1.activeClickableMenu == null)
+      if (this._config.GuideArrowOption != GuideArrowOptions.UntilNextMenu || Game1.activeClickableMenu == null)
         return;
 
       if (Game1.activeClickableMenu is ItemSearchMenu itemSearchMenu) {

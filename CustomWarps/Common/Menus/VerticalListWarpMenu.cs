@@ -15,7 +15,6 @@ using StardewValley.Buildings;
 using StardewValley.Menus;
 
 namespace CustomWarps.Common.Menus {
-  [SuppressMessage("ReSharper", "PossibleLossOfFraction")]
   public class VerticalListWarpMenu : IClickableMenu {
     private const int MAX_VISIBLE_ITEMS = 5;
 
@@ -218,6 +217,7 @@ namespace CustomWarps.Common.Menus {
       }
 
       if (this._isAddingNewWarp && !this._isNamingWarp) {
+        // ReSharper disable twice PossibleLossOfFraction
         this._newWarpTile = new Vector2((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         this._isNamingWarp = !this._isNamingWarp;
         return;
@@ -335,6 +335,8 @@ namespace CustomWarps.Common.Menus {
         }
 
         const float tabRotation = (float)(-90f * (Math.PI / 180f));
+        
+        // ReSharper disable PossibleLossOfFraction
         b.Draw(Game1.mouseCursors, new Vector2(_lastSelectedTab == this._allWarpsTab.name ? this._allWarpsTab.bounds.X + 8 : this._allWarpsTab.bounds.X, this._allWarpsTab.bounds.Y + 64), new Rectangle(16, 368, 16, 16), Color.White, tabRotation, Vector2.Zero, 4f, SpriteEffects.None, 1f);
         b.Draw(Game1.mouseCursors, new Vector2(_lastSelectedTab == this._allWarpsTab.name ? this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 2 + 8 : this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 2, this._allWarpsTab.bounds.Y + 40), new Rectangle(52, 372, 8, 10), Color.White, tabRotation, Vector2.Zero, 3f, SpriteEffects.None, 1f);
         Game1.player.FarmerRenderer.drawMiniPortrat(b, new Vector2(_lastSelectedTab == this._allWarpsTab.name ? this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 18 + 8 : this._allWarpsTab.bounds.X + this._allWarpsTab.bounds.Width / 2 - 18, this._allWarpsTab.bounds.Y + 18), 1f, 2f, 2, Game1.player);
@@ -345,6 +347,7 @@ namespace CustomWarps.Common.Menus {
 
         b.Draw(Game1.mouseCursors, new Vector2(_lastSelectedTab == this._localWarpsTab.name ? this._localWarpsTab.bounds.X + 8 : this._localWarpsTab.bounds.X, this._localWarpsTab.bounds.Y + 64), new Rectangle(16, 368, 16, 16), Color.White, tabRotation, Vector2.Zero, 4f, SpriteEffects.None, 1f);
         Game1.player.FarmerRenderer.drawMiniPortrat(b, new Vector2(_lastSelectedTab == this._localWarpsTab.name ? this._localWarpsTab.bounds.X + this._localWarpsTab.bounds.Width / 2 - 18 + 8 : this._localWarpsTab.bounds.X + this._localWarpsTab.bounds.Width / 2 - 18, this._localWarpsTab.bounds.Y + 3 + 2), 1f, 3f, 2, Game1.player);
+        // ReSharper restore PossibleLossOfFraction
 
         // dropdown menu for sorting options
         this._dropDown.Draw(b, this.xPositionOnScreen + 16, this.yPositionOnScreen + 36);
@@ -367,6 +370,7 @@ namespace CustomWarps.Common.Menus {
         SpriteText.drawStringWithScrollBackground(b, I18n.Strings_Addwarp_Tooltip(), Game1.viewport.Width / 2 - SpriteText.getWidthOfString(I18n.Strings_Addwarp_Tooltip()) / 2, 16);
 
         // highlight tile over mouse cursor
+        // ReSharper disable twice PossibleLossOfFraction
         Vector2 tileLocation = new((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, tileLocation * 64f), new Rectangle(194, 388, 16, 16), Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.999f);
       }

@@ -48,7 +48,7 @@ namespace WheresMyItems.Common.Configs {
         I18n.Config_Highlightchests_Name,
         I18n.Config_Highlightchests_Tooltip,
         Enum.GetNames(typeof(HighlightMethod)),
-        TranslateHighlightMethod
+        GenericModConfig.TranslateHighlightMethod
       );
 
       genericModConfig.AddBoolOption(
@@ -85,7 +85,7 @@ namespace WheresMyItems.Common.Configs {
         I18n.Config_Drawdirection_Name,
         I18n.Config_Drawdirection_Tooltip,
         Enum.GetNames(typeof(ItemDrawDirection)),
-        TranslateDrawDirection
+        GenericModConfig.TranslateDrawDirection
       );
 
       genericModConfig.AddTextOption(
@@ -95,7 +95,7 @@ namespace WheresMyItems.Common.Configs {
         I18n.Config_Displayguidearrows_Name,
         I18n.Config_Displayguidearrows_Tooltip,
         Enum.GetNames(typeof(GuideArrowOptions)),
-        TranslateGuideArrowOption
+        GenericModConfig.TranslateGuideArrowOption
       );
     }
 

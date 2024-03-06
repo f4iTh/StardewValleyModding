@@ -86,7 +86,7 @@ namespace WheresMyItems.Common.Menus {
       this._previousSearchButton.draw(b); // TODO: draw hover tooltip?
 
       if (!string.IsNullOrWhiteSpace(this._hoverText))
-        drawHoverText(b, this._hoverText, Game1.smallFont);
+        IClickableMenu.drawHoverText(b, this._hoverText, Game1.smallFont);
 
       foreach (KeyValuePair<Vector2, IEnumerable<Item>> pair in this._items) {
         Item[] items = pair.Value.ToArray();

@@ -12,18 +12,16 @@ using StardewValley;
 using StardewValley.Tools;
 using SObject = StardewValley.Object;
 
-// ReSharper disable FieldCanBeMadeReadOnly.Local
 namespace ActivateSprinklers {
-  // ReSharper disable once UnusedType.Global
   public class ModEntry : Mod {
     private ModConfig _config;
 
     private IDictionary<int, Vector2[]> _customSprinklerCoverage;
-
     private bool _didGrabTileCheck;
     private ModIntegrations _integrations;
-    private HashSet<Vector2> _tilesCheckedController = new();
-    private HashSet<Vector2> _tilesCheckedKeyboard = new();
+    
+    private readonly HashSet<Vector2> _tilesCheckedController = new();
+    private readonly HashSet<Vector2> _tilesCheckedKeyboard = new();
 
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
@@ -55,14 +53,14 @@ namespace ActivateSprinklers {
     }
 
     private void HandleGetCustomSprinklerCoverage(object sender, OneSecondUpdateTickingEventArgs e) {
-      if (!IsReady())
+      if (!ModEntry.IsReady())
         return;
 
       this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
     }
 
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
-      if (!IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
+      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
         return;
 
       // if (!this.Helper.Input.IsDown(SButton.ControllerA))
@@ -103,7 +101,7 @@ namespace ActivateSprinklers {
     }
 
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
-      if (!IsReady() || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
+      if (!ModEntry.IsReady() || Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915))
         return;
 
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
@@ -126,15 +124,15 @@ namespace ActivateSprinklers {
     }
 
     // TODO: handle button logic here instead?
-    private void HandleActionButton(object sender, ButtonsChangedEventArgs e) {
-      if (e.Held.Any(b => b.IsActionButton())) {
-        // ...
-      }
-      
-      if (e.Pressed.Any(button => button.IsActionButton())) {
-        // ...
-      }
-    }
+    // private void HandleActionButton(object sender, ButtonsChangedEventArgs e) {
+    //   if (e.Held.Any(b => b.IsActionButton())) {
+    //     // ...
+    //   }
+    //   
+    //   if (e.Pressed.Any(button => button.IsActionButton())) {
+    //     // ...
+    //   }
+    // }
 
     private void HandleClearCheckedTiles(object sender, ButtonReleasedEventArgs e) {
       if (!e.Button.IsActionButton())
@@ -155,9 +153,9 @@ namespace ActivateSprinklers {
       WateringCan wateringCan = new() { WaterLeft = 100 };
 
       if (this._config.SprinklerAnimation == SprinklerAnimation.NewDayAnimation)
-        ApplySprinklerAnimationCustomDelay(location, sprinkler, 100);
+        ModEntry.ApplySprinklerAnimationCustomDelay(location, sprinkler, 100);
 
-      foreach (Vector2 tile in GetCoverage(sprinkler, sprinkler.TileLocation, this._customSprinklerCoverage)) {
+      foreach (Vector2 tile in ModEntry.GetCoverage(sprinkler, sprinkler.TileLocation, this._customSprinklerCoverage)) {
         if (tile == sprinkler.TileLocation)
           continue;
 
