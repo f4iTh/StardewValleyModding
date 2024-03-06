@@ -15,7 +15,7 @@ namespace AdjustBabyChance.Common.IL {
       IEnumerable<CodeInstruction> codeInstructions = instructions as CodeInstruction[] ?? instructions.ToArray();
       List<CodeInstruction> origCodes = new(codeInstructions);
       List<CodeInstruction> codes = new(codeInstructions);
-      
+
       List<int> indexes = new();
       try {
         // match all of the following:

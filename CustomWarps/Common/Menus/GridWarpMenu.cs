@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CustomWarps.Common.Models;
 using Microsoft.Xna.Framework;
@@ -110,10 +109,10 @@ namespace CustomWarps.Common.Menus {
         this._previousPageButton.tryHover(x, y, 0.25f / 4f);
         this._nextPageButton.tryHover(x, y, 0.25f / 4f);
 
-        if (this._removeWarpButton.containsPoint(x, y)) 
+        if (this._removeWarpButton.containsPoint(x, y))
           this._hoverText = this._removeWarpButton.hoverText;
 
-        if (this._addWarpButton.containsPoint(x, y)) 
+        if (this._addWarpButton.containsPoint(x, y))
           this._hoverText = this._addWarpButton.hoverText;
 
         // if (this._searchButton.containsPoint(x, y)) {
@@ -206,9 +205,7 @@ namespace CustomWarps.Common.Menus {
 
           if (this._isRemovingWarp) {
             Game1.player.currentLocation.createQuestionDialogue(I18n.Strings_Removewarp_Questiontext(pair.Value.WarpName), Game1.player.currentLocation.createYesNoResponses(), (_, answer) => {
-              if (answer == "Yes") {
-                this._warpHelper.TryRemove(pair.Value.WarpUniqueId, pair.Value.IsGlobal);
-              }
+              if (answer == "Yes") this._warpHelper.TryRemove(pair.Value.WarpUniqueId, pair.Value.IsGlobal);
             });
             Game1.playSound("drumkit6");
           }
@@ -278,7 +275,7 @@ namespace CustomWarps.Common.Menus {
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
       base.gameWindowSizeChanged(oldBounds, newBounds);
-      
+
       this.xPositionOnScreen = Game1.viewport.Width / 2 - (632 + borderWidth * 2) / 2 - 8;
       this.yPositionOnScreen = Game1.uiViewport.Height / 2 - borderWidth * 2 + 16 + 256;
       this.RepositionElements();
@@ -343,7 +340,7 @@ namespace CustomWarps.Common.Menus {
       }
       else if (this._isAddingNewWarp && !this._isNamingWarp) {
         SpriteText.drawStringWithScrollBackground(b, I18n.Strings_Addwarp_Tooltip(), Game1.viewport.Width / 2 - SpriteText.getWidthOfString(I18n.Strings_Addwarp_Tooltip()) / 2, 16);
-        
+
         // ReSharper disable twice PossibleLossOfFraction
         Vector2 tileLocation = new((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, tileLocation * 64f), new Rectangle(194, 388, 16, 16), Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.999f);
@@ -383,7 +380,7 @@ namespace CustomWarps.Common.Menus {
         uniqueId = Guid.NewGuid();
         this._warpHelper.TryAdd(uniqueId, new CustomWarp(sender.Text, mapName, (int)this._newWarpTile.X, (int)this._newWarpTile.Y, this._makeGlobal, isBuilding, DateTimeOffset.UtcNow.ToUnixTimeSeconds(), uniqueId), this._makeGlobal);
       }
-      
+
       this._isAddingNewWarp = false;
       this._isNamingWarp = false;
       Game1.exitActiveMenu();
