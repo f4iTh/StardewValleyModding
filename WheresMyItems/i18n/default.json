@@ -22,5 +22,7 @@
   "config.displayguidearrows.values.none": "Never",
   "config.displayguidearrows.values.whilemenuopen": "While search menu is open",
   "config.displayguidearrows.values.untilnextmenu": "Until next menu is opened",
-  "strings.previoussearchbutton.tooltip": "Use previous search query: {{previousSearch}}"
+  
+  "strings.previoussearch.tooltip": "Use previous search query: {{previousSearch}}",
+  "strings.previoussearch.nopreviousquery": "(no previous search)"
 }
