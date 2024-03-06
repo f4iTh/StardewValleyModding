@@ -1,21 +1,28 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CustomWarps.Framework;
-using CustomWarps.Framework.Menus;
-using CustomWarps.Framework.Models;
+﻿using CustomWarps.Common;
+using CustomWarps.Common.Configs;
+using CustomWarps.Common.Enums;
+using CustomWarps.Common.Menus;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace CustomWarps {
-  [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
   public class ModEntry : Mod {
-    public static WarpHelper WarpHelper;
+    internal static IMonitor StaticLogger;
+
     private ModConfig _config;
+    // private WarpHelper _warpHelper;
 
     public override void Entry(IModHelper helper) {
+      I18n.Init(helper.Translation);
+
       this._config = helper.ReadConfig<ModConfig>();
-      helper.Events.GameLoop.SaveLoaded += this.OnSaveLoaded;
-      helper.Events.Input.ButtonPressed += this.OpenWarpMenu;
+      // this._warpHelper = new WarpHelper(helper.Data);
+      StaticLogger = this.Monitor;
+
+      helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
+      helper.Events.Input.ButtonPressed += this.HandleOpenWarpMenu;
+
       //helper.ConsoleCommands.Add("addwarp", "Adds a per-save warp for the current save.", this.AddWarpCommand);
       //helper.ConsoleCommands.Add("aw", "Adds a per-save warp for the current save. [Alias of addwarp].", this.AddWarpCommand);
       //helper.ConsoleCommands.Add("cwarp", "Warps the player to a custom warp point.", this.CustomWarpCommand);
@@ -27,14 +34,31 @@ namespace CustomWarps {
       //helper.ConsoleCommands.Add("sortby", "Switch the sorting style for warps.", this.SwitchSortStyleCommand);
     }
 
-    private void OnSaveLoaded(object sender, SaveLoadedEventArgs e) {
-      WarpHelper = new WarpHelper(this.Helper, this.Monitor);
+    private void OnGameLaunched(object sender, GameLaunchedEventArgs e) {
+      new GenericModConfig(
+        this.Helper.ModRegistry,
+        this.ModManifest,
+        () => this._config,
+        () => {
+          this._config = new ModConfig();
+          this.Helper.WriteConfig(this._config);
+        },
+        () => this.Helper.WriteConfig(this._config)
+      ).Register();
     }
 
-    private void OpenWarpMenu(object sender, ButtonPressedEventArgs e) {
-      if (!Context.IsWorldReady || Game1.player.currentLocation == null || Game1.activeClickableMenu != null)
+    private void HandleOpenWarpMenu(object sender, ButtonPressedEventArgs e) {
+      if (!Context.IsWorldReady || Game1.player.currentLocation == null || Game1.activeClickableMenu != null || !Context.IsPlayerFree || !this._config.ToggleKey.JustPressed())
         return;
-      if (e.Button == this._config.ToggleKey && Context.IsPlayerFree) Game1.activeClickableMenu = new WarpMenu(this.Helper);
+
+      WarpHelper warpHelper = new(this.Helper.Data);
+
+      if (this._config.MenuStyle == MenuStyle.VerticalList) {
+        Game1.activeClickableMenu = new VerticalListWarpMenu(this.Helper, warpHelper);
+        return;
+      }
+
+      Game1.activeClickableMenu = new GridWarpMenu(this.Helper, warpHelper, /* this._config.MaxItemsPerGridRow */ maxItemsPerColumn: this._config.MaxItemsPerGridColumn);
     }
 
     //private void SwitchSortStyleCommand(string command, string[] args)
