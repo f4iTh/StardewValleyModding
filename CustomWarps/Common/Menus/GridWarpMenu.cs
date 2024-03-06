@@ -71,8 +71,8 @@ namespace CustomWarps.Common.Menus {
       this._previousPageButton = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen + this.height, 64, 64), Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 44), 1f);
       // this._nextPageButton = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + this.width - 64, this.yPositionOnScreen + this.height + 80, 64, 64), Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 33), 1f);
       this._nextPageButton = new ClickableTextureComponent(new Rectangle(this.xPositionOnScreen + this.width - 64, this.yPositionOnScreen + this.height, 64, 64), Game1.mouseCursors, Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 33), 1f);
-      this._addWarpButton = new ClickableTextureComponent("Add", new Rectangle(this.xPositionOnScreen + this.width - 16 - 64 - 8 - 64, this.yPositionOnScreen + 8, 64, 64), "", "Add warp", Game1.mouseCursors, new Rectangle(128, 256, 64, 64), 1f);
-      this._removeWarpButton = new ClickableTextureComponent("Remove", new Rectangle(this.xPositionOnScreen + this.width - 16 - 64, this.yPositionOnScreen + 8, 64, 64), "", "Remove warp", Game1.mouseCursors, new Rectangle(192, 256, 64, 64), 1f);
+      this._addWarpButton = new ClickableTextureComponent("Add", new Rectangle(this.xPositionOnScreen + this.width - 16 - 64 - 8 - 64, this.yPositionOnScreen + 8, 64, 64), "", I18n.Strings_Addwarp_Tooltip(), Game1.mouseCursors, new Rectangle(128, 256, 64, 64), 1f);
+      this._removeWarpButton = new ClickableTextureComponent("Remove", new Rectangle(this.xPositionOnScreen + this.width - 16 - 64, this.yPositionOnScreen + 8, 64, 64), "", I18n.Strings_Removewarp_Tooltip(), Game1.mouseCursors, new Rectangle(192, 256, 64, 64), 1f);
       // this._searchButton = new ClickableTextureComponent("Search", new Rectangle(this.xPositionOnScreen + 16 + 8, this.yPositionOnScreen + 8, 64, 64), "", "Search warps", Game1.mouseCursors, new Rectangle(208, 321, 14, 15), 4f);
       this._textBox = new TextBox(null, null, Game1.dialogueFont, Game1.textColor) {
         // X = Game1.viewport.Width / 2 - 192 - 128,
@@ -94,7 +94,7 @@ namespace CustomWarps.Common.Menus {
       // this._searchTextBoxComponent = new ClickableComponent(new Rectangle(this._searchTextBox.X, this._searchTextBox.Y, 192, 48), "");
       this._textBox.OnEnterPressed += this.TextBoxEnter;
       // this._searchTextBox.OnEnterPressed += this.SearchTextBoxEnter;
-      this._makeWarpGlobalButton = new ClickableTextureComponent("Global", new Rectangle(this._textBox.X + this._textBox.Width + 48, this._textBox.Y + 6, 36, 36), "", "Make warp global", Game1.mouseCursors, new Rectangle(!this._makeGlobal ? 227 : 236, 425, 9, 9), 4f);
+      this._makeWarpGlobalButton = new ClickableTextureComponent("Global", new Rectangle(this._textBox.X + this._textBox.Width + 48, this._textBox.Y + 6, 36, 36), "", I18n.Strings_Globalwarp_Tooltip(), Game1.mouseCursors, new Rectangle(!this._makeGlobal ? 227 : 236, 425, 9, 9), 4f);
 
       this.SetUpWarpPages();
     }
@@ -110,9 +110,11 @@ namespace CustomWarps.Common.Menus {
         this._previousPageButton.tryHover(x, y, 0.25f / 4f);
         this._nextPageButton.tryHover(x, y, 0.25f / 4f);
 
-        if (this._removeWarpButton.containsPoint(x, y)) this._hoverText = this._removeWarpButton.hoverText;
+        if (this._removeWarpButton.containsPoint(x, y)) 
+          this._hoverText = this._removeWarpButton.hoverText;
 
-        if (this._addWarpButton.containsPoint(x, y)) this._hoverText = this._addWarpButton.hoverText;
+        if (this._addWarpButton.containsPoint(x, y)) 
+          this._hoverText = this._addWarpButton.hoverText;
 
         // if (this._searchButton.containsPoint(x, y)) {
         //   this._hoverText = this._searchButton.hoverText;
@@ -142,8 +144,8 @@ namespace CustomWarps.Common.Menus {
         this._textBox.Selected = true;
       }
 
-      if (this._makeWarpGlobalButton.containsPoint(x, y))
-        this._hoverText = this._makeWarpGlobalButton.hoverText;
+      // if (this._makeWarpGlobalButton.containsPoint(x, y))
+      //   this._hoverText = this._makeWarpGlobalButton.hoverText;
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true) {
@@ -203,12 +205,11 @@ namespace CustomWarps.Common.Menus {
             continue;
 
           if (this._isRemovingWarp) {
-            Game1.player.currentLocation.createQuestionDialogue(
-              $"Are you sure you want to remove {pair.Value.WarpName}?",
-              Game1.player.currentLocation.createYesNoResponses(), (_, answer) => {
-                if (answer == "Yes")
-                  this._warpHelper.TryRemove(pair.Value.WarpUniqueId, pair.Value.IsGlobal);
-              });
+            Game1.player.currentLocation.createQuestionDialogue(I18n.Strings_Removewarp_Questiontext(pair.Value.WarpName), Game1.player.currentLocation.createYesNoResponses(), (_, answer) => {
+              if (answer == "Yes") {
+                this._warpHelper.TryRemove(pair.Value.WarpUniqueId, pair.Value.IsGlobal);
+              }
+            });
             Game1.playSound("drumkit6");
           }
           else {
@@ -277,6 +278,7 @@ namespace CustomWarps.Common.Menus {
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
       base.gameWindowSizeChanged(oldBounds, newBounds);
+      
       this.xPositionOnScreen = Game1.viewport.Width / 2 - (632 + borderWidth * 2) / 2 - 8;
       this.yPositionOnScreen = Game1.uiViewport.Height / 2 - borderWidth * 2 + 16 + 256;
       this.RepositionElements();
@@ -302,8 +304,7 @@ namespace CustomWarps.Common.Menus {
 
     public override void draw(SpriteBatch b) {
       if (!this._isAddingNewWarp && !this._isNamingWarp) {
-        if (!Game1.options.showMenuBackground)
-          b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.75f);
+        b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.75f);
 
         // highlight warps in current location
         // foreach(KeyValuePair<ClickableTextureComponent, CustomWarp> pair in this._customWarpPages.SelectMany(dict => dict).Where(pair => pair.Value.MapName.Equals(Game1.player.currentLocation.NameOrUniqueName)).DistinctBy(pair => new { pair.Value.TileX, pair.Value.TileY }))
@@ -312,7 +313,7 @@ namespace CustomWarps.Common.Menus {
         Game1.drawDialogueBox(this.xPositionOnScreen, this.yPositionOnScreen, this.width, this.height, false, true);
 
         if (this._isRemovingWarp)
-          GridWarpMenu.DrawTopScrollBackgroundString(b, "Remove warp");
+          SpriteText.drawStringWithScrollBackground(b, I18n.Strings_Removewarp_Tooltip(), Game1.viewport.Width / 2 - SpriteText.getWidthOfString(I18n.Strings_Removewarp_Tooltip()) / 2, 16);
 
         this._upperRightCloseButton.draw(b);
 
@@ -341,13 +342,14 @@ namespace CustomWarps.Common.Menus {
         //   this._searchTextBox.Draw(b);
       }
       else if (this._isAddingNewWarp && !this._isNamingWarp) {
-        GridWarpMenu.DrawTopScrollBackgroundString(b, "Add new warp");
+        SpriteText.drawStringWithScrollBackground(b, I18n.Strings_Addwarp_Tooltip(), Game1.viewport.Width / 2 - SpriteText.getWidthOfString(I18n.Strings_Addwarp_Tooltip()) / 2, 16);
+        
         // ReSharper disable twice PossibleLossOfFraction
         Vector2 tileLocation = new((Game1.viewport.X + Game1.getOldMouseX()) / 64, (Game1.viewport.Y + Game1.getOldMouseY()) / 64);
         b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.viewport, tileLocation * 64f), new Rectangle(194, 388, 16, 16), Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.999f);
       }
       else {
-        GridWarpMenu.DrawTopScrollBackgroundString(b, "Name warp");
+        SpriteText.drawStringWithScrollBackground(b, I18n.Strings_Namewarp_Tooltip(), Game1.viewport.Width / 2 - SpriteText.getWidthOfString(I18n.Strings_Namewarp_Tooltip()) / 2, 16);
         this._textBox.Draw(b);
         b.Draw(this._makeWarpGlobalButton.texture, new Vector2(this._makeWarpGlobalButton.bounds.X, this._makeWarpGlobalButton.bounds.Y), new Rectangle(this._makeGlobal ? 236 : 227, 425, 9, 9), Color.White, 0f, Vector2.Zero, 4f, SpriteEffects.None, 1f);
       }
@@ -356,13 +358,6 @@ namespace CustomWarps.Common.Menus {
         IClickableMenu.drawHoverText(b, Game1.parseText(this._hoverText, Game1.smallFont, 784), Game1.smallFont);
 
       this.drawMouse(b);
-    }
-
-    private static void DrawTopScrollBackgroundString(SpriteBatch b, string text) {
-      if (string.IsNullOrWhiteSpace(text))
-        return;
-
-      SpriteText.drawStringWithScrollBackground(b, text, Game1.viewport.Width / 2 - SpriteText.getWidthOfString(text) / 2, 16);
     }
 
     private void TextBoxEnter(TextBox sender) {
@@ -382,10 +377,15 @@ namespace CustomWarps.Common.Menus {
         break;
       }
 
-      this.HandleAddNewWarp(sender.Text, mapName, (int)this._newWarpTile.X, (int)this._newWarpTile.Y, this._makeGlobal, isBuilding);
+      Guid uniqueId = Guid.NewGuid();
+      if (!this._warpHelper.TryAdd(uniqueId, new CustomWarp(sender.Text, mapName, (int)this._newWarpTile.X, (int)this._newWarpTile.Y, this._makeGlobal, isBuilding, DateTimeOffset.UtcNow.ToUnixTimeSeconds(), uniqueId), this._makeGlobal)) {
+        // realistically this shouldn't happen but if it does, it's not going to happen twice in a row
+        uniqueId = Guid.NewGuid();
+        this._warpHelper.TryAdd(uniqueId, new CustomWarp(sender.Text, mapName, (int)this._newWarpTile.X, (int)this._newWarpTile.Y, this._makeGlobal, isBuilding, DateTimeOffset.UtcNow.ToUnixTimeSeconds(), uniqueId), this._makeGlobal);
+      }
+      
       this._isAddingNewWarp = false;
       this._isNamingWarp = false;
-
       Game1.exitActiveMenu();
     }
 
@@ -397,13 +397,6 @@ namespace CustomWarps.Common.Menus {
     //   this.SetUpWarpPages(sender.Text);
     //   // this._isSearching = false;
     // }
-
-    private void HandleAddNewWarp(string warpName, string mapName, int x, int y, bool isGlobal, bool isBuilding) {
-      Guid uniqueId = Guid.NewGuid();
-
-      if (!this._warpHelper.TryAdd(uniqueId, new CustomWarp(warpName, mapName, x, y, isGlobal, isBuilding, DateTimeOffset.UtcNow.ToUnixTimeSeconds(), uniqueId), this._makeGlobal)) Game1.addHUDMessage(new HUDMessage("Guid already exists in the dictionary? Wow.", 3));
-      // Game1.addHUDMessage(new HUDMessage($"A warp with the name \"{warpName}\" already exists!", 3));
-    }
 
     private void RepositionElements() {
       this._previousPageButton.bounds = new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen + this.height + 80, 64, 64);
