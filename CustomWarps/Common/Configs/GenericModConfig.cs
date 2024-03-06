@@ -64,12 +64,12 @@ namespace CustomWarps.Common.Configs {
 
       genericModConfig.AddNumberOption(
         this._modManifest,
-        () => this._getConfig().MaxItemsPerGridColumn,
-        value => this._getConfig().MaxItemsPerGridColumn = value,
+        () => this._getConfig().MaxGridColumns,
+        value => this._getConfig().MaxGridColumns = value,
         I18n.Config_Maxrows_Name,
         I18n.Config_Maxrows_Tooltip,
         1,
-        12,
+        8,
         1
       );
     }
