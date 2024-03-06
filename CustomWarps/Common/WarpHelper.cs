@@ -35,7 +35,7 @@ namespace CustomWarps.Common {
     }
 
     public bool TryRemove(Guid id, bool isGlobal) {
-      if (!this.CustomWarps.TryRemove(id))
+      if (!this.CustomWarps.Remove(id))
         return false;
 
       this.SaveCustomWarps(isGlobal);
