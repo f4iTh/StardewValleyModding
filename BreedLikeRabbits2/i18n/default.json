@@ -15,7 +15,10 @@
   "config.namenewrabbits.tooltip": "Whether to name newly born rabbits.\nIf disabled, a random name will be generated instead.",
   "config.baserate.name": "Base fertility rate",
   "config.baserate.tooltip": "Base fertility rate before bonuses.\nA value of 42 means an average of 42 days between births before fertility bonuses and penalties are taken into account.",
+  
   "strings.birthingmessage.single": "During the night, {{animalName}} gave birth to 1 baby rabbit.",
   "strings.birthingmessage.multiple": "During the night, {{animalName}} gave birth to a litter of {{birthCount}} baby rabbits.",
-  "strings.namingmenu.title": "Name your new baby rabbit ({{namesRemaining}} {{namesRemainingString}} remaining)"
+  "strings.namingmenu.title": "Name your new baby rabbit ({{namesRemaining}} {{namesRemainingString}} remaining)",
+  "strings.namingmenu.single": "name",
+  "strings.namingmenu.multiple": "names"
 }
