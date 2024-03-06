@@ -40,7 +40,7 @@ namespace WheresMyItems.Common.Menus {
       };
       this._textBox.OnEnterPressed += this.TextBoxEnter;
       this._previousSearchButton = new ClickableTextureComponent(new Rectangle(this._textBox.X - 96, this._textBox.Y - 8, 64, 64), Game1.mouseCursors, new Rectangle(274, 284, 16, 16), 4f) {
-        hoverText = I18n.Strings_Previoussearchbutton_Tooltip(string.IsNullOrWhiteSpace(_previousSearchString) ? "(no previous search)" : _previousSearchString)
+        hoverText = I18n.Strings_Previoussearch_Tooltip(string.IsNullOrWhiteSpace(_previousSearchString) ? I18n.Strings_Previoussearch_Nopreviousquery() : _previousSearchString)
       };
     }
 
@@ -77,6 +77,8 @@ namespace WheresMyItems.Common.Menus {
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
       base.gameWindowSizeChanged(oldBounds, newBounds);
+
+      this._previousSearchButton.bounds = new Rectangle(this._textBox.X - 96, this._textBox.Y - 8, 64, 64);
       // TODO: reposition menu(?) and elements
     }
 
