@@ -68,20 +68,20 @@ namespace BreedLikeRabbits2 {
       this._newRabbits = new List<FarmAnimal>();
 
       Farm farm = Game1.getFarm();
-      FarmAnimal[] buckArray = this._config.IgnoreGender ? GetBreeders(farm).ToArray() : GetMatureMales(farm).ToArray();
+      FarmAnimal[] buckArray = this._config.IgnoreGender ? ModEntry.GetBreeders(farm).ToArray() : ModEntry.GetMatureMales(farm).ToArray();
 
       foreach (FarmAnimal parent in farm.getAllFarmAnimals()) {
         if (parent.type.Value != "Rabbit" || parent.age.Value < parent.ageWhenMature.Value + 14 || (parent.isMale() && !this._config.IgnoreGender))
           continue;
 
         // make sure parents are from the same coop when not ignoring gender
-        if (!this._config.IgnoreGender && /* this._config.CheckRabbitsPerCoop && */ !HasMaleAndFemaleInCoop(parent.home.indoors.Value as AnimalHouse))
+        if (!this._config.IgnoreGender && /* this._config.CheckRabbitsPerCoop && */ !ModEntry.HasMaleAndFemaleInCoop(parent.home.indoors.Value as AnimalHouse))
           continue;
 
         Building home = parent.home;
-        int currentAnimalsCount = GetMaxOccupants(home) - home.currentOccupants.Value;
+        int currentAnimalsCount = ModEntry.GetMaxOccupants(home) - home.currentOccupants.Value;
         // int buckCount = /* !this._config.IgnoreGender && */ this._config.CheckRabbitsPerCoop ? GetBuckCountInTheSameCoopAsParent(parent, buckArray) : buckArray.Length;
-        int buckCount = GetBuckCountInTheSameCoopAsParent(parent, buckArray);
+        int buckCount = ModEntry.GetBuckCountInTheSameCoopAsParent(parent, buckArray);
         double kitChance = this.GetKitChance(buckCount, parent);
         if (!(Game1.random.NextDouble() <= kitChance) || currentAnimalsCount <= 0)
           continue;
@@ -96,7 +96,7 @@ namespace BreedLikeRabbits2 {
         for (int i = 0; i < kitCount; i++) {
           FarmAnimal newRabbit = this.GenerateNewRabbit(home, parent);
           if (!this._config.NameNewRabbits)
-            HandleAddAndNameRabbit(Dialogue.randomName(), newRabbit);
+            ModEntry.HandleAddAndNameRabbit(Dialogue.randomName(), newRabbit);
           else
             this._newRabbits.Add(newRabbit);
         }
@@ -110,7 +110,7 @@ namespace BreedLikeRabbits2 {
 
       Game1.multipleDialogues(this._dialogueList.ToArray());
       if (this._config.NameNewRabbits)
-        Game1.afterDialogues = () => Game1.activeClickableMenu ??= new NamingMenuMultiple(HandleDoneNaming, this._newRabbits.ToArray(), this.Helper.Reflection);
+        Game1.afterDialogues = () => Game1.activeClickableMenu ??= new NamingMenuMultiple(ModEntry.HandleDoneNaming, this._newRabbits.ToArray(), this.Helper.Reflection);
     }
 
     // TODO: customizable config values?
@@ -174,7 +174,7 @@ namespace BreedLikeRabbits2 {
         FarmAnimal currentRabbit = newRabbits[i];
 
         // this.Monitor.Log($"\t{currentName}");
-        HandleAddAndNameRabbit(currentName, currentRabbit);
+        ModEntry.HandleAddAndNameRabbit(currentName, currentRabbit);
       }
     }
 
@@ -194,8 +194,10 @@ namespace BreedLikeRabbits2 {
     }
 
     private static void HandleAddAndNameRabbit(string name, FarmAnimal farmAnimal) {
-      farmAnimal.Name = !string.IsNullOrWhiteSpace(name) ? name : Dialogue.randomName();
-      farmAnimal.displayName = !string.IsNullOrWhiteSpace(name) ? name : Dialogue.randomName();;
+      string randomName = Dialogue.randomName();
+      
+      farmAnimal.Name = !string.IsNullOrWhiteSpace(name) ? name : randomName;
+      farmAnimal.displayName = !string.IsNullOrWhiteSpace(name) ? name : randomName;
 
       farmAnimal.setRandomPosition(farmAnimal.home.indoors.Value);
       (farmAnimal.home.indoors.Value as AnimalHouse)?.animals.Add(farmAnimal.myID.Value, farmAnimal);
