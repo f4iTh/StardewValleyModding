@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ActivateSprinklers.ModCommon.Extensions;
+using ModCommon.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -73,6 +73,11 @@ namespace WheresMyItems.Common.Menus {
       else {
         this._previousSearchButton.scale = Math.Max(4f, this._previousSearchButton.scale - 0.2f);
       }
+    }
+
+    public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
+      base.gameWindowSizeChanged(oldBounds, newBounds);
+      // TODO: reposition menu(?) and elements
     }
 
     public override void draw(SpriteBatch b) {

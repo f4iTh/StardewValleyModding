@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ActivateSprinklers.ModCommon.Extensions {
+namespace ModCommon.Extensions {
   public static class DoubleExtensions {
     // public static double DegreesToStardewRotation(this double degrees) {
     //   double newAngle = degrees - 90;
