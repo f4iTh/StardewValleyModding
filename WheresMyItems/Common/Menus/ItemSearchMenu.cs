@@ -75,8 +75,11 @@ namespace WheresMyItems.Common.Menus {
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
       base.gameWindowSizeChanged(oldBounds, newBounds);
 
+      this._textBox.X = Game1.viewport.Width / 2 - Game1.viewport.Width / 4;
+      this._textBox.Y = Game1.viewport.Height - Game1.tileSize * 2;
+      this._textBox.Width = Game1.viewport.Width / 2;
+      this._textBox.Height = Game1.tileSize * 3;
       this._previousSearchButton.bounds = new Rectangle(this._textBox.X - 96, this._textBox.Y - 8, 64, 64);
-      // TODO: reposition menu(?) and elements
     }
 
     public override void draw(SpriteBatch b) {
