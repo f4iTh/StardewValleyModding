@@ -55,23 +55,21 @@ namespace WheresMyItems.Common.Menus {
     }
 
     public override void receiveLeftClick(int x, int y, bool playSound = true) {
-      if (this._previousSearchButton.containsPoint(x, y)) {
-        Game1.playSound("smallSelect");
-        this._textBox.Text = _previousSearchString;
-        this.HandleSearchItems();
-      }
+      if (!this._previousSearchButton.containsPoint(x, y)) 
+        return;
+      
+      Game1.playSound("smallSelect");
+      this._textBox.Text = _previousSearchString;
+      this.HandleSearchItems();
     }
 
     public override void performHoverAction(int x, int y) {
       this._hoverText = string.Empty;
+      
+      this._previousSearchButton.tryHover(x, y, 0.25f);
 
-      if (this._previousSearchButton.containsPoint(x, y)) {
-        this._previousSearchButton.scale = Math.Min(4.4f, this._previousSearchButton.scale + 0.2f);
+      if (this._previousSearchButton.containsPoint(x, y))
         this._hoverText = this._previousSearchButton.hoverText;
-      }
-      else {
-        this._previousSearchButton.scale = Math.Max(4f, this._previousSearchButton.scale - 0.2f);
-      }
     }
 
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
