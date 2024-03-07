@@ -1,7 +1,7 @@
 ﻿{
   "Name": "Custom Warps",
   "Author": "f4iTh",
-  "Version": "1.1.0-dev",
+  "Version": "1.1.0",
   "Description": "Allows the player to set custom warps.",
   "UniqueID": "f4iTh.CustomWarps",
   "EntryDll": "CustomWarps.dll",
