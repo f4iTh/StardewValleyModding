@@ -1,5 +1,7 @@
 **Custom Warps** is a [Stardew Valley](https://www.stardewvalley.net/) mod that allows you to create custom warp points and teleport to them at will.
 
+![](images/sample.png)
+
 ## Configuration
 
 ### In-game configuration
