@@ -2,7 +2,7 @@
 
 # Release notes
 
-## 1.1.0
+## 1.2.0
 
 - Added default i18n translations (english)
 - Added Generic Mod Config Menu integration

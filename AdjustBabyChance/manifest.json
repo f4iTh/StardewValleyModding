@@ -1,7 +1,7 @@
 ﻿{
   "Name": "Adjust Baby Chance",
   "Author": "f4iTh",
-  "Version": "1.1.0-dev",
+  "Version": "1.1.0",
   "Description": "Allows the player to edit the chance of being asked the pregnancy question.",
   "UniqueID": "f4iTh.AdjustBabyChance",
   "EntryDll": "AdjustBabyChance.dll",
