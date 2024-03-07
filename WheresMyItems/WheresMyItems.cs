@@ -43,7 +43,7 @@ namespace WheresMyItems {
     }
 
     private void OnUpdateTicked(object sender, UpdateTickedEventArgs e) {
-      if (this._config.GuideArrowOption != GuideArrowOptions.UntilNextMenu || Game1.activeClickableMenu == null)
+      if (this._config.GuideArrowOption != GuideArrowOption.UntilNextMenu || Game1.activeClickableMenu == null)
         return;
 
       if (Game1.activeClickableMenu is ItemSearchMenu itemSearchMenu) {
@@ -56,7 +56,7 @@ namespace WheresMyItems {
     }
 
     private void DrawGuideArrowsAfterMenuClose(object sender, RenderedWorldEventArgs e) {
-      if (this._config.GuideArrowOption != GuideArrowOptions.UntilNextMenu)
+      if (this._config.GuideArrowOption != GuideArrowOption.UntilNextMenu)
         return;
 
       if (Game1.activeClickableMenu != null || this._items is not { Count: > 0 })

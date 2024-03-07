@@ -4,7 +4,9 @@
 
 ### In-game configuration
 
-This mod has [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) support. 
+This mod has [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) support.
+
+![](images/generic.png)
 
 ### `config.json`
 

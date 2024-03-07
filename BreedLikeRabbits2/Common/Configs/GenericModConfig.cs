@@ -32,12 +32,22 @@ namespace BreedLikeRabbits2.Common.Configs {
         this._save
       );
 
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_General
+      );
+      
       genericModConfig.AddBoolOption(
         this._modManifest,
         () => this._getConfig().NameNewRabbits,
         value => this._getConfig().NameNewRabbits = value,
         I18n.Config_Namenewrabbits_Name,
         I18n.Config_Namenewrabbits_Tooltip
+      );
+      
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_Customization
       );
 
       genericModConfig.AddBoolOption(

@@ -86,7 +86,7 @@ namespace BreedLikeRabbits2.Common.Menus {
     }
 
     private void UpdateTitleText() {
-      this._title.SetValue(I18n.Strings_Namingmenu_Title(this._namesRemaining, this._namesRemaining > 1 ? I18n.Strings_Namingmenu_Multiple() : I18n.Strings_Namingmenu_Single()));
+      this._title.SetValue(I18n.Strings_Namingmenu_Title(this._namesRemaining, this._namesRemaining > 1 ? I18n.Strings_Namingmenu_Multipleremaining() : I18n.Strings_Namingmenu_Oneremaining()));
     }
   }
 }

@@ -37,7 +37,7 @@ namespace AdjustBabyChance.Common.Configs {
         () => this._getConfig().QuestionChance,
         value => this._getConfig().QuestionChance = value,
         I18n.Config_Questionchance_Name,
-        () => I18n.Config_Questionchance_Tooltip("value"),
+        I18n.Config_Questionchance_Tooltip,
         0f,
         1f
       );

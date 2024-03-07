@@ -14,8 +14,5 @@
         <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1"/>
         <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.0.1"/>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="docs\images\" />
-    </ItemGroup>
     <Import Project="..\Common\Common.projitems" Label="Shared"/>
 </Project>

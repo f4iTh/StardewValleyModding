@@ -1,5 +1,6 @@
 ﻿namespace WheresMyItems.Common.Enums {
-  public enum ItemDrawDirection {
+  public enum ItemDisplayStyle {
+    None,
     Horizontal,
     Vertical
     // GridHorizontal

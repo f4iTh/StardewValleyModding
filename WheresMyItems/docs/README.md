@@ -6,6 +6,8 @@
 
 This mod has [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) support.
 
+![](images/generic.png)
+
 ### `config.json`
 
 <table>
@@ -35,47 +37,31 @@ Possible options:
 <td><code>TypingRipple</code></td>
 </tr>
 <tr>
-<td><code>DrawItemsOverChests</code></td>
-<td>Whether to draw items matching the search query over the chests for a better visualization</td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td><code>LimitMaxItemsDrawnOverChests</code></td>
-<td>
-
-Whether to limit how many items can be drawn at once (per chest)
-
-If set to `false` and there are many chests near each other, the drawn items may overlap
-
-</td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td><code>MaxItemsDrawnOverChests</code></td>
-<td>
-
-If <code>LimitMaxItemsDrawnOverChests</code> is set to <code>false</code>, this has no effect
-
-Otherwise limits how many items can be drawn at once (per chest)
-
-</td>
-<td><code>3</code></td>
-</tr>
-<tr>
-<td><code>ItemDrawDirection</code></td>
+<td><code>ItemDisplayStyle</code></td>
 <td>
 
 Which item drawing style (direction) to use
 
-If <code>DrawItemsOverChests</code> is set to <code>false</code>, this has no effect
-
 Possible options:
 
+- `None`: no drawing items over chests
 - `Horizontal`: draws items horizontally
 - `Vertical`: draws items vertically
 
 </td>
 <td><code>Vertical</code></td>
+</tr>
+<tr>
+<td><code>MaxItemsDrawnOverChests</code></td>
+<td>
+
+Limits how many items can be drawn at once (per chest)
+
+- If set to 0, no items will be drawn (equivalent to `ItemDrawDirection = None`)
+- If set to -1, there is no limit to how many items can be drawn
+
+</td>
+<td><code>3</code></td>
 </tr>
 <tr>
 <td><code>GuideArrowOption</code></td>

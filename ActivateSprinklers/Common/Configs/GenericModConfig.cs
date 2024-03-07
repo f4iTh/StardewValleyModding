@@ -67,7 +67,7 @@ namespace ActivateSprinklers.Common.Configs {
         return animationString;
 
       return animation switch {
-        SprinklerAnimation.None => I18n.Config_Animation_Values_None(),
+        SprinklerAnimation.None => I18n.Strings_Common_None(),
         SprinklerAnimation.NewDayAnimation => I18n.Config_Animation_Values_Newday(),
         SprinklerAnimation.WateringCanAnimation => I18n.Config_Animation_Values_Wateringcan(),
         _ => animation.ToString()
@@ -79,7 +79,7 @@ namespace ActivateSprinklers.Common.Configs {
         return adjacentTileDirectionString;
 
       return direction switch {
-        AdjacentTileDirection.None => I18n.Config_Adjacent_Values_None(),
+        AdjacentTileDirection.None => I18n.Strings_Common_None(),
         AdjacentTileDirection.Left => I18n.Config_Adjacent_Values_Left(),
         AdjacentTileDirection.Right => I18n.Config_Adjacent_Values_Right(),
         AdjacentTileDirection.LeftRight => I18n.Config_Adjacent_Values_Leftright(),
