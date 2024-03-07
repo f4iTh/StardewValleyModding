@@ -1,5 +1,5 @@
 ﻿namespace WheresMyItems.Common.Enums {
-  public enum HighlightMethod {
+  public enum ChestHighlightMethod {
     None,
     TypingRipple,
     PulsatingChest

@@ -1,5 +1,5 @@
 ﻿namespace WheresMyItems.Common.Enums {
-  public enum GuideArrowOptions {
+  public enum GuideArrowOption {
     None,
     WhileMenuOpen,
     UntilNextMenu

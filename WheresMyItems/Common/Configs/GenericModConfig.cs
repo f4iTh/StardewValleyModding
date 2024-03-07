@@ -32,39 +32,43 @@ namespace WheresMyItems.Common.Configs {
         this._reset,
         this._save
       );
+      
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_General
+      );
 
       genericModConfig.AddKeybindList(
         this._modManifest,
         () => this._getConfig().ToggleButton,
         value => this._getConfig().ToggleButton = value,
-        I18n.Config_Searchmenu_Title,
+        I18n.Config_Searchmenu_Name,
         I18n.Config_Searchmenu_Tooltip
+      );
+      
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_Highlighting
       );
 
       genericModConfig.AddTextOption(
         this._modManifest,
         () => this._getConfig().ChestHighlightMethod.ToString(),
-        value => this._getConfig().ChestHighlightMethod = (HighlightMethod)Enum.Parse(typeof(HighlightMethod), value),
+        value => this._getConfig().ChestHighlightMethod = (ChestHighlightMethod)Enum.Parse(typeof(ChestHighlightMethod), value),
         I18n.Config_Highlightchests_Name,
         I18n.Config_Highlightchests_Tooltip,
-        Enum.GetNames(typeof(HighlightMethod)),
+        Enum.GetNames(typeof(ChestHighlightMethod)),
         GenericModConfig.TranslateHighlightMethod
       );
 
-      genericModConfig.AddBoolOption(
+      genericModConfig.AddTextOption(
         this._modManifest,
-        () => this._getConfig().DrawItemsOverChests,
-        value => this._getConfig().DrawItemsOverChests = value,
-        I18n.Config_Drawitemsoverchests_Name,
-        I18n.Config_Drawitemsoverthests_Tooltip
-      );
-
-      genericModConfig.AddBoolOption(
-        this._modManifest,
-        () => this._getConfig().LimitMaxItemsDrawnOverChests,
-        value => this._getConfig().LimitMaxItemsDrawnOverChests = value,
-        I18n.Config_Limitdrawnitemsoverchests_Name,
-        I18n.Config_Limitdrawnitemsoverthests_Tooltip
+        () => this._getConfig().ItemDisplayStyle.ToString(),
+        value => this._getConfig().ItemDisplayStyle = (ItemDisplayStyle)Enum.Parse(typeof(ItemDisplayStyle), value),
+        I18n.Config_Drawdirection_Name,
+        I18n.Config_Drawdirection_Tooltip,
+        Enum.GetNames(typeof(ItemDisplayStyle)),
+        GenericModConfig.TranslateDrawDirection
       );
 
       genericModConfig.AddNumberOption(
@@ -73,64 +77,55 @@ namespace WheresMyItems.Common.Configs {
         value => this._getConfig().MaxItemsDrawnOverChests = value,
         I18n.Config_Maxitemsoverchests_Name,
         I18n.Config_Maxitemsoverthests_Tooltip,
-        1,
+        -1,
         36,
         1
       );
-
-      genericModConfig.AddTextOption(
-        this._modManifest,
-        () => this._getConfig().ItemDrawDirection.ToString(),
-        value => this._getConfig().ItemDrawDirection = (ItemDrawDirection)Enum.Parse(typeof(ItemDrawDirection), value),
-        I18n.Config_Drawdirection_Name,
-        I18n.Config_Drawdirection_Tooltip,
-        Enum.GetNames(typeof(ItemDrawDirection)),
-        GenericModConfig.TranslateDrawDirection
-      );
-
+      
       genericModConfig.AddTextOption(
         this._modManifest,
         () => this._getConfig().GuideArrowOption.ToString(),
-        value => this._getConfig().GuideArrowOption = (GuideArrowOptions)Enum.Parse(typeof(GuideArrowOptions), value),
+        value => this._getConfig().GuideArrowOption = (GuideArrowOption)Enum.Parse(typeof(GuideArrowOption), value),
         I18n.Config_Displayguidearrows_Name,
         I18n.Config_Displayguidearrows_Tooltip,
-        Enum.GetNames(typeof(GuideArrowOptions)),
+        Enum.GetNames(typeof(GuideArrowOption)),
         GenericModConfig.TranslateGuideArrowOption
       );
     }
 
     private static string TranslateHighlightMethod(string highlightMethodString) {
-      if (!Enum.TryParse(highlightMethodString, out HighlightMethod highlightMethod))
+      if (!Enum.TryParse(highlightMethodString, out ChestHighlightMethod highlightMethod))
         return highlightMethodString;
 
       return highlightMethod switch {
-        HighlightMethod.None => I18n.Config_Highlightchests_Values_None(),
-        HighlightMethod.TypingRipple => I18n.Config_Highlightchests_Values_Ripple(),
-        HighlightMethod.PulsatingChest => I18n.Config_Highlightchests_Values_Pulsating(),
+        ChestHighlightMethod.None => I18n.Strings_Common_None(),
+        ChestHighlightMethod.TypingRipple => I18n.Config_Highlightchests_Values_Ripple(),
+        ChestHighlightMethod.PulsatingChest => I18n.Config_Highlightchests_Values_Pulsating(),
         _ => highlightMethod.ToString()
       };
     }
 
     private static string TranslateDrawDirection(string drawDirectionString) {
-      if (!Enum.TryParse(drawDirectionString, out ItemDrawDirection drawDirection))
+      if (!Enum.TryParse(drawDirectionString, out ItemDisplayStyle drawDirection))
         return drawDirectionString;
 
       return drawDirection switch {
-        ItemDrawDirection.Horizontal => I18n.Config_Drawdirection_Values_Horizontal(),
-        ItemDrawDirection.Vertical => I18n.Config_Drawdirection_Values_Vertical(),
+        ItemDisplayStyle.None => I18n.Strings_Common_None(),
+        ItemDisplayStyle.Horizontal => I18n.Config_Drawdirection_Values_Horizontal(),
+        ItemDisplayStyle.Vertical => I18n.Config_Drawdirection_Values_Vertical(),
         // ItemDrawDirection.GridHorizontal => I18n.Config_Drawdirection_Values_Gridhorizontal(),
         _ => drawDirection.ToString()
       };
     }
 
     private static string TranslateGuideArrowOption(string guideArrowOptionString) {
-      if (!Enum.TryParse(guideArrowOptionString, out GuideArrowOptions guideArrowOption))
+      if (!Enum.TryParse(guideArrowOptionString, out GuideArrowOption guideArrowOption))
         return guideArrowOptionString;
 
       return guideArrowOption switch {
-        GuideArrowOptions.None => I18n.Config_Displayguidearrows_Values_None(),
-        GuideArrowOptions.WhileMenuOpen => I18n.Config_Displayguidearrows_Values_Whilemenuopen(),
-        GuideArrowOptions.UntilNextMenu => I18n.Config_Displayguidearrows_Values_Untilnextmenu(),
+        GuideArrowOption.None => I18n.Strings_Common_None(),
+        GuideArrowOption.WhileMenuOpen => I18n.Config_Displayguidearrows_Values_Whilemenuopen(),
+        GuideArrowOption.UntilNextMenu => I18n.Config_Displayguidearrows_Values_Untilnextmenu(),
         _ => guideArrowOption.ToString()
       };
     }

@@ -58,7 +58,7 @@ namespace AdjustBabyChance {
 
     private void SetBabyChanceCommand(string command, string[] args) {
       if (!float.TryParse(args[0], out float newChance)) {
-        this.Monitor.Log(I18n.Errors_Value_Invalidvalue(newChance, "value"), LogLevel.Error);
+        this.Monitor.Log(I18n.Errors_Value_Invalid(newChance, "value"), LogLevel.Error);
         return;
       }
 

@@ -32,6 +32,11 @@ namespace CustomWarps.Common.Configs {
         this._reset,
         this._save
       );
+      
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_General
+      );
 
       genericModConfig.AddKeybindList(
         this._modManifest,
@@ -39,6 +44,11 @@ namespace CustomWarps.Common.Configs {
         value => this._getConfig().ToggleKey = value,
         I18n.Config_Menutoggle_Name,
         I18n.Config_Menutoggle_Tooltip
+      );
+      
+      genericModConfig.AddSectionTitle(
+        this._modManifest,
+        I18n.Config_Section_Customization
       );
 
       genericModConfig.AddTextOption(

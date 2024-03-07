@@ -94,27 +94,27 @@ namespace WheresMyItems.Common.Menus {
         if (items.Length == 0)
           continue;
 
-        if (this._config.ChestHighlightMethod == HighlightMethod.PulsatingChest && this._chests.TryGetValue(pair.Key, out Chest chest))
+        if (this._config.ChestHighlightMethod == ChestHighlightMethod.PulsatingChest && this._chests.TryGetValue(pair.Key, out Chest chest))
           chest.draw(b, (int)pair.Key.X, (int)pair.Key.Y, (float)(0.5f * Math.Sin(Game1.currentGameTime.TotalGameTime.TotalMilliseconds / 250) + 0.5f));
 
         // arrows pointing towards chests
-        if (this._config.GuideArrowOption != GuideArrowOptions.None) {
+        if (this._config.GuideArrowOption != GuideArrowOption.None) {
           double rotation = Game1.GlobalToLocal(Game1.viewport, Game1.player.Position + new Vector2(32f, -28f)).CalculateAngleToTarget(Game1.GlobalToLocal(pair.Key * Game1.tileSize + new Vector2(32f, 24f)));
           b.Draw(Game1.mouseCursors, Game1.GlobalToLocal(Game1.player.Position + new Vector2(32f, -28f) + new Vector2((float)(Game1.tileSize * Math.Cos(rotation)), (float)(Game1.tileSize * Math.Sin(-rotation)))), new Rectangle(76, 72, 40, 44), Color.White, (float)rotation.RadiansToStardewRotation(), new Vector2(20, 22), 1f, SpriteEffects.None, 1f);
         }
 
-        if (!this._config.DrawItemsOverChests)
+        if (this._config.ItemDisplayStyle == ItemDisplayStyle.None)
           continue;
 
-        int maxLength = this._config.LimitMaxItemsDrawnOverChests ? Math.Min(items.Length, this._config.MaxItemsDrawnOverChests) : items.Length;
+        int maxLength = this._config.MaxItemsDrawnOverChests == -1 ? items.Length : Math.Min(items.Length, this._config.MaxItemsDrawnOverChests);
         for (int i = 0; i < maxLength; i++) {
           if (i >= maxLength)
             break;
 
           Item item = items[i];
-          Vector2 position = this._config.ItemDrawDirection switch {
-            ItemDrawDirection.Horizontal => Game1.GlobalToLocal(Game1.viewport, pair.Key * Game1.tileSize + new Vector2(i * 56f - (maxLength - 1) * 28f, -24f)),
-            ItemDrawDirection.Vertical => Game1.GlobalToLocal(Game1.viewport, pair.Key * Game1.tileSize + new Vector2(0f, -24f + i * 56f - (maxLength - 1) * 28f)),
+          Vector2 position = this._config.ItemDisplayStyle switch {
+            ItemDisplayStyle.Horizontal => Game1.GlobalToLocal(Game1.viewport, pair.Key * Game1.tileSize + new Vector2(i * 56f - (maxLength - 1) * 28f, -24f)),
+            ItemDisplayStyle.Vertical => Game1.GlobalToLocal(Game1.viewport, pair.Key * Game1.tileSize + new Vector2(0f, -24f + i * 56f - (maxLength - 1) * 28f)),
             _ => default
           };
           item.drawInMenu(b, position, 1f, 1f, 1f, StackDrawType.Hide);
@@ -167,7 +167,7 @@ namespace WheresMyItems.Common.Menus {
 
         this._chests.TryAdd(obj.Key, (Chest)obj.Value);
         this._items.TryAdd(obj.Key, itemList);
-        if (exitingMenu || this._config.ChestHighlightMethod != HighlightMethod.TypingRipple)
+        if (exitingMenu || this._config.ChestHighlightMethod != ChestHighlightMethod.TypingRipple)
           continue;
 
         Rectangle sourceRect = new(0, 320, Game1.tileSize, Game1.tileSize);
