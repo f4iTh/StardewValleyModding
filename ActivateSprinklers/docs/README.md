@@ -1,5 +1,7 @@
 **Activate Sprinklers** is a [Stardew Valley](https://www.stardewvalley.net/) mod that lets you activate sprinklers by simply right clicking them.
 
+![](images/sample.gif)
+
 ## Configuration
 
 ### In-game configuration
