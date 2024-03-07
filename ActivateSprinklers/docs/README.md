@@ -2,6 +2,8 @@
 
 ![](images/sample.gif)
 
+Note: Sprinklers will not activate if the player is currently holding a pressure nozzle or any sprinkler.
+
 ## Configuration
 
 ### In-game configuration

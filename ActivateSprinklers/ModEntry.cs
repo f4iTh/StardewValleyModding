@@ -60,7 +60,7 @@ namespace ActivateSprinklers {
     }
 
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || (Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915)))
+      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || (Game1.player.CurrentItem != null && (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915) || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
         return;
 
       // if (!this.Helper.Input.IsDown(SButton.ControllerA))
@@ -101,9 +101,9 @@ namespace ActivateSprinklers {
     }
 
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915)))
+      if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915) || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
         return;
-
+      
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
       if (this._config.InfiniteReach)
         tile = Game1.currentCursorTile;
@@ -306,7 +306,7 @@ namespace ActivateSprinklers {
       return obj.IsSprinkler() || (obj.bigCraftable.Value && this._customSprinklerCoverage.ContainsKey(obj.ParentSheetIndex));
     }
 
-    // literally just Object::ApplySprinklerAnimation() with a custom delay
+    // literally just Object::ApplySprinklerAnimation() with a custom delay and fewer loops
     private static void ApplySprinklerAnimationCustomDelay(GameLocation location, SObject sprinkler, int delay) {
       int radius = sprinkler.GetModifiedRadiusForSprinkler();
       if (radius < 0)
