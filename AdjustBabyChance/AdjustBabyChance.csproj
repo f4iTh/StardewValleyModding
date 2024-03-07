@@ -8,7 +8,7 @@
         <PlatformTarget>AnyCPU</PlatformTarget>
         <EnableHarmony>true</EnableHarmony>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <ModZipPath>$(SolutionDir)\_releases</ModZipPath>
+        <ModZipPath>$(SolutionDir)releases\AdjustBabyChance</ModZipPath>
         <LangVersion>9</LangVersion>
         <Configurations>Debug;Release</Configurations>
     </PropertyGroup>

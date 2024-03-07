@@ -8,7 +8,7 @@
         <PlatformTarget>AnyCPU</PlatformTarget>
         <EnableHarmony>false</EnableHarmony>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <ModZipPath>$(SolutionDir)\_releases</ModZipPath>
+        <ModZipPath>$(SolutionDir)releases\ActivateSprinklers</ModZipPath>
         <IgnoreModFilePatterns>\.png$</IgnoreModFilePatterns>
         <EnableModDeploy>true</EnableModDeploy>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
