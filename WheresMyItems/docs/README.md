@@ -1,5 +1,7 @@
 **Where's My Items** is a [Stardew Valley](https://www.stardewvalley.net/) mod that helps you find items from search based on a text input.
 
+![](images/sample.png)
+
 ## Configuration
 
 ### In-game configuration
@@ -30,8 +32,8 @@ Which chest highlighting style to use.
 Possible options:
 
 - `None`: no chest highlighting
-- `TypingRipple`: a small ripple effect on each chest with every key press 
-- `PulsatingChest`: periodically 
+- `TypingRipple`: a small ripple effect on each chest with every key press (excluding `Esc`)
+- `PulsatingChest`: highlights the chest based on the value(s) of a sine wave
 
 </td>
 <td><code>TypingRipple</code></td>
