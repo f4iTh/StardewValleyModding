@@ -5,34 +5,24 @@ using StardewModdingAPI;
 using WheresMyItems.Common.Enums;
 
 namespace WheresMyItems.Common.Configs {
-  /// <summary>
-  /// A class for handling Generic Mod Config Menu integration.
-  /// </summary>
+  /// <summary>A class for handling Generic Mod Config Menu integration.</summary>
   public class GenericModConfig {
-    /// <summary>
-    /// Generic Mod Config Menu integration.
-    /// </summary>
+    /// <summary>Generic Mod Config Menu integration.</summary>
     private readonly IGenericModConfigMenuApi _configMenu;
-    /// <summary>
-    /// The function to get the current config.
-    /// </summary>
+
+    /// <summary>The function to get the current config.</summary>
     private readonly Func<ModConfig> _getConfig;
-    /// <summary>
-    /// The mod manifest.
-    /// </summary>
+
+    /// <summary>The mod manifest.</summary>
     private readonly IManifest _modManifest;
-    /// <summary>
-    /// Reset to default values.
-    /// </summary>
+
+    /// <summary>Reset to default values.</summary>
     private readonly Action _reset;
-    /// <summary>
-    /// Save and apply changes.
-    /// </summary>
+
+    /// <summary>Save and apply changes.</summary>
     private readonly Action _save;
 
-    /// <summary>
-    /// The constructor for creating <see cref="IGenericModConfigMenuApi"/> integration.
-    /// </summary>
+    /// <summary>The constructor for creating <see cref="IGenericModConfigMenuApi" /> integration.</summary>
     /// <param name="modRegistry">The mod registry.</param>
     /// <param name="modManifest">The mod manifest.</param>
     /// <param name="getConfig">Get the current config.</param>
@@ -57,7 +47,7 @@ namespace WheresMyItems.Common.Configs {
         this._reset,
         this._save
       );
-      
+
       genericModConfig.AddSectionTitle(
         this._modManifest,
         I18n.Config_Section_General
@@ -70,7 +60,7 @@ namespace WheresMyItems.Common.Configs {
         I18n.Config_Searchmenu_Name,
         I18n.Config_Searchmenu_Tooltip
       );
-      
+
       genericModConfig.AddSectionTitle(
         this._modManifest,
         I18n.Config_Section_Highlighting
@@ -106,7 +96,7 @@ namespace WheresMyItems.Common.Configs {
         36,
         1
       );
-      
+
       genericModConfig.AddTextOption(
         this._modManifest,
         () => this._getConfig().GuideArrowOption.ToString(),
@@ -117,11 +107,9 @@ namespace WheresMyItems.Common.Configs {
         GenericModConfig.TranslateGuideArrowOption
       );
     }
-    
-    /// <summary>
-    /// Translates the <see cref="ChestHighlightMethod"/> text.
-    /// </summary>
-    /// <param name="highlightMethodString">A string representation of <see cref="ChestHighlightMethod"/></param>
+
+    /// <summary>Translates the <see cref="ChestHighlightMethod" /> text.</summary>
+    /// <param name="highlightMethodString">A string representation of <see cref="ChestHighlightMethod" /></param>
     private static string TranslateHighlightMethod(string highlightMethodString) {
       if (!Enum.TryParse(highlightMethodString, out ChestHighlightMethod highlightMethod))
         return highlightMethodString;
@@ -134,10 +122,8 @@ namespace WheresMyItems.Common.Configs {
       };
     }
 
-    /// <summary>
-    /// Translates the <see cref="ItemDisplayStyle"/> text.
-    /// </summary>
-    /// <param name="drawDirectionString">A string representation of <see cref="ItemDisplayStyle"/></param>
+    /// <summary>Translates the <see cref="ItemDisplayStyle" /> text.</summary>
+    /// <param name="drawDirectionString">A string representation of <see cref="ItemDisplayStyle" /></param>
     private static string TranslateDrawDirection(string drawDirectionString) {
       if (!Enum.TryParse(drawDirectionString, out ItemDisplayStyle drawDirection))
         return drawDirectionString;
@@ -151,10 +137,8 @@ namespace WheresMyItems.Common.Configs {
       };
     }
 
-    /// <summary>
-    /// Translates the <see cref="GuideArrowOption"/> text.
-    /// </summary>
-    /// <param name="guideArrowOptionString">A string representation of <see cref="GuideArrowOption"/></param>
+    /// <summary>Translates the <see cref="GuideArrowOption" /> text.</summary>
+    /// <param name="guideArrowOptionString">A string representation of <see cref="GuideArrowOption" /></param>
     private static string TranslateGuideArrowOption(string guideArrowOptionString) {
       if (!Enum.TryParse(guideArrowOptionString, out GuideArrowOption guideArrowOption))
         return guideArrowOptionString;

@@ -7,21 +7,16 @@ using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace CustomWarps {
-  /// <summary>
-  /// The mod entry point.
-  /// </summary>
+  /// <summary>The mod entry point.</summary>
   public class ModEntry : Mod {
-    /// <inheritdoc cref="IMonitor"/>
+    /// <inheritdoc cref="IMonitor" />
     internal static IMonitor StaticLogger;
-    /// <summary>
-    /// The mod configuration.
-    /// </summary>
+
+    /// <summary>The mod configuration.</summary>
     private ModConfig _config;
     // private WarpHelper _warpHelper;
-    
-    /// <summary>
-    /// The mod entry point method.
-    /// </summary>
+
+    /// <summary>The mod entry point method.</summary>
     /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
@@ -44,7 +39,7 @@ namespace CustomWarps {
       //helper.ConsoleCommands.Add("sortby", "Switch the sorting style for warps.", this.SwitchSortStyleCommand);
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+    /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnGameLaunched(object sender, GameLaunchedEventArgs e) {

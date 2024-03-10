@@ -4,24 +4,18 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
 namespace AdjustBabyChance {
-  /// <summary>
-  /// The mod entry point.
-  /// </summary>
+  /// <summary>The mod entry point.</summary>
   public class ModEntry : Mod {
-    /// <summary>
-    /// The mod configuration.
-    /// </summary>
+    /// <summary>The mod configuration.</summary>
     private static ModConfig _config;
-    /// <inheritdoc cref="IMonitor"/>
+
+    /// <inheritdoc cref="IMonitor" />
     internal static IMonitor InternalMonitor;
-    /// <summary>
-    /// The <see cref="Harmony"/> instance.
-    /// </summary>
+
+    /// <summary>The <see cref="Harmony" /> instance.</summary>
     private Harmony _harmony;
 
-    /// <summary>
-    /// The mod entry point method.
-    /// </summary>
+    /// <summary>The mod entry point method.</summary>
     /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
@@ -52,7 +46,7 @@ namespace AdjustBabyChance {
       this._harmony.PatchAll();
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+    /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnGameLaunched(object sender, GameLaunchedEventArgs e) {
@@ -68,19 +62,15 @@ namespace AdjustBabyChance {
       ).Register();
     }
 
-    /// <summary>
-    /// Prints the current baby chance to the console.
-    /// </summary>
+    /// <summary>Prints the current baby chance to the console.</summary>
     /// <param name="command">The command string.</param>
     /// <param name="args">The command arguments.</param>
     private void GetBabyChanceCommand(string command, string[] args) {
       this.Monitor.Log(I18n.Command_Getchance_Output(_config.QuestionChance), LogLevel.Info);
     }
 
-    
-    /// <summary>
-    /// Sets the baby question chance.
-    /// </summary>
+
+    /// <summary>Sets the baby question chance.</summary>
     /// <param name="command">The command string.</param>
     /// <param name="args">The command arguments.</param>
     private void SetBabyChanceCommand(string command, string[] args) {
@@ -103,9 +93,7 @@ namespace AdjustBabyChance {
       this.Monitor.Log(I18n.Command_Setchance_Output(newChance), LogLevel.Info);
     }
 
-    /// <summary>
-    /// A helper method used in the transpiler patch for getting the current question chance.
-    /// </summary>
+    /// <summary>A helper method used in the transpiler patch for getting the current question chance.</summary>
     /// <returns>The current baby question chance.</returns>
     // ReSharper disable once UnusedMember.Local
     private static double GetQuestionChance() {

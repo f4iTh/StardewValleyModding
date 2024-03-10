@@ -13,38 +13,27 @@ using StardewValley.Tools;
 using SObject = StardewValley.Object;
 
 namespace ActivateSprinklers {
-  /// <summary>
-  /// The mod entry point.
-  /// </summary>
+  /// <summary>The mod entry point.</summary>
   public class ModEntry : Mod {
-    /// <summary>
-    /// A HashSet of the tiles checked while the action button is held on a controller.
-    /// </summary>
+    /// <summary>A HashSet of the tiles checked while the action button is held on a controller.</summary>
     private readonly HashSet<Vector2> _tilesCheckedController = new();
-    /// <summary>
-    /// A HashSet of the tiles checked while the action button is held on keyboard and mouse.
-    /// </summary>
+
+    /// <summary>A HashSet of the tiles checked while the action button is held on keyboard and mouse.</summary>
     private readonly HashSet<Vector2> _tilesCheckedKeyboard = new();
-    /// <summary>
-    /// The mod configuration.
-    /// </summary>
+
+    /// <summary>The mod configuration.</summary>
     private ModConfig _config;
-    /// <summary>
-    /// The custom coverage area of sprinklers.
-    /// </summary>
+
+    /// <summary>The custom coverage area of sprinklers.</summary>
     private IDictionary<int, Vector2[]> _customSprinklerCoverage;
-    /// <summary>
-    /// Whether a player directly looked at a sprinkler and activated it.
-    /// </summary>
+
+    /// <summary>Whether a player directly looked at a sprinkler and activated it.</summary>
     private bool _didGrabTileCheck;
-    /// <summary>
-    /// The mod integrations.
-    /// </summary>
+
+    /// <summary>The mod integrations.</summary>
     private ModIntegrations _integrations;
 
-    /// <summary>
-    /// The mod entry point method.
-    /// </summary>
+    /// <summary>The mod entry point method.</summary>
     /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
@@ -59,7 +48,7 @@ namespace ActivateSprinklers {
       helper.Events.Input.ButtonReleased += this.HandleClearCheckedTiles;
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+    /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnGameLaunched(object sender, EventArgs e) {
@@ -78,7 +67,7 @@ namespace ActivateSprinklers {
       ).Register();
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.OneSecondUpdateTicking"/>
+    /// <inheritdoc cref="IGameLoopEvents.OneSecondUpdateTicking" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleGetCustomSprinklerCoverage(object sender, OneSecondUpdateTickingEventArgs e) {
@@ -88,7 +77,7 @@ namespace ActivateSprinklers {
       this._customSprinklerCoverage = this.GetCustomSprinklerCoverage();
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.UpdateTicking"/>
+    /// <inheritdoc cref="IGameLoopEvents.UpdateTicking" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
@@ -132,13 +121,13 @@ namespace ActivateSprinklers {
       }
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.UpdateTicking"/>
+    /// <inheritdoc cref="IGameLoopEvents.UpdateTicking" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
       if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915) || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
         return;
-      
+
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
       if (this._config.InfiniteReach)
         tile = Game1.currentCursorTile;
@@ -169,7 +158,7 @@ namespace ActivateSprinklers {
     //   }
     // }
 
-    /// <inheritdoc cref="IInputEvents.ButtonReleased"/>
+    /// <inheritdoc cref="IInputEvents.ButtonReleased" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleClearCheckedTiles(object sender, ButtonReleasedEventArgs e) {
@@ -181,10 +170,8 @@ namespace ActivateSprinklers {
       this._didGrabTileCheck = false;
     }
 
-    /// <summary>
-    /// Handles activating the sprinkler and adding animations if applicable.
-    /// </summary>
-    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object"/>.</param>
+    /// <summary>Handles activating the sprinkler and adding animations if applicable.</summary>
+    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object" />.</param>
     private void HandleActivateSprinkler(SObject sprinkler) {
       Multiplayer multiplayer = (Multiplayer)typeof(Game1).GetField("multiplayer", BindingFlags.NonPublic | BindingFlags.Static)?.GetValue(null);
 
@@ -219,9 +206,7 @@ namespace ActivateSprinklers {
       Game1.player.toolPower = oldPower;
     }
 
-    /// <summary>
-    /// Gets the custom sprinkler coverage.
-    /// </summary>
+    /// <summary>Gets the custom sprinkler coverage.</summary>
     /// <returns>The custom sprinkler coverage with object index as the key, and an array of the tiles with (0, 0) as the origin tile.</returns>
     private IDictionary<int, Vector2[]> GetCustomSprinklerCoverage() {
       if (this._integrations == null)
@@ -245,10 +230,8 @@ namespace ActivateSprinklers {
       return sprinklerCoverage;
     }
 
-    /// <summary>
-    /// Gets the custom coverage of tiles.
-    /// </summary>
-    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object"/></param>
+    /// <summary>Gets the custom coverage of tiles.</summary>
+    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object" /></param>
     /// <param name="origin">The origin tile.</param>
     /// <param name="customSprinklerCoverage">The custom sprinkler coverage.</param>
     /// <returns></returns>
@@ -295,11 +278,9 @@ namespace ActivateSprinklers {
     //   // this.Helper.Input.Suppress(actionButton);
     // }
 
-    /// <summary>
-    /// Gets the tiles that are located next to the position.
-    /// </summary>
+    /// <summary>Gets the tiles that are located next to the position.</summary>
     /// <param name="pos">The player position.</param>
-    /// <returns><see cref="IEnumerable{T}"/> tiles that are located next to the position.</returns>
+    /// <returns><see cref="IEnumerable{T}" /> tiles that are located next to the position.</returns>
     private IEnumerable<Vector2> GetAdjacentSideTiles(Vector2 pos) {
       List<Vector2> sideTiles = new();
       Vector2 position = new((int)pos.X, (int)pos.Y);
@@ -359,20 +340,16 @@ namespace ActivateSprinklers {
 
       return sideTiles;
     }
-    
-    /// <summary>
-    /// Whether the <see cref="StardewValley.Object"/> is a sprinkler.
-    /// </summary>
-    /// <param name="obj">The sprinkler <see cref="StardewValley.Object"/></param>
+
+    /// <summary>Whether the <see cref="StardewValley.Object" /> is a sprinkler.</summary>
+    /// <param name="obj">The sprinkler <see cref="StardewValley.Object" /></param>
     private bool IsSprinkler(SObject obj) {
       return obj.IsSprinkler() || (obj.bigCraftable.Value && this._customSprinklerCoverage.ContainsKey(obj.ParentSheetIndex));
     }
 
-    /// <summary>
-    /// Applies a sprinkler animation with a custom delay.
-    /// </summary>
+    /// <summary>Applies a sprinkler animation with a custom delay.</summary>
     /// <param name="location">Where to add the animation.</param>
-    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object"/></param>
+    /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object" /></param>
     /// <param name="delay">The delay before the animation starts.</param>
     // literally just Object::ApplySprinklerAnimation() with a custom delay and fewer loops
     private static void ApplySprinklerAnimationCustomDelay(GameLocation location, SObject sprinkler, int delay) {
@@ -416,9 +393,7 @@ namespace ActivateSprinklers {
       }
     }
 
-    /// <summary>
-    /// Whether everything is ready.
-    /// </summary>
+    /// <summary>Whether everything is ready.</summary>
     /// <returns>A boolean of whether everything is ready.</returns>
     private static bool IsReady() {
       return Context.IsWorldReady && Game1.currentLocation != null && Game1.player.CanMove && !Game1.player.hasMenuOpen.Value;

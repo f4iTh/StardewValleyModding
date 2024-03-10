@@ -7,26 +7,18 @@ using StardewValley.Menus;
 
 namespace CustomWarps.Common.Menus.Elements {
   // https://github.com/Pathoschild/StardewMods/blob/develop/ChestsAnywhere/Menus/Components/SimpleDropdown.cs
-  /// <summary>
-  /// A dropdown menu element.
-  /// </summary>
+  /// <summary>A dropdown menu element.</summary>
   public class DropdownElement {
-    /// <summary>
-    /// The underlying dropdown element.
-    /// </summary>
+    /// <summary>The underlying dropdown element.</summary>
     private readonly OptionsDropDown _dropDown;
-    /// <summary>
-    /// Whether the dropdown element is expanded.
-    /// </summary>
+
+    /// <summary>Whether the dropdown element is expanded.</summary>
     private readonly IReflectedField<bool> _isExpandedField;
-    /// <summary>
-    /// The dropdown menu options.
-    /// </summary>
+
+    /// <summary>The dropdown menu options.</summary>
     private readonly List<Tuple<string, string>> _options;
 
-    /// <summary>
-    /// The constructor for creating a dropdown.
-    /// </summary>
+    /// <summary>The constructor for creating a dropdown.</summary>
     /// <param name="reflectionHelper">An API for accessing inaccessible code</param>
     /// <param name="options">The dropdown options.</param>
     /// <param name="selected">Which option to select.</param>
@@ -49,22 +41,16 @@ namespace CustomWarps.Common.Menus.Elements {
       this.TrySelect(selected);
     }
 
-    /// <summary>
-    /// The bounds of the dropdown element.
-    /// </summary>
+    /// <summary>The bounds of the dropdown element.</summary>
     private Rectangle Bounds => this._dropDown.bounds;
-    /// <summary>
-    /// The currently selected value.
-    /// </summary>
+
+    /// <summary>The currently selected value.</summary>
     public string SelectedValue => this._options[this._dropDown.selectedOption].Item1;
-    /// <summary>
-    /// Whether the dropdown element is expanded.
-    /// </summary>
+
+    /// <summary>Whether the dropdown element is expanded.</summary>
     public bool IsExpanded => this._isExpandedField.GetValue();
 
-    /// <summary>
-    /// Handle selecting an option.
-    /// </summary>
+    /// <summary>Handle selecting an option.</summary>
     /// <param name="key">The option string.</param>
     public bool TrySelect(string key) {
       int selectedIndex = this._options.FindIndex(option => option.Item1.Equals(key));
@@ -75,9 +61,7 @@ namespace CustomWarps.Common.Menus.Elements {
       return true;
     }
 
-    /// <summary>
-    /// Handle clicking the dropdown menu.
-    /// </summary>
+    /// <summary>Handle clicking the dropdown menu.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     public bool TryClick(int x, int y) {
@@ -93,9 +77,7 @@ namespace CustomWarps.Common.Menus.Elements {
       return true;
     }
 
-    /// <summary>
-    /// Handle hovering over the dropdown menu.
-    /// </summary>
+    /// <summary>Handle hovering over the dropdown menu.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     public bool TryHover(int x, int y) {
@@ -108,9 +90,7 @@ namespace CustomWarps.Common.Menus.Elements {
       return true;
     }
 
-    /// <summary>
-    /// Draw the dropdown element.
-    /// </summary>
+    /// <summary>Draw the dropdown element.</summary>
     /// <param name="b">The SpriteBatch.</param>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>

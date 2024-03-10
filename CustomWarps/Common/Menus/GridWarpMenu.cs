@@ -12,98 +12,76 @@ using StardewValley.Buildings;
 using StardewValley.Menus;
 
 namespace CustomWarps.Common.Menus {
-  /// <summary>
-  /// The grid-like menu for custom warps.
-  /// </summary>
+  /// <summary>The grid-like menu for custom warps.</summary>
   // TODO: custom sorting for warp items?
   // TODO: custom warp icons, categories, etc.?
   // TODO: visualize/show all currently created custom warps in current location?
   public class GridWarpMenu : IClickableMenu {
-    /// <summary>
-    /// The add warp button.
-    /// </summary>
+    /// <summary>The add warp button.</summary>
     private readonly ClickableTextureComponent _addWarpButton;
-    /// <summary>
-    /// The pages of custom warps.
-    /// </summary>
+
+    /// <summary>The pages of custom warps.</summary>
     private readonly List<Dictionary<ClickableTextureComponent, CustomWarp>> _customWarpPages = new();
-    /// <inheritdoc cref="IModHelper"/>
+
+    /// <inheritdoc cref="IModHelper" />
     private readonly IModHelper _helper;
-    /// <summary>
-    /// The button to make the warp accessible from any save file.
-    /// </summary>
+
+    /// <summary>The button to make the warp accessible from any save file.</summary>
     private readonly ClickableTextureComponent _makeWarpGlobalButton;
-    /// <summary>
-    /// How many items should be visible on one column.
-    /// </summary>
+
+    /// <summary>How many items should be visible on one column.</summary>
     private readonly int _maxItemsPerColumn;
-    /// <summary>
-    /// How many items should be visible on one row.
-    /// </summary>
+
+    /// <summary>How many items should be visible on one row.</summary>
     private readonly int _maxItemsPerRow;
-    /// <summary>
-    /// The next page button.
-    /// </summary>
+
+    /// <summary>The next page button.</summary>
     private readonly ClickableTextureComponent _nextPageButton;
-    /// <summary>
-    /// The previous page button.
-    /// </summary>
+
+    /// <summary>The previous page button.</summary>
     private readonly ClickableTextureComponent _previousPageButton;
-    /// <summary>
-    /// The remove warp button.
-    /// </summary>
+
+    /// <summary>The remove warp button.</summary>
     private readonly ClickableTextureComponent _removeWarpButton;
-    /// <summary>
-    /// The textbox for naming a warp.
-    /// </summary>
+
+    /// <summary>The textbox for naming a warp.</summary>
     private readonly TextBox _textBox;
-    /// <summary>
-    /// A clickable component for the textbox so it can be clicked and selected.
-    /// </summary>
+
+    /// <summary>A clickable component for the textbox so it can be clicked and selected.</summary>
     private readonly ClickableComponent _textBoxComponent;
-    /// <summary>
-    /// The upper-right close menu button.
-    /// </summary>
+
+    /// <summary>The upper-right close menu button.</summary>
     private readonly ClickableTextureComponent _upperRightCloseButton;
-    /// <inheritdoc cref="WarpHelper"/>
+
+    /// <inheritdoc cref="WarpHelper" />
     private readonly WarpHelper _warpHelper;
 
-    /// <summary>
-    /// The current page.
-    /// </summary>
+    /// <summary>The current page.</summary>
     private int _currentPage;
-    /// <summary>
-    /// The hover text.
-    /// </summary>
+
+    /// <summary>The hover text.</summary>
     private string _hoverText;
-    /// <summary>
-    /// Whether a warp is currently being created.
-    /// </summary>
+
+    /// <summary>Whether a warp is currently being created.</summary>
     private bool _isAddingNewWarp;
-    /// <summary>
-    /// Whether a warp is currently being named.
-    /// </summary>
+
+    /// <summary>Whether a warp is currently being named.</summary>
     private bool _isNamingWarp;
-    /// <summary>
-    /// Whether a warp is being removed.
-    /// </summary>
+
+    /// <summary>Whether a warp is being removed.</summary>
     private bool _isRemovingWarp;
-    /// <summary>
-    /// Whether a warp should be accessible from any save file.
-    /// </summary>
+
+    /// <summary>Whether a warp should be accessible from any save file.</summary>
     private bool _makeGlobal;
-    /// <summary>
-    /// The tile location of the new warp.
-    /// </summary>
+
+    /// <summary>The tile location of the new warp.</summary>
     private Vector2 _newWarpTile;
     // private readonly TextBox _searchTextBox;
     // private bool _isSearching;
     // private readonly ClickableComponent _searchTextBoxComponent;
     // private readonly ClickableTextureComponent _searchButton;
 
-    /// <summary>
-    /// The menu constructor.
-    /// </summary>
+    /// <summary>The menu constructor.</summary>
     /// <param name="helper">Simplified API for writing mods.</param>
     /// <param name="warpHelper">A helper class for handling custom warp data.</param>
     /// <param name="maxItemsPerRow">How many items should be visible on one column.</param>
@@ -158,9 +136,7 @@ namespace CustomWarps.Common.Menus {
       this.SetUpWarpPages();
     }
 
-    /// <summary>
-    /// Handle hovering over elements.
-    /// </summary>
+    /// <summary>Handle hovering over elements.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     public override void performHoverAction(int x, int y) {
@@ -212,9 +188,7 @@ namespace CustomWarps.Common.Menus {
       //   this._hoverText = this._makeWarpGlobalButton.hoverText;
     }
 
-    /// <summary>
-    /// Handle left-click.
-    /// </summary>
+    /// <summary>Handle left-click.</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="playSound"></param>
@@ -321,9 +295,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handle key press.
-    /// </summary>
+    /// <summary>Handle key press.</summary>
     /// <param name="key">The key that was pressed.</param>
     public override void receiveKeyPress(Keys key) {
       if (key == Keys.Escape) {
@@ -335,9 +307,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handle mouse scroll wheel action.
-    /// </summary>
+    /// <summary>Handle mouse scroll wheel action.</summary>
     /// <param name="direction">Which direction the mouse wheel was scrolled.</param>
     public override void receiveScrollWheelAction(int direction) {
       base.receiveScrollWheelAction(direction);
@@ -352,9 +322,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handles updating menu element positions when game window size changes.
-    /// </summary>
+    /// <summary>Handles updating menu element positions when game window size changes.</summary>
     /// <param name="oldBounds">The bounds before the window size changed.</param>
     /// <param name="newBounds">The bounds after the window size changed.</param>
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
@@ -365,9 +333,7 @@ namespace CustomWarps.Common.Menus {
       this.RepositionElements();
     }
 
-    /// <summary>
-    /// Handles automatically selecting the text box when naming (sub)menu is active.
-    /// </summary>
+    /// <summary>Handles automatically selecting the text box when naming (sub)menu is active.</summary>
     /// <param name="time">The game time.</param>
     public override void update(GameTime time) {
       // if (this._isSearching) {
@@ -387,9 +353,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handles drawing the menu.
-    /// </summary>
+    /// <summary>Handles drawing the menu.</summary>
     /// <param name="b">The SpriteBatch.</param>
     public override void draw(SpriteBatch b) {
       if (!this._isAddingNewWarp && !this._isNamingWarp) {
@@ -449,9 +413,7 @@ namespace CustomWarps.Common.Menus {
       this.drawMouse(b);
     }
 
-    /// <summary>
-    /// Handles the <see cref="TextBox"/> enter input.
-    /// </summary>
+    /// <summary>Handles the <see cref="TextBox" /> enter input.</summary>
     /// <param name="sender">The textbox.</param>
     private void TextBoxEnter(TextBox sender) {
       if (!this._isNamingWarp || sender.Text.Length < 1)
@@ -491,9 +453,7 @@ namespace CustomWarps.Common.Menus {
     //   // this._isSearching = false;
     // }
 
-    /// <summary>
-    /// Handles repositioning menu elements.
-    /// </summary>
+    /// <summary>Handles repositioning menu elements.</summary>
     private void RepositionElements() {
       this._previousPageButton.bounds = new Rectangle(this.xPositionOnScreen, this.yPositionOnScreen + this.height + 80, 64, 64);
       this._nextPageButton.bounds = new Rectangle(this.xPositionOnScreen + this.width - 64, this.yPositionOnScreen + this.height + 80, 64, 64);
@@ -507,9 +467,7 @@ namespace CustomWarps.Common.Menus {
       this.SetUpWarpPages();
     }
 
-    /// <summary>
-    /// Handles creating menu pages.
-    /// </summary>
+    /// <summary>Handles creating menu pages.</summary>
     // TODO: filtering system with tokens?, e.g.: # for map names, ! for global (or not), etc.
     private void SetUpWarpPages() {
       Dictionary<ClickableTextureComponent, CustomWarp> newPage = this.CreateNewPage();
@@ -544,9 +502,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Creates a new page.
-    /// </summary>
+    /// <summary>Creates a new page.</summary>
     private Dictionary<ClickableTextureComponent, CustomWarp> CreateNewPage() {
       Dictionary<ClickableTextureComponent, CustomWarp> dictionary = new();
       this._customWarpPages.Add(dictionary);
@@ -554,17 +510,13 @@ namespace CustomWarps.Common.Menus {
       return dictionary;
     }
 
-    /// <summary>
-    /// Creates the page layout.
-    /// </summary>
+    /// <summary>Creates the page layout.</summary>
     /// <returns></returns>
     private ClickableTextureComponent[,] CreateNewPageLayout() {
       return new ClickableTextureComponent[this._maxItemsPerRow, this._maxItemsPerColumn];
     }
 
-    /// <summary>
-    /// Whether a space is occupied on the page.
-    /// </summary>
+    /// <summary>Whether a space is occupied on the page.</summary>
     /// <param name="pageLayout">The current page layout.</param>
     /// <param name="x">The x-position in the page layout.</param>
     /// <param name="y">The y-position in the page layout.</param>
@@ -578,9 +530,7 @@ namespace CustomWarps.Common.Menus {
       return true;
     }
 
-    /// <summary>
-    /// Gets the hover text containing warp details.
-    /// </summary>
+    /// <summary>Gets the hover text containing warp details.</summary>
     /// <param name="warp">The custom warp.</param>
     private static string GetWarpHoverText(CustomWarp warp) {
       return $"Warp name: {warp.WarpName}\nLocation: {warp.MapName}\nCoordinates: ({warp.TileX}, {warp.TileY})\n{(warp.IsGlobal ? "Global warp" : "Local warp")}";

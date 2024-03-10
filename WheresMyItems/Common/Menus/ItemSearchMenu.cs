@@ -14,41 +14,31 @@ using WheresMyItems.Common.Enums;
 using SObject = StardewValley.Object;
 
 namespace WheresMyItems.Common.Menus {
-  /// <summary>
-  /// The item search menu.
-  /// </summary>
+  /// <summary>The item search menu.</summary>
   public class ItemSearchMenu : IClickableMenu {
-    /// <summary>
-    /// The previous search query.
-    /// </summary>
+    /// <summary>The previous search query.</summary>
     private static string _previousSearchString = string.Empty;
-    /// <summary>
-    /// A dictionary of chest positions and the chests themselves.
-    /// </summary>
+
+    /// <summary>A dictionary of chest positions and the chests themselves.</summary>
     private readonly IDictionary<Vector2, Chest> _chests = new Dictionary<Vector2, Chest>();
-    /// <inheritdoc cref="ModConfig"/>
+
+    /// <inheritdoc cref="ModConfig" />
     private readonly ModConfig _config;
-    /// <summary>
-    /// A dictionary containing chest tile locations and the items in the chest.
-    /// </summary>
+
+    /// <summary>A dictionary containing chest tile locations and the items in the chest.</summary>
     private readonly IDictionary<Vector2, IEnumerable<Item>> _items = new Dictionary<Vector2, IEnumerable<Item>>();
-    /// <summary>
-    /// The previous search query button.
-    /// </summary>
+
+    /// <summary>The previous search query button.</summary>
     private readonly ClickableTextureComponent _previousSearchButton;
-    /// <summary>
-    /// The textbox.
-    /// </summary>
+
+    /// <summary>The textbox.</summary>
     private readonly TextBox _textBox;
-    /// <summary>
-    /// The hover text.
-    /// </summary>
+
+    /// <summary>The hover text.</summary>
     private string _hoverText = string.Empty;
     // private readonly IMonitor _monitor;
 
-    /// <summary>
-    /// The menu constructor.
-    /// </summary>
+    /// <summary>The menu constructor.</summary>
     /// <param name="config">The mod configuration.</param>
     public ItemSearchMenu(ModConfig config) {
       // this._monitor = monitor;
@@ -66,9 +56,7 @@ namespace WheresMyItems.Common.Menus {
       };
     }
 
-    /// <summary>
-    /// Handle key press.
-    /// </summary>
+    /// <summary>Handle key press.</summary>
     /// <param name="key">The key that was pressed.</param>
     // TODO: handle list of keys that don't add any text to the text box and return without doing anything? e.g. F-keys, Alt, ..
     public override void receiveKeyPress(Keys key) {
@@ -81,38 +69,32 @@ namespace WheresMyItems.Common.Menus {
       this.HandleSearchItems();
     }
 
-    /// <summary>
-    /// Handle left-click.
-    /// </summary>
+    /// <summary>Handle left-click.</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="playSound"></param>
     public override void receiveLeftClick(int x, int y, bool playSound = true) {
-      if (!this._previousSearchButton.containsPoint(x, y)) 
+      if (!this._previousSearchButton.containsPoint(x, y))
         return;
-      
+
       Game1.playSound("smallSelect");
       this._textBox.Text = _previousSearchString;
       this.HandleSearchItems();
     }
 
-    /// <summary>
-    /// Handle hovering over elements.
-    /// </summary>
+    /// <summary>Handle hovering over elements.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     public override void performHoverAction(int x, int y) {
       this._hoverText = string.Empty;
-      
+
       this._previousSearchButton.tryHover(x, y, 0.25f);
 
       if (this._previousSearchButton.containsPoint(x, y))
         this._hoverText = this._previousSearchButton.hoverText;
     }
 
-    /// <summary>
-    /// Handles updating menu element positions when game window size changes.
-    /// </summary>
+    /// <summary>Handles updating menu element positions when game window size changes.</summary>
     /// <param name="oldBounds">The bounds before the window size changed.</param>
     /// <param name="newBounds">The bounds after the window size changed.</param>
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
@@ -125,9 +107,7 @@ namespace WheresMyItems.Common.Menus {
       this._previousSearchButton.bounds = new Rectangle(this._textBox.X - 96, this._textBox.Y - 8, 64, 64);
     }
 
-    /// <summary>
-    /// Handles drawing the menu.
-    /// </summary>
+    /// <summary>Handles drawing the menu.</summary>
     /// <param name="b">The SpriteBatch.</param>
     public override void draw(SpriteBatch b) {
       b.Draw(Game1.fadeToBlackRect, Game1.graphics.GraphicsDevice.Viewport.Bounds, Color.Black * 0.4f);
@@ -197,9 +177,7 @@ namespace WheresMyItems.Common.Menus {
       this.drawMouse(b);
     }
 
-    /// <summary>
-    /// Handles searching chests for items that match the search query.
-    /// </summary>
+    /// <summary>Handles searching chests for items that match the search query.</summary>
     /// <param name="exitingMenu">Whether the menu should be exited.</param>
     private void HandleSearchItems(bool exitingMenu = false) {
       this._items.Clear();
@@ -227,17 +205,13 @@ namespace WheresMyItems.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Gets items matching the search query.
-    /// </summary>
+    /// <summary>Gets items matching the search query.</summary>
     /// <param name="items">The chest items.</param>
     private IEnumerable<Item> GetItemsMatchingTextboxText(IEnumerable<Item> items) {
       return items.Where(item => item.Name.ToLower().Contains(this._textBox.Text.ToLower()));
     }
 
-    /// <summary>
-    /// Handles the <see cref="TextBox"/> enter input.
-    /// </summary>
+    /// <summary>Handles the <see cref="TextBox" /> enter input.</summary>
     /// <param name="sender">The textbox.</param>
     private void TextBoxEnter(TextBox sender) {
       if (sender.Text.Length > 0) {

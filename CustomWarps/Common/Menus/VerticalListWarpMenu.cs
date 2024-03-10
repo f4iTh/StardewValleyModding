@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using CustomWarps.Common.Menus.Elements;
@@ -15,131 +14,100 @@ using StardewValley.Buildings;
 using StardewValley.Menus;
 
 namespace CustomWarps.Common.Menus {
-  /// <summary>
-  /// The vertical list warp menu.
-  /// </summary>
+  /// <summary>The vertical list warp menu.</summary>
   public class VerticalListWarpMenu : IClickableMenu {
-    /// <summary>
-    /// How many warps should be visible at once.
-    /// </summary>
+    /// <summary>How many warps should be visible at once.</summary>
     private const int MAX_VISIBLE_ITEMS = 5;
-    /// <summary>
-    /// The previously selected tab.
-    /// </summary>
+
+    /// <summary>The previously selected tab.</summary>
     private static string _lastSelectedTab = "all-warps";
-    /// <summary>
-    /// The previously selected sorting option.
-    /// </summary>
+
+    /// <summary>The previously selected sorting option.</summary>
     private static string _lastSelectedSortingOption = "date-descending";
-    /// <summary>
-    /// The add warp button.
-    /// </summary>
+
+    /// <summary>The add warp button.</summary>
     private readonly ClickableTextureComponent _addWarpButton;
-    /// <summary>
-    /// The tab element for all warps.
-    /// </summary>
+
+    /// <summary>The tab element for all warps.</summary>
     private readonly ClickableTextureComponent _allWarpsTab;
-    /// <summary>
-    /// The custom warp buttons.
-    /// </summary>
+
+    /// <summary>The custom warp buttons.</summary>
     private readonly List<ClickableComponent> _customWarpButtons = new();
-    /// <summary>
-    /// The unsorted list containing custom warps.
-    /// </summary>
+
+    /// <summary>The unsorted list containing custom warps.</summary>
     private readonly List<CustomWarp> _customWarpsDefault = new();
-    /// <summary>
-    /// The down arrow for scrolling down the list.
-    /// </summary>
+
+    /// <summary>The down arrow for scrolling down the list.</summary>
     private readonly ClickableTextureComponent _downArrow;
-    /// <summary>
-    /// The dropdown element for sorting options.
-    /// </summary>
+
+    /// <summary>The dropdown element for sorting options.</summary>
     private readonly DropdownElement _dropDown;
-    /// <summary>
-    /// The tab element for global warps.
-    /// </summary>
+
+    /// <summary>The tab element for global warps.</summary>
     private readonly ClickableTextureComponent _globalWarpsTab;
-    /// <inheritdoc cref="IModHelper"/>
+
+    /// <inheritdoc cref="IModHelper" />
     private readonly IModHelper _helper;
-    /// <summary>
-    /// The tab element for local warps.
-    /// </summary>
+
+    /// <summary>The tab element for local warps.</summary>
     private readonly ClickableTextureComponent _localWarpsTab;
-    /// <summary>
-    /// The button to make the warp accessible from any save file.
-    /// </summary>
+
+    /// <summary>The button to make the warp accessible from any save file.</summary>
     private readonly ClickableTextureComponent _makeWarpGlobalButton;
-    /// <summary>
-    /// The remove warp button.
-    /// </summary>
+
+    /// <summary>The remove warp button.</summary>
     private readonly ClickableTextureComponent _removeWarpButton;
-    /// <summary>
-    /// The scrollbar.
-    /// </summary>
+
+    /// <summary>The scrollbar.</summary>
     private readonly ClickableTextureComponent _scrollBar;
-    /// <summary>
-    /// The textbox for naming a warp.
-    /// </summary>
+
+    /// <summary>The textbox for naming a warp.</summary>
     private readonly TextBox _textBox;
-    /// <summary>
-    /// A clickable component for the textbox so it can be clicked and selected.
-    /// </summary>
+
+    /// <summary>A clickable component for the textbox so it can be clicked and selected.</summary>
     private readonly ClickableComponent _textBoxComponent;
-    /// <summary>
-    /// The up arrow for scrolling up the list.
-    /// </summary>
+
+    /// <summary>The up arrow for scrolling up the list.</summary>
     private readonly ClickableTextureComponent _upArrow;
-    /// <summary>
-    /// The upper-right close menu button.
-    /// </summary>
+
+    /// <summary>The upper-right close menu button.</summary>
     private readonly ClickableTextureComponent _upperRightCloseButton;
-    /// <inheritdoc cref="WarpHelper"/>
+
+    /// <inheritdoc cref="WarpHelper" />
     private readonly WarpHelper _warpHelper;
-    /// <summary>
-    /// The current warp index.
-    /// </summary>
+
+    /// <summary>The current warp index.</summary>
     private int _currentItemIndex;
-    /// <summary>
-    /// The sorted and filtered list containing custom warps.
-    /// </summary>
+
+    /// <summary>The sorted and filtered list containing custom warps.</summary>
     private List<CustomWarp> _customWarps = new();
-    /// <summary>
-    /// The hover text.
-    /// </summary>
+
+    /// <summary>The hover text.</summary>
     private string _hoverText = "";
-    /// <summary>
-    /// Whether a warp is currently being created.
-    /// </summary>
+
+    /// <summary>Whether a warp is currently being created.</summary>
     private bool _isAddingNewWarp;
-    /// <summary>
-    /// Whether a warp is currently being named.
-    /// </summary>
+
+    /// <summary>Whether a warp is currently being named.</summary>
     private bool _isNamingWarp;
-    /// <summary>
-    /// Whether a warp is being removed.
-    /// </summary>
+
+    /// <summary>Whether a warp is being removed.</summary>
     private bool _isRemovingWarp;
-    /// <summary>
-    /// Whether the menu is currently being scrolled.
-    /// </summary>
+
+    /// <summary>Whether the menu is currently being scrolled.</summary>
     private bool _isScrolling;
-    /// <summary>
-    /// Whether a warp should be accessible from any save file.
-    /// </summary>
+
+    /// <summary>Whether a warp should be accessible from any save file.</summary>
     private bool _makeGlobal;
-    /// <summary>
-    /// The tile location of the new warp.
-    /// </summary>
+
+    /// <summary>The tile location of the new warp.</summary>
     private Vector2 _newWarpTile;
-    /// <summary>
-    /// The rectangle behind the scrollbar element that can be clicked.
-    /// </summary>
+
+    /// <summary>The rectangle behind the scrollbar element that can be clicked.</summary>
     private Rectangle _scrollBarRunner;
     // private readonly ClickableTextureComponent _searchButton;
 
-    /// <summary>
-    /// The menu constructor.
-    /// </summary>
+    /// <summary>The menu constructor.</summary>
     /// <param name="helper">Simplified API for writing mods.</param>
     /// <param name="warpHelper">A helper class for handling custom warp data.</param>
     // TODO: handle numbers better instead of using arbitrary (and seemingly random) numbers?
@@ -195,9 +163,7 @@ namespace CustomWarps.Common.Menus {
         this._customWarpButtons.Add(new ClickableComponent(new Rectangle(this.xPositionOnScreen + 16, this.yPositionOnScreen + 16 + i * ((this.height - 256) / 4) + 96, this.width - 32 - 96, (this.height - 256) / 4), i.ToString()));
     }
 
-    /// <summary>
-    /// Handles updating menu element positions when game window size changes.
-    /// </summary>
+    /// <summary>Handles updating menu element positions when game window size changes.</summary>
     /// <param name="oldBounds">The bounds before the window size changed.</param>
     /// <param name="newBounds">The bounds after the window size changed.</param>
     public override void gameWindowSizeChanged(Rectangle oldBounds, Rectangle newBounds) {
@@ -226,9 +192,7 @@ namespace CustomWarps.Common.Menus {
         this._customWarpButtons[i].bounds = new Rectangle(this.xPositionOnScreen + 16, this.yPositionOnScreen + 16 + i * ((this.height - 256) / 4) + 96, this.width - 32 - 96, (this.height - 256) / 4);
     }
 
-    /// <summary>
-    /// Handle mouse scroll wheel action.
-    /// </summary>
+    /// <summary>Handle mouse scroll wheel action.</summary>
     /// <param name="direction">Which direction the mouse wheel was scrolled.</param>
     public override void receiveScrollWheelAction(int direction) {
       if (this._dropDown.IsExpanded || this._isAddingNewWarp || this._isNamingWarp)
@@ -243,10 +207,8 @@ namespace CustomWarps.Common.Menus {
         Game1.playSound("shiny4");
       }
     }
-    
-    /// <summary>
-    /// Handle left-click.
-    /// </summary>
+
+    /// <summary>Handle left-click.</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="playSound"></param>
@@ -337,9 +299,7 @@ namespace CustomWarps.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handle left-click release.
-    /// </summary>
+    /// <summary>Handle left-click release.</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="playSound"></param>
@@ -353,9 +313,7 @@ namespace CustomWarps.Common.Menus {
         this.HandleSortCustomWarps();
     }
 
-    /// <summary>
-    /// Handle left-click hold.
-    /// </summary>
+    /// <summary>Handle left-click hold.</summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <param name="playSound"></param>
@@ -373,9 +331,7 @@ namespace CustomWarps.Common.Menus {
         Game1.playSound("shiny4");
     }
 
-    /// <summary>
-    /// Handle hovering over elements.
-    /// </summary>
+    /// <summary>Handle hovering over elements.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     public override void performHoverAction(int x, int y) {
@@ -413,10 +369,8 @@ namespace CustomWarps.Common.Menus {
       // if (this._makeWarpGlobalButton.containsPoint(x, y))
       //   this._hoverText = this._makeWarpGlobalButton.hoverText;
     }
-    
-    /// <summary>
-    /// Handle key press.
-    /// </summary>
+
+    /// <summary>Handle key press.</summary>
     /// <param name="key">The key that was pressed.</param>
     public override void receiveKeyPress(Keys key) {
       if (key == Keys.Escape)
@@ -425,18 +379,14 @@ namespace CustomWarps.Common.Menus {
         this.exitThisMenu();
     }
 
-    /// <summary>
-    /// Handles automatically selecting the text box when naming (sub)menu is active.
-    /// </summary>
+    /// <summary>Handles automatically selecting the text box when naming (sub)menu is active.</summary>
     /// <param name="time">The game time.</param>
     public override void update(GameTime time) {
       if (this._isNamingWarp)
         this._textBox.SelectMe();
     }
 
-    /// <summary>
-    /// Handles drawing the menu.
-    /// </summary>
+    /// <summary>Handles drawing the menu.</summary>
     /// <param name="b">The SpriteBatch.</param>
     public override void draw(SpriteBatch b) {
       if (!this._isAddingNewWarp && !this._isNamingWarp) {
@@ -526,9 +476,7 @@ namespace CustomWarps.Common.Menus {
       this.drawMouse(b);
     }
 
-    /// <summary>
-    /// Update the custom warp list and load the last selected tab.
-    /// </summary>
+    /// <summary>Update the custom warp list and load the last selected tab.</summary>
     private void ReloadWarps() {
       this._customWarpsDefault.Clear();
       this._customWarps.Clear();
@@ -539,9 +487,7 @@ namespace CustomWarps.Common.Menus {
       this.HandleSwitchTab(_lastSelectedTab);
     }
 
-    /// <summary>
-    /// Get the background color for the warp item.
-    /// </summary>
+    /// <summary>Get the background color for the warp item.</summary>
     /// <param name="currentWarpButton">The warp button.</param>
     private Color GetWarpBackgroundColor(ClickableComponent currentWarpButton) {
       if (!currentWarpButton.containsPoint(Game1.getOldMouseX(), Game1.getOldMouseY()))
@@ -553,9 +499,7 @@ namespace CustomWarps.Common.Menus {
       return !this._isScrolling && !this._dropDown.IsExpanded ? Color.Wheat : Color.White;
     }
 
-    /// <summary>
-    /// Handles the <see cref="TextBox"/> enter input.
-    /// </summary>
+    /// <summary>Handles the <see cref="TextBox" /> enter input.</summary>
     /// <param name="sender">The textbox.</param>
     private void TextBoxEnter(TextBox sender) {
       if (!this._isNamingWarp || sender.Text.Length < 1)
@@ -586,9 +530,7 @@ namespace CustomWarps.Common.Menus {
       this.ReloadWarps();
     }
 
-    /// <summary>
-    /// Sorts custom warps.
-    /// </summary>
+    /// <summary>Sorts custom warps.</summary>
     private void HandleSortCustomWarps() {
       _lastSelectedSortingOption = this._dropDown.SelectedValue;
 
@@ -621,9 +563,7 @@ namespace CustomWarps.Common.Menus {
       // }
     }
 
-    /// <summary>
-    /// Handle switching to a different tab.
-    /// </summary>
+    /// <summary>Handle switching to a different tab.</summary>
     /// <param name="newTab">The name of the new tab.</param>
     private void HandleSwitchTab(string newTab) {
       _lastSelectedTab = newTab;
@@ -642,9 +582,7 @@ namespace CustomWarps.Common.Menus {
       this.SetScrollBarToCurrentIndex();
     }
 
-    /// <summary>
-    /// Set the scrollbar to the current selected warp index.
-    /// </summary>
+    /// <summary>Set the scrollbar to the current selected warp index.</summary>
     private void SetScrollBarToCurrentIndex() {
       if (this._customWarps.Count <= 0)
         return;
@@ -653,18 +591,14 @@ namespace CustomWarps.Common.Menus {
       if (this._currentItemIndex == this._customWarps.Count - MAX_VISIBLE_ITEMS) this._scrollBar.bounds.Y = this._downArrow.bounds.Y - this._scrollBar.bounds.Height - 4;
     }
 
-    /// <summary>
-    /// Simulate pressing the up arrow.
-    /// </summary>
+    /// <summary>Simulate pressing the up arrow.</summary>
     private void SimulateUpArrowPressed() {
       this._upArrow.scale = this._upArrow.baseScale;
       this._currentItemIndex--;
       this.SetScrollBarToCurrentIndex();
     }
 
-    /// <summary>
-    /// Simulate pressing the down arrow.
-    /// </summary>
+    /// <summary>Simulate pressing the down arrow.</summary>
     private void SimulateDownArrowPressed() {
       this._downArrow.scale = this._downArrow.baseScale;
       this._currentItemIndex++;

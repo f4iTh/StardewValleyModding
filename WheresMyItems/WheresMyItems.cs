@@ -11,23 +11,16 @@ using WheresMyItems.Common.Enums;
 using WheresMyItems.Common.Menus;
 
 namespace WheresMyItems {
-  /// <summary>
-  /// The mod entry point.
-  /// </summary>
+  /// <summary>The mod entry point.</summary>
   public class WheresMyItems : Mod {
-    /// <summary>
-    /// The mod configuration.
-    /// </summary>
+    /// <summary>The mod configuration.</summary>
     private ModConfig _config;
-    /// <summary>
-    /// A dictionary containing the chest coordinate and the items in the chest.
-    /// </summary>
+
+    /// <summary>A dictionary containing the chest coordinate and the items in the chest.</summary>
     private IDictionary<Vector2, IEnumerable<Item>> _items = new Dictionary<Vector2, IEnumerable<Item>>();
     // private ModIntegrations _integrations;
 
-    /// <summary>
-    /// The mod entry point method.
-    /// </summary>
+    /// <summary>The mod entry point method.</summary>
     /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
@@ -40,7 +33,7 @@ namespace WheresMyItems {
       helper.Events.Display.RenderedWorld += this.DrawGuideArrowsAfterMenuClose;
     }
 
-    /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+    /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnGameLaunched(object sender, GameLaunchedEventArgs e) {
@@ -57,8 +50,8 @@ namespace WheresMyItems {
         () => { this.Helper.WriteConfig(this._config); }
       ).Register();
     }
-    
-    /// <inheritdoc cref="IGameLoopEvents.UpdateTicked"/>
+
+    /// <inheritdoc cref="IGameLoopEvents.UpdateTicked" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnUpdateTicked(object sender, UpdateTickedEventArgs e) {
@@ -74,7 +67,7 @@ namespace WheresMyItems {
         this._items.Clear();
     }
 
-    /// <inheritdoc cref="IDisplayEvents.RenderedWorld"/>
+    /// <inheritdoc cref="IDisplayEvents.RenderedWorld" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void DrawGuideArrowsAfterMenuClose(object sender, RenderedWorldEventArgs e) {
@@ -90,7 +83,7 @@ namespace WheresMyItems {
       }
     }
 
-    /// <inheritdoc cref="IInputEvents.ButtonsChanged"/>
+    /// <inheritdoc cref="IInputEvents.ButtonsChanged" />
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e) {

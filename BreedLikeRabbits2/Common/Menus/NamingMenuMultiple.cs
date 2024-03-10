@@ -7,43 +7,31 @@ using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 
 namespace BreedLikeRabbits2.Common.Menus {
-  /// <summary>
-  /// A naming menu capable of handling the naming of multiple rabbits.
-  /// </summary>
+  /// <summary>A naming menu capable of handling the naming of multiple rabbits.</summary>
   // TODO: make menu reusable?
   public class NamingMenuMultiple : NamingMenu {
-    /// <summary>
-    /// The 
-    /// </summary>
+    /// <summary>The</summary>
     public delegate void DoneNamingBehavior(string[] names, FarmAnimal[] newRabbits);
-    /// <summary>
-    /// The
-    /// </summary>
+
+    /// <summary>The</summary>
     private readonly DoneNamingBehavior _doneNaming;
-    /// <summary>
-    /// The new names.
-    /// </summary>
+
+    /// <summary>The new names.</summary>
     private readonly List<string> _names;
-    /// <summary>
-    /// The new rabbits.
-    /// </summary>
+
+    /// <summary>The new rabbits.</summary>
     private readonly FarmAnimal[] _newRabbits;
-    /// <summary>
-    /// The menu title.
-    /// </summary>
+
+    /// <summary>The menu title.</summary>
     private readonly IReflectedField<string> _title;
-    /// <summary>
-    /// The current index.
-    /// </summary>
+
+    /// <summary>The current index.</summary>
     private int _currentNameIndex;
-    /// <summary>
-    /// How many names are remaining.
-    /// </summary>
+
+    /// <summary>How many names are remaining.</summary>
     private int _namesRemaining;
 
-    /// <summary>
-    /// The menu constructor.
-    /// </summary>
+    /// <summary>The menu constructor.</summary>
     /// <param name="behavior">The behavior to apply after naming is done.</param>
     /// <param name="newRabbits">The new rabbits to be named.</param>
     /// <param name="reflectionHelper">An API for accessing inaccessible code.</param>
@@ -60,9 +48,7 @@ namespace BreedLikeRabbits2.Common.Menus {
       this.UpdateTitleText();
     }
 
-    /// <summary>
-    /// Handles left-click input.
-    /// </summary>
+    /// <summary>Handles left-click input.</summary>
     /// <param name="x">The cursor x-coordinate.</param>
     /// <param name="y">The cursor y-coordinate.</param>
     /// <param name="playSound">Whether to play sound.</param>
@@ -80,9 +66,7 @@ namespace BreedLikeRabbits2.Common.Menus {
       }
     }
 
-    /// <summary>
-    /// Handles drawing the menu.
-    /// </summary>
+    /// <summary>Handles drawing the menu.</summary>
     /// <param name="b">The SpriteBatch.</param>
     public override void draw(SpriteBatch b) {
       // base.draw(b);
@@ -99,9 +83,7 @@ namespace BreedLikeRabbits2.Common.Menus {
       this.drawMouse(b);
     }
 
-    /// <summary>
-    /// Handles the <see cref="TextBox"/> enter input.
-    /// </summary>
+    /// <summary>Handles the <see cref="TextBox" /> enter input.</summary>
     /// <param name="sender">The textbox.</param>
     private void TextBoxEnter(TextBox sender) {
       if (sender.Text.Length < this.minLength)
@@ -129,9 +111,7 @@ namespace BreedLikeRabbits2.Common.Menus {
       Game1.exitActiveMenu();
     }
 
-    /// <summary>
-    /// Updates the menu title text.
-    /// </summary>
+    /// <summary>Updates the menu title text.</summary>
     private void UpdateTitleText() {
       this._title.SetValue(I18n.Strings_Namingmenu_Title(this._namesRemaining, this._namesRemaining > 1 ? I18n.Strings_Namingmenu_Multipleremaining() : I18n.Strings_Namingmenu_Oneremaining()));
     }

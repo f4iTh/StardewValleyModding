@@ -5,34 +5,24 @@ using ModCommon.Api.GenericModConfigMenu;
 using StardewModdingAPI;
 
 namespace ActivateSprinklers.Common.Configs {
-  /// <summary>
-  /// A class for handling Generic Mod Config Menu integration.
-  /// </summary>
+  /// <summary>A class for handling Generic Mod Config Menu integration.</summary>
   public class GenericModConfig {
-    /// <summary>
-    /// Generic Mod Config Menu integration.
-    /// </summary>
+    /// <summary>Generic Mod Config Menu integration.</summary>
     private readonly IGenericModConfigMenuApi _configMenu;
-    /// <summary>
-    /// The function to get the current config.
-    /// </summary>
+
+    /// <summary>The function to get the current config.</summary>
     private readonly Func<ModConfig> _getConfig;
-    /// <summary>
-    /// The mod manifest.
-    /// </summary>
+
+    /// <summary>The mod manifest.</summary>
     private readonly IManifest _modManifest;
-    /// <summary>
-    /// Reset to default values.
-    /// </summary>
+
+    /// <summary>Reset to default values.</summary>
     private readonly Action _reset;
-    /// <summary>
-    /// Save and apply changes.
-    /// </summary>
+
+    /// <summary>Save and apply changes.</summary>
     private readonly Action _save;
 
-    /// <summary>
-    /// The constructor for creating <see cref="IGenericModConfigMenuApi"/> integration.
-    /// </summary>
+    /// <summary>The constructor for creating <see cref="IGenericModConfigMenuApi" /> integration.</summary>
     /// <param name="modRegistry">The mod registry.</param>
     /// <param name="modManifest">The mod manifest.</param>
     /// <param name="getConfig">Get the current config.</param>
@@ -47,9 +37,7 @@ namespace ActivateSprinklers.Common.Configs {
       this._save = save;
     }
 
-    /// <summary>
-    /// Creates the mod config menu if available.
-    /// </summary>
+    /// <summary>Creates the mod config menu if available.</summary>
     public void Register() {
       IGenericModConfigMenuApi genericModConfig = this._configMenu;
       if (genericModConfig == null)
@@ -90,10 +78,8 @@ namespace ActivateSprinklers.Common.Configs {
       );
     }
 
-    /// <summary>
-    /// Translates the <see cref="SprinklerAnimation"/> text.
-    /// </summary>
-    /// <param name="animationString">A string representation of <see cref="SprinklerAnimation"/></param>
+    /// <summary>Translates the <see cref="SprinklerAnimation" /> text.</summary>
+    /// <param name="animationString">A string representation of <see cref="SprinklerAnimation" /></param>
     private static string TranslateSprinklerAnimation(string animationString) {
       if (!Enum.TryParse(animationString, out SprinklerAnimation animation))
         return animationString;
@@ -106,11 +92,9 @@ namespace ActivateSprinklers.Common.Configs {
       };
     }
 
-    
-    /// <summary>
-    /// Translates the <see cref="AdjacentTileDirection"/> text.
-    /// </summary>
-    /// <param name="adjacentTileDirectionString">A string representation of <see cref="AdjacentTileDirection"/></param>
+
+    /// <summary>Translates the <see cref="AdjacentTileDirection" /> text.</summary>
+    /// <param name="adjacentTileDirectionString">A string representation of <see cref="AdjacentTileDirection" /></param>
     private static string TranslateAdjacentTileDirection(string adjacentTileDirectionString) {
       if (!Enum.TryParse(adjacentTileDirectionString, out AdjacentTileDirection direction))
         return adjacentTileDirectionString;
