@@ -8,8 +8,15 @@ using StardewModdingAPI;
 using StardewValley;
 
 namespace AdjustBabyChance.Common.IL {
+  /// <summary>
+  /// The class containing a transpiler patch for <see cref="Utility.pickPersonalFarmEvent"/>.
+  /// </summary>
   [HarmonyPatch(typeof(Utility), "pickPersonalFarmEvent")]
   public static class EventPatch {
+    /// <summary>
+    /// The transpiler patch.
+    /// </summary>
+    /// <param name="instructions">The <see cref="CodeInstruction"/></param>
     [HarmonyTranspiler]
     internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
       IEnumerable<CodeInstruction> codeInstructions = instructions as CodeInstruction[] ?? instructions.ToArray();

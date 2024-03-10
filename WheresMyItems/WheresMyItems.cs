@@ -11,11 +11,24 @@ using WheresMyItems.Common.Enums;
 using WheresMyItems.Common.Menus;
 
 namespace WheresMyItems {
+  /// <summary>
+  /// The mod entry point.
+  /// </summary>
   public class WheresMyItems : Mod {
-    // private ModIntegrations _integrations;
+    /// <summary>
+    /// The mod configuration.
+    /// </summary>
     private ModConfig _config;
+    /// <summary>
+    /// A dictionary containing the chest coordinate and the items in the chest.
+    /// </summary>
     private IDictionary<Vector2, IEnumerable<Item>> _items = new Dictionary<Vector2, IEnumerable<Item>>();
+    // private ModIntegrations _integrations;
 
+    /// <summary>
+    /// The mod entry point method.
+    /// </summary>
+    /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       I18n.Init(helper.Translation);
 
@@ -27,6 +40,9 @@ namespace WheresMyItems {
       helper.Events.Display.RenderedWorld += this.DrawGuideArrowsAfterMenuClose;
     }
 
+    /// <inheritdoc cref="IGameLoopEvents.GameLaunched"/>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The event args.</param>
     private void OnGameLaunched(object sender, GameLaunchedEventArgs e) {
       // this._integrations = new ModIntegrations(this.Helper.ModRegistry);
 
@@ -41,7 +57,10 @@ namespace WheresMyItems {
         () => { this.Helper.WriteConfig(this._config); }
       ).Register();
     }
-
+    
+    /// <inheritdoc cref="IGameLoopEvents.UpdateTicked"/>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The event args.</param>
     private void OnUpdateTicked(object sender, UpdateTickedEventArgs e) {
       if (this._config.GuideArrowOption != GuideArrowOption.UntilNextMenu || Game1.activeClickableMenu == null)
         return;
@@ -55,6 +74,9 @@ namespace WheresMyItems {
         this._items.Clear();
     }
 
+    /// <inheritdoc cref="IDisplayEvents.RenderedWorld"/>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The event args.</param>
     private void DrawGuideArrowsAfterMenuClose(object sender, RenderedWorldEventArgs e) {
       if (this._config.GuideArrowOption != GuideArrowOption.UntilNextMenu)
         return;
@@ -68,6 +90,9 @@ namespace WheresMyItems {
       }
     }
 
+    /// <inheritdoc cref="IInputEvents.ButtonsChanged"/>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The event args.</param>
     private void OnButtonsChanged(object sender, ButtonsChangedEventArgs e) {
       if (!Context.IsWorldReady || Game1.player.currentLocation == null || Game1.activeClickableMenu != null || !Context.CanPlayerMove || !this._config.ToggleButton.JustPressed())
         return;

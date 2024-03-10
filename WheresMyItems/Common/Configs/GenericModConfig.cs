@@ -5,14 +5,39 @@ using StardewModdingAPI;
 using WheresMyItems.Common.Enums;
 
 namespace WheresMyItems.Common.Configs {
+  /// <summary>
+  /// A class for handling Generic Mod Config Menu integration.
+  /// </summary>
   public class GenericModConfig {
+    /// <summary>
+    /// Generic Mod Config Menu integration.
+    /// </summary>
     private readonly IGenericModConfigMenuApi _configMenu;
+    /// <summary>
+    /// The function to get the current config.
+    /// </summary>
     private readonly Func<ModConfig> _getConfig;
-
+    /// <summary>
+    /// The mod manifest.
+    /// </summary>
     private readonly IManifest _modManifest;
+    /// <summary>
+    /// Reset to default values.
+    /// </summary>
     private readonly Action _reset;
+    /// <summary>
+    /// Save and apply changes.
+    /// </summary>
     private readonly Action _save;
 
+    /// <summary>
+    /// The constructor for creating <see cref="IGenericModConfigMenuApi"/> integration.
+    /// </summary>
+    /// <param name="modRegistry">The mod registry.</param>
+    /// <param name="modManifest">The mod manifest.</param>
+    /// <param name="getConfig">Get the current config.</param>
+    /// <param name="reset">Reset to default values.</param>
+    /// <param name="save">Save and apply changes.</param>
     public GenericModConfig(IModRegistry modRegistry, IManifest modManifest, Func<ModConfig> getConfig, Action reset, Action save) {
       this._configMenu = modRegistry.GetApi<IGenericModConfigMenuApi>(UniqueModIds.GENERIC_MOD_CONFIG_MENU);
 
@@ -92,7 +117,11 @@ namespace WheresMyItems.Common.Configs {
         GenericModConfig.TranslateGuideArrowOption
       );
     }
-
+    
+    /// <summary>
+    /// Translates the <see cref="ChestHighlightMethod"/> text.
+    /// </summary>
+    /// <param name="highlightMethodString">A string representation of <see cref="ChestHighlightMethod"/></param>
     private static string TranslateHighlightMethod(string highlightMethodString) {
       if (!Enum.TryParse(highlightMethodString, out ChestHighlightMethod highlightMethod))
         return highlightMethodString;
@@ -105,6 +134,10 @@ namespace WheresMyItems.Common.Configs {
       };
     }
 
+    /// <summary>
+    /// Translates the <see cref="ItemDisplayStyle"/> text.
+    /// </summary>
+    /// <param name="drawDirectionString">A string representation of <see cref="ItemDisplayStyle"/></param>
     private static string TranslateDrawDirection(string drawDirectionString) {
       if (!Enum.TryParse(drawDirectionString, out ItemDisplayStyle drawDirection))
         return drawDirectionString;
@@ -118,6 +151,10 @@ namespace WheresMyItems.Common.Configs {
       };
     }
 
+    /// <summary>
+    /// Translates the <see cref="GuideArrowOption"/> text.
+    /// </summary>
+    /// <param name="guideArrowOptionString">A string representation of <see cref="GuideArrowOption"/></param>
     private static string TranslateGuideArrowOption(string guideArrowOptionString) {
       if (!Enum.TryParse(guideArrowOptionString, out GuideArrowOption guideArrowOption))
         return guideArrowOptionString;

@@ -5,14 +5,39 @@ using ModCommon.Api.GenericModConfigMenu;
 using StardewModdingAPI;
 
 namespace CustomWarps.Common.Configs {
+  /// <summary>
+  /// A class for handling Generic Mod Config Menu integration.
+  /// </summary>
   public class GenericModConfig {
+    /// <summary>
+    /// Generic Mod Config Menu integration.
+    /// </summary>
     private readonly IGenericModConfigMenuApi _configMenu;
+    /// <summary>
+    /// The function to get the current config.
+    /// </summary>
     private readonly Func<ModConfig> _getConfig;
-
+    /// <summary>
+    /// The mod manifest.
+    /// </summary>
     private readonly IManifest _modManifest;
+    /// <summary>
+    /// Reset to default values.
+    /// </summary>
     private readonly Action _reset;
+    /// <summary>
+    /// Save and apply changes.
+    /// </summary>
     private readonly Action _save;
 
+    /// <summary>
+    /// The constructor for creating <see cref="IGenericModConfigMenuApi"/> integration.
+    /// </summary>
+    /// <param name="modRegistry">The mod registry.</param>
+    /// <param name="modManifest">The mod manifest.</param>
+    /// <param name="getConfig">Get the current config.</param>
+    /// <param name="reset">Reset to default values.</param>
+    /// <param name="save">Save and apply changes.</param>
     public GenericModConfig(IModRegistry modRegistry, IManifest modManifest, Func<ModConfig> getConfig, Action reset, Action save) {
       this._configMenu = modRegistry.GetApi<IGenericModConfigMenuApi>(UniqueModIds.GENERIC_MOD_CONFIG_MENU);
 
@@ -22,6 +47,9 @@ namespace CustomWarps.Common.Configs {
       this._save = save;
     }
 
+    /// <summary>
+    /// Creates the mod config menu if available.
+    /// </summary>
     public void Register() {
       IGenericModConfigMenuApi genericModConfig = this._configMenu;
       if (genericModConfig == null)
@@ -84,6 +112,10 @@ namespace CustomWarps.Common.Configs {
       );
     }
 
+    /// <summary>
+    /// Translates the <see cref="MenuStyle"/> text.
+    /// </summary>
+    /// <param name="menuStyleString">A string representation of <see cref="MenuStyle"/></param>
     private static string TranslateMenuStyle(string menuStyleString) {
       if (!Enum.TryParse(menuStyleString, out MenuStyle menuStyle))
         return menuStyleString;

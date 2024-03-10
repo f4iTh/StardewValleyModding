@@ -7,11 +7,21 @@ using StardewValley;
 using StardewValley.Tools;
 
 namespace ShowCatchQuality {
+  /// <summary>
+  /// The mod entry point.
+  /// </summary>
   public class ModEntry : Mod {
+    /// <summary>
+    /// The mod entry point method.
+    /// </summary>
+    /// <param name="helper">The mod helper.</param>
     public override void Entry(IModHelper helper) {
       helper.Events.Display.RenderedWorld += this.OnRenderedWorld;
     }
 
+    /// <inheritdoc cref="IDisplayEvents.RenderedWorld"/>
+    /// <param name="sender">The event sender.</param>
+    /// <param name="e">The event args.</param>
     private void OnRenderedWorld(object sender, RenderedWorldEventArgs e) {
       if (Game1.activeClickableMenu != null || Game1.player.CurrentTool == null || Game1.player.CurrentTool is not FishingRod fishingRod || !((FishingRod)Game1.player.CurrentTool).fishCaught)
         return;
