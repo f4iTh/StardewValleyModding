@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28822.285
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActivateSprinklers", "ActivateSprinklers\ActivateSprinklers.csproj", "{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}"
 EndProject
@@ -23,52 +23,62 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdjustBabyChance", "AdjustBabyChance\AdjustBabyChance.csproj", "{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustBabyChance", "AdjustBabyChance\AdjustBabyChance.csproj", "{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleREPL", "ConsoleREPL\ConsoleREPL.csproj", "{CC756513-CF1B-4CF9-B88D-46443EECFE24}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Common\Common.projitems*{4b2edbd8-4817-4a3b-9d01-49ea9096c4f5}*SharedItemsImports = 5
-		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
-		Common\Common.projitems*{fe84b822-2333-43ee-b56e-65b00d729ab4}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B2EDBD8-4817-4A3B-9D01-49EA9096C4F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED07DE-F5C1-4CA6-9633-9EFF844FA4CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B4F0C5-63B4-4BDF-83D2-A9284B1CC8E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE84B822-2333-43EE-B56E-65B00D729AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5F7404-9A0F-438C-BBD2-EE48D71E696D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791B6854-A4CD-4BCE-8005-C3B070A59EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B16CDEB-E6E2-4796-8477-77A0E1C8F164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC756513-CF1B-4CF9-B88D-46443EECFE24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC756513-CF1B-4CF9-B88D-46443EECFE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC756513-CF1B-4CF9-B88D-46443EECFE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC756513-CF1B-4CF9-B88D-46443EECFE24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF5EA02-8EBC-4FCF-8E9F-18E02EADC6EC}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\Common.projitems*{4b2edbd8-4817-4a3b-9d01-49ea9096c4f5}*SharedItemsImports = 5
+		Common\Common.projitems*{7b16cdeb-e6e2-4796-8477-77a0e1c8f164}*SharedItemsImports = 5
+		Common\Common.projitems*{7bae9199-15df-41a8-ab1f-24d9e8394384}*SharedItemsImports = 13
+		Common\Common.projitems*{7fed07de-f5c1-4ca6-9633-9eff844fa4ce}*SharedItemsImports = 5
+		Common\Common.projitems*{cc756513-cf1b-4cf9-b88d-46443eecfe24}*SharedItemsImports = 5
+		Common\Common.projitems*{cd5f7404-9a0f-438c-bbd2-ee48d71e696d}*SharedItemsImports = 5
+		Common\Common.projitems*{fe84b822-2333-43ee-b56e-65b00d729ab4}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
