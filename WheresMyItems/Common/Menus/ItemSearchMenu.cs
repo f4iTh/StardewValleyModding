@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using ModCommon.Extensions;
 using Netcode;
 using StardewValley;
+using StardewValley.Inventories;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using WheresMyItems.Common.Configs;
@@ -187,7 +188,7 @@ namespace WheresMyItems.Common.Menus {
         return;
 
       foreach (KeyValuePair<Vector2, SObject> obj in Game1.player.currentLocation.Objects.Pairs.Where(pair => pair.Value is Chest)) {
-        NetObjectList<Item> items = (obj.Value as Chest)?.items;
+        Inventory items = (obj.Value as Chest)?.Items;
         if (items == null || !items.Any())
           continue;
 
