@@ -8,6 +8,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Buildings;
+using StardewValley.GameData.FarmAnimals;
 
 namespace BreedLikeRabbits2 {
   /// <summary>The mod entry point.</summary>
@@ -86,7 +87,8 @@ namespace BreedLikeRabbits2 {
       FarmAnimal[] buckArray = this._config.IgnoreGender ? ModEntry.GetBreeders(farm).ToArray() : ModEntry.GetMatureMales(farm).ToArray();
 
       foreach (FarmAnimal parent in farm.getAllFarmAnimals()) {
-        if (parent.type.Value != "Rabbit" || parent.age.Value < parent.ageWhenMature.Value + 14 || (parent.isMale() && !this._config.IgnoreGender))
+        FarmAnimalData parentData = parent.GetAnimalData();
+        if (parent.type.Value != "Rabbit" || parent.age.Value < parentData.DaysToMature + 14 || (parent.isMale() && !this._config.IgnoreGender))
           continue;
 
         // make sure parents are from the same coop when not ignoring gender
@@ -141,7 +143,7 @@ namespace BreedLikeRabbits2 {
       double happinessBonus = 0.0;
       double friendshipBonus = 0.0;
       double seasonBonus = 0.0;
-      double baseRate = 1.0 / this._config.BaseRate - farmAnimal.daysSinceLastFed.Value / 20.0;
+      double baseRate = 1.0 / this._config.BaseRate;
       double rabbitCountChance = buckCount / 100.0;
 
       if (rabbitCountChance > 0.03)
@@ -212,9 +214,9 @@ namespace BreedLikeRabbits2 {
         parentId = {
           Value = parent.myID.Value
         },
-        homeLocation = {
-          Value = new Vector2(building.tileX.Value, building.tileY.Value)
-        }
+        // homeLocation = {
+        //   Value = new Vector2(building.tileX.Value, building.tileY.Value)
+        // }
       };
 
       return farmAnimal;
@@ -271,7 +273,7 @@ namespace BreedLikeRabbits2 {
     /// <summary>Gets the count of available breeders on the farm.</summary>
     /// <param name="farm">The farm location.</param>
     private static IEnumerable<FarmAnimal> GetBreeders(Farm farm) {
-      return farm.getAllFarmAnimals().Where(farmAnimal => farmAnimal.type.Value == "Rabbit" && farmAnimal.age.Value >= farmAnimal.ageWhenMature.Value + 14);
+      return farm.getAllFarmAnimals().Where(farmAnimal => farmAnimal.type.Value == "Rabbit" && farmAnimal.age.Value >= farmAnimal.GetAnimalData().DaysToMature + 14);
 
       // int totalRabbits = 0;
       // int totalBreeders = 0;

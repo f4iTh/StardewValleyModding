@@ -3,13 +3,13 @@
         <AssemblyName>AdjustBabyChance</AssemblyName>
         <RootNamespace>AdjustBabyChance</RootNamespace>
         <Version>1.0.0</Version>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <Platforms>AnyCPU</Platforms>
         <PlatformTarget>AnyCPU</PlatformTarget>
         <EnableHarmony>true</EnableHarmony>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ModZipPath>$(SolutionDir)releases\AdjustBabyChance</ModZipPath>
-        <LangVersion>9</LangVersion>
+        <LangVersion>latestmajor</LangVersion>
         <Configurations>Debug;Release</Configurations>
     </PropertyGroup>
     <ItemGroup>

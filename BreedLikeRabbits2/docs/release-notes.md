@@ -2,6 +2,14 @@
 
 # Release notes
 
+## 1.1.2
+
+- Updated for SMAPI 4.0.0 and Stardew Valley 1.6
+
+## 1.1.1
+
+- Fixed the naming menu just closing when pressing the `Enter` key
+
 ## 1.1.0
 
 - Added default i18n translations (english)

@@ -7,13 +7,15 @@ using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 
 namespace BreedLikeRabbits2.Common.Menus {
-  /// <summary>A naming menu capable of handling the naming of multiple rabbits.</summary>
   // TODO: make menu reusable?
+  /// <summary>A naming menu capable of handling the naming of multiple rabbits.</summary>
   public class NamingMenuMultiple : NamingMenu {
-    /// <summary>The</summary>
+    /// <summary>Post-naming behavior.</summary>
+    /// <param name="names">The new names.</param>
+    /// <param name="newRabbits">The new rabbits.</param>
     public delegate void DoneNamingBehavior(string[] names, FarmAnimal[] newRabbits);
 
-    /// <summary>The</summary>
+    /// <summary>The method to execute after naming is done.</summary>
     private readonly DoneNamingBehavior _doneNaming;
 
     /// <summary>The new names.</summary>
@@ -38,12 +40,13 @@ namespace BreedLikeRabbits2.Common.Menus {
     /// <param name="defaultName">The default name.</param>
     // TODO: get rid of reflectionhelper?
     public NamingMenuMultiple(DoneNamingBehavior behavior, FarmAnimal[] newRabbits, IReflectionHelper reflectionHelper, string defaultName = null) : base(null, string.Empty) {
-      this._currentNameIndex = 0;
       this._doneNaming = behavior;
       this._title = reflectionHelper.GetField<string>(this, "title");
       this._names = new List<string>();
       this._newRabbits = newRabbits;
       this._namesRemaining = this._newRabbits.Length;
+      this.textBox.OnEnterPressed -= this.textBoxEnter;
+      this.textBox.OnEnterPressed += this.TextBoxEnter;
       this.textBox.Text = defaultName ?? Dialogue.randomName();
       this.UpdateTitleText();
     }
@@ -53,13 +56,14 @@ namespace BreedLikeRabbits2.Common.Menus {
     /// <param name="y">The cursor y-coordinate.</param>
     /// <param name="playSound">Whether to play sound.</param>
     public override void receiveLeftClick(int x, int y, bool playSound = true) {
-      // base.receiveLeftClick(x, y, playSound);
       this.textBox.Update();
+      
       if (this.doneNamingButton.containsPoint(x, y)) {
         this.TextBoxEnter(this.textBox);
         Game1.playSound("smallSelect");
       }
-      else if (this.randomButton.containsPoint(x, y)) {
+      
+      if (this.randomButton.containsPoint(x, y)) {
         this.textBox.Text = Dialogue.randomName();
         this.randomButton.scale = this.randomButton.baseScale;
         Game1.playSound("drumkit6");
@@ -77,8 +81,10 @@ namespace BreedLikeRabbits2.Common.Menus {
       this.randomButton.draw(b);
 
       // draw gender icon for current rabbit
-      Rectangle genderIconRect = new(this._newRabbits[this._currentNameIndex].isMale() ? 128 : 144, 192, 16, 16);
-      b.Draw(Game1.mouseCursors, new Vector2(this.randomButton.bounds.X + this.randomButton.bounds.Width, this.randomButton.bounds.Y - 16f), genderIconRect, Color.White, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+      if (this._currentNameIndex <= this._newRabbits.Length - 1) {
+        Rectangle genderIconRect = new(this._newRabbits[this._currentNameIndex].isMale() ? 128 : 144, 192, 16, 16);
+        b.Draw(Game1.mouseCursors, new Vector2(this.randomButton.bounds.X + this.randomButton.bounds.Width, this.randomButton.bounds.Y - 16f), genderIconRect, Color.White, 0f, Vector2.Zero, Game1.pixelZoom, SpriteEffects.None, 1f);
+      }
 
       this.drawMouse(b);
     }
@@ -98,16 +104,8 @@ namespace BreedLikeRabbits2.Common.Menus {
         return;
       }
 
-      if (this._doneNaming != null && this._namesRemaining == 1) {
-        this._names.Add(sender.Text);
-        this._namesRemaining--; // is this needed?
-        this._currentNameIndex++; // is this needed?
-        this._doneNaming(this._names.ToArray(), this._newRabbits);
-        this.textBox.Selected = false;
-        // this.exitFunction?.Invoke();
-        Game1.exitActiveMenu();
-      }
-
+      this._names.Add(sender.Text);
+      this._doneNaming?.Invoke(this._names.ToArray(), this._newRabbits);
       Game1.exitActiveMenu();
     }
 

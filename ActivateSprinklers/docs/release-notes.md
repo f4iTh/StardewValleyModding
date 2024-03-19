@@ -2,6 +2,10 @@
 
 # Release notes
 
+## 1.3.1
+
+- Updated for SMAPI 4.0.0 and Stardew Valley 1.6
+
 ## 1.3.0
 
 - Added default i18n translations (english)

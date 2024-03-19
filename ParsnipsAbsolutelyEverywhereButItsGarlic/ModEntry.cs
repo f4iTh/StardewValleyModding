@@ -23,9 +23,8 @@ namespace ParsnipsAbsolutelyEverywhereButItsGarlic {
         for (int y = 0; y < farm.map.Layers[0].LayerSize.Height; y++)
           farm.makeHoeDirt(new Vector2(x, y));
 
-        foreach ((Vector2 tile, TerrainFeature terrainFeature) in farm.terrainFeatures.Pairs) {
-          HoeDirt dirt = terrainFeature as HoeDirt;
-          dirt?.plant(476, (int)tile.X, (int)tile.Y, Game1.player, false, farm);
+        foreach (HoeDirt dirt in from TerrainFeature terrainFeature in farm.terrainFeatures.Values select terrainFeature as HoeDirt) {
+          dirt?.plant("476", Game1.player, false);
           dirt?.crop?.growCompletely();
         }
       }

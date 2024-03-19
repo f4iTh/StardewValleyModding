@@ -81,7 +81,7 @@ namespace ActivateSprinklers {
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || (Game1.player.CurrentItem != null && (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915) || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
+      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
         return;
 
       // if (!this.Helper.Input.IsDown(SButton.ControllerA))
@@ -125,7 +125,7 @@ namespace ActivateSprinklers {
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && (Utility.IsNormalObjectAtParentSheetIndex(Game1.player.CurrentItem, 915) || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
+      if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
         return;
 
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
@@ -177,8 +177,8 @@ namespace ActivateSprinklers {
 
       GameLocation location = Game1.player.currentLocation;
       float currentStamina = Game1.player.Stamina;
-      int oldPower = Game1.player.toolPower;
-      Game1.player.toolPower = 0;
+      int oldPower = Game1.player.toolPower.Value;
+      Game1.player.toolPower.Value = 0;
       WateringCan wateringCan = new() { WaterLeft = 100 };
 
       if (this._config.SprinklerAnimation == SprinklerAnimation.NewDayAnimation)
@@ -189,9 +189,9 @@ namespace ActivateSprinklers {
           continue;
 
         if (location.terrainFeatures.ContainsKey(tile))
-          location.terrainFeatures[tile].performToolAction(wateringCan, 0, tile, Game1.player.currentLocation);
+          location.terrainFeatures[tile].performToolAction(wateringCan, 0, tile);
         if (location.Objects.ContainsKey(tile))
-          location.Objects[tile].performToolAction(wateringCan, Game1.player.currentLocation);
+          location.Objects[tile].performToolAction(wateringCan);
         location.performToolAction(wateringCan, (int)tile.X, (int)tile.Y);
 
         if (this._config.SprinklerAnimation == SprinklerAnimation.WateringCanAnimation)
@@ -203,7 +203,7 @@ namespace ActivateSprinklers {
         Game1.player.stamina = currentStamina;
       }
 
-      Game1.player.toolPower = oldPower;
+      Game1.player.toolPower.Value = oldPower;
     }
 
     /// <summary>Gets the custom sprinkler coverage.</summary>
