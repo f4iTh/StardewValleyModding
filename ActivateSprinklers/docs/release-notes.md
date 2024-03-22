@@ -2,6 +2,10 @@
 
 # Release notes
 
+## 1.3.2
+
+- Fixed constant error spam when the (internal) name for an item does not exist.
+
 ## 1.3.1
 
 - Updated for SMAPI 4.0.0 and Stardew Valley 1.6

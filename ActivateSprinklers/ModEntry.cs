@@ -81,7 +81,10 @@ namespace ActivateSprinklers {
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldController(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck || (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
+      if (!ModEntry.IsReady() || !Game1.options.gamepadControls || this._didGrabTileCheck)
+        return;
+
+      if (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || (Game1.player.CurrentItem.Name != null && Game1.player.CurrentItem.Name.Contains("sprinkler", StringComparison.OrdinalIgnoreCase))))
         return;
 
       // if (!this.Helper.Input.IsDown(SButton.ControllerA))
@@ -125,7 +128,10 @@ namespace ActivateSprinklers {
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The event args.</param>
     private void HandleActionButtonHeldKeyboard(object sender, UpdateTickingEventArgs e) {
-      if (!ModEntry.IsReady() || (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || Game1.player.CurrentItem.Name.ToLower().Contains("sprinkler"))))
+      if (!ModEntry.IsReady())
+        return;
+      
+      if (Game1.player.CurrentItem != null && (Game1.player.CurrentItem.QualifiedItemId == "(O)915" || (Game1.player.CurrentItem.Name != null && Game1.player.CurrentItem.Name.Contains("sprinkler", StringComparison.OrdinalIgnoreCase))))
         return;
 
       Vector2 tile = this.Helper.Input.GetCursorPosition().GrabTile;
@@ -234,7 +240,6 @@ namespace ActivateSprinklers {
     /// <param name="sprinkler">The sprinkler <see cref="StardewValley.Object" /></param>
     /// <param name="origin">The origin tile.</param>
     /// <param name="customSprinklerCoverage">The custom sprinkler coverage.</param>
-    /// <returns></returns>
     private static IEnumerable<Vector2> GetCoverage(SObject sprinkler, Vector2 origin, IDictionary<int, Vector2[]> customSprinklerCoverage) {
       IEnumerable<Vector2> sprinklerCoverage = sprinkler.GetSprinklerTiles();
 
@@ -394,9 +399,8 @@ namespace ActivateSprinklers {
     }
 
     /// <summary>Whether everything is ready.</summary>
-    /// <returns>A boolean of whether everything is ready.</returns>
     private static bool IsReady() {
-      return Context.IsWorldReady && Game1.currentLocation != null && Game1.player.CanMove && !Game1.player.hasMenuOpen.Value;
+      return Context.IsWorldReady && Game1.player.currentLocation != null && Game1.player.CanMove && !Game1.player.hasMenuOpen.Value;
     }
   }
 }
