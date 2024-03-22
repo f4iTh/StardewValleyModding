@@ -75,6 +75,9 @@ namespace CustomWarps.Common.Menus {
 
     /// <inheritdoc cref="WarpHelper" />
     private readonly WarpHelper _warpHelper;
+    
+    /// <summary>Whether to close the menu after a warp.</summary>
+    private readonly bool _closeMenuOnWarp;
 
     /// <summary>The current warp index.</summary>
     private int _currentItemIndex;
@@ -105,19 +108,23 @@ namespace CustomWarps.Common.Menus {
 
     /// <summary>The rectangle behind the scrollbar element that can be clicked.</summary>
     private Rectangle _scrollBarRunner;
+    
+    // ///<summary>The search button.</summary>
     // private readonly ClickableTextureComponent _searchButton;
 
     /// <summary>The menu constructor.</summary>
     /// <param name="helper">Simplified API for writing mods.</param>
     /// <param name="warpHelper">A helper class for handling custom warp data.</param>
+    /// <param name="closeMenuOnWarp">Whether to close the menu after a warp.</param>
     // TODO: handle numbers better instead of using arbitrary (and seemingly random) numbers?
     // TODO: better icons for add and remove warp buttons?
     // TODO: separate adding and naming a warp into separate (sub)menus?
     // TODO: handle search text box logic
     // TODO: handle controller logic?
-    public VerticalListWarpMenu(IModHelper helper, WarpHelper warpHelper) {
+    public VerticalListWarpMenu(IModHelper helper, WarpHelper warpHelper, bool closeMenuOnWarp = true) {
       this._helper = helper;
       this._warpHelper = warpHelper;
+      this._closeMenuOnWarp = closeMenuOnWarp;
 
       this.xPositionOnScreen = Game1.uiViewport.Width / 2 - (800 + borderWidth * 2) / 2;
       this.yPositionOnScreen = Game1.uiViewport.Height / 2 - (600 + borderWidth * 2) / 2;
@@ -276,9 +283,11 @@ namespace CustomWarps.Common.Menus {
             location.OnWarp += () => Game1.player.position.Set(new Vector2(warp.TileX, warp.TileY) * 64f);
             Game1.warpFarmer(location, warp.TileX, warp.TileY, Game1.player.FacingDirection);
           }
-
+          
           Game1.playSound("drumkit6");
-          // this.exitThisMenu();
+          
+          if (this._closeMenuOnWarp)
+            this.exitThisMenu();
         }
 
         return;

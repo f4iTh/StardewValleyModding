@@ -56,6 +56,9 @@ namespace CustomWarps.Common.Menus {
     /// <inheritdoc cref="WarpHelper" />
     private readonly WarpHelper _warpHelper;
 
+    /// <summary>Whether to close the menu after a warp.</summary>
+    private readonly bool _closeMenuOnWarp;
+
     /// <summary>The current page.</summary>
     private int _currentPage;
 
@@ -76,23 +79,33 @@ namespace CustomWarps.Common.Menus {
 
     /// <summary>The tile location of the new warp.</summary>
     private Vector2 _newWarpTile;
+    
+    // /// <summary>The warp search text box.</summary>
     // private readonly TextBox _searchTextBox;
+    
+    // ///<summary>Whether the search text box is active.</summary>
     // private bool _isSearching;
+    
+    // ///<summary>The clickable component for the text box.</summary>
     // private readonly ClickableComponent _searchTextBoxComponent;
+    
+    // ///<summary>The search button.</summary>
     // private readonly ClickableTextureComponent _searchButton;
 
     /// <summary>The menu constructor.</summary>
     /// <param name="helper">Simplified API for writing mods.</param>
     /// <param name="warpHelper">A helper class for handling custom warp data.</param>
+    /// <param name="closeMenuOnWarp">Whether to close the menu after a warp.</param>
     /// <param name="maxItemsPerRow">How many items should be visible on one column.</param>
     /// <param name="maxItemsPerColumn">How many items should be visible on one row.</param>
     // TODO: handle vertical list or create a separate menu class for it?
     // TODO: menu handling for controller
-    public GridWarpMenu(IModHelper helper, WarpHelper warpHelper, int maxItemsPerRow = 8, int maxItemsPerColumn = 3) {
+    public GridWarpMenu(IModHelper helper, WarpHelper warpHelper, bool closeMenuOnWarp = true, int maxItemsPerRow = 8, int maxItemsPerColumn = 3) {
       /* : base(Game1.viewport.Width / 2 - (632 + borderWidth * 2) / 2, Game1.viewport.Height / 2 - (600 + borderWidth * 2) / 2 - 64 + 296, 632 + borderWidth * 2, 600 + borderWidth * 2 + 16) */
 
       this._helper = helper;
       this._warpHelper = warpHelper;
+      this._closeMenuOnWarp = closeMenuOnWarp;
       this._maxItemsPerRow = maxItemsPerRow;
       this._maxItemsPerColumn = maxItemsPerColumn + 1; // exclusive upper bound
 
@@ -244,35 +257,23 @@ namespace CustomWarps.Common.Menus {
         //   Game1.playSound("drumkit6");
         // }
 
-        foreach (KeyValuePair<ClickableTextureComponent, CustomWarp> pair in this._customWarpPages[this._currentPage]) {
-          if (!pair.Key.containsPoint(x, y))
-            continue;
-
+        foreach (KeyValuePair<ClickableTextureComponent, CustomWarp> pair in this._customWarpPages[this._currentPage].Where(pair => pair.Key.containsPoint(x, y))) {
           if (this._isRemovingWarp) {
             Game1.player.currentLocation.createQuestionDialogue(I18n.Strings_Removewarp_Questiontext(pair.Value.WarpName), Game1.player.currentLocation.createYesNoResponses(), (_, answer) => {
               if (answer == "Yes") this._warpHelper.TryRemove(pair.Value.WarpUniqueId, pair.Value.IsGlobal);
             });
-            Game1.playSound("drumkit6");
           }
           else {
             // Game1.warpFarmer(pair.Value.MapName, pair.Value.TileX, pair.Value.TileY, false);
             LocationRequest location = Game1.getLocationRequest(pair.Value.MapName);
             location.OnWarp += () => Game1.player.position.Set(new Vector2(pair.Value.TileX, pair.Value.TileY) * 64f);
             Game1.warpFarmer(location, pair.Value.TileX, pair.Value.TileY, Game1.player.FacingDirection);
-            Game1.playSound("drumkit6");
           }
-
-          // if (this._isSearching) {
-          //   this._searchTextBox.Selected = true;
-          //   this._searchTextBox.SelectMe();
-          //   this._searchTextBox.Update();
-          // }
-
-          // if (pair.Key.scale == 0.0) 
-          //   continue;
-          //
-          // pair.Key.scale -= 0.25f;
-          // pair.Key.scale = Math.Max(0.75f, pair.Key.scale);
+          
+          Game1.playSound("drumkit6");
+          
+          if (this._closeMenuOnWarp)
+            this.exitThisMenu();
         }
 
         return;

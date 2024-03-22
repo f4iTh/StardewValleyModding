@@ -61,6 +61,14 @@ namespace CustomWarps.Common.Configs {
         I18n.Config_Menutoggle_Name,
         I18n.Config_Menutoggle_Tooltip
       );
+      
+      genericModConfig.AddBoolOption(
+        this._modManifest,
+        () => this._getConfig().CloseMenuOnWarp,
+        value => this._getConfig().CloseMenuOnWarp = value,
+        I18n.Config_Closeonwarp_Name,
+        I18n.Config_Closeonwarp_Tooltip
+      );
 
       genericModConfig.AddSectionTitle(
         this._modManifest,
@@ -77,27 +85,27 @@ namespace CustomWarps.Common.Configs {
         GenericModConfig.TranslateMenuStyle
       );
 
-      // genericModConfig.AddNumberOption(
-      //   this._modManifest,
-      //   () => this._getConfig().MaxItemsPerGridRow,
-      //   value => this._getConfig().MaxItemsPerGridRow = value,
-      //   I18n.Config_Maxrows_Name,
-      //   I18n.Config_Maxrows_Tooltip,
-      //   1,
-      //   10,
-      //   1
-      // );
-
       genericModConfig.AddNumberOption(
         this._modManifest,
-        () => this._getConfig().MaxGridColumns,
-        value => this._getConfig().MaxGridColumns = value,
+        () => this._getConfig().MaxGridRows,
+        value => this._getConfig().MaxGridRows = value,
         I18n.Config_Maxrows_Name,
         I18n.Config_Maxrows_Tooltip,
         1,
         8,
         1
       );
+
+      // genericModConfig.AddNumberOption(
+      //   this._modManifest,
+      //   () => this._getConfig().MaxGridColumns,
+      //   value => this._getConfig().MaxGridColumns = value,
+      //   I18n.Config_Maxcolumns_Name,
+      //   I18n.Config_Maxcolumns_Tooltip,
+      //   1,
+      //   10,
+      //   1
+      // );
     }
 
     /// <summary>Translates the <see cref="MenuStyle" /> text.</summary>

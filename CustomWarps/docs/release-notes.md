@@ -2,7 +2,11 @@
 
 # Release notes
 
-# 1.1.0
+## 1.1.1
+
+- Added config toggle to close the warp menu after a warp (defaults to `true`)
+
+## 1.1.0
 
 - Added default i18n translations (english)
 - Added Generic Mod Config Menu integration
@@ -12,10 +16,10 @@
 - Added more configuration options:
   - Made the grid-like menu slightly customizable: max columns
 
-# 1.0.1
+## 1.0.1
 
 - Recompile for SMAPI 2.11 compatibility
 
-# 1.0.0
+## 1.0.0
 
 - Initial release

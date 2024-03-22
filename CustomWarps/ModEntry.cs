@@ -61,8 +61,8 @@ namespace CustomWarps {
 
       WarpHelper warpHelper = new(this.Helper.Data);
       Game1.activeClickableMenu = this._config.MenuStyle switch {
-        MenuStyle.LegacyGrid => new GridWarpMenu(this.Helper, warpHelper, maxItemsPerColumn: this._config.MaxGridColumns),
-        MenuStyle.VerticalList => new VerticalListWarpMenu(this.Helper, warpHelper),
+        MenuStyle.LegacyGrid => new GridWarpMenu(this.Helper, warpHelper, this._config.CloseMenuOnWarp, maxItemsPerColumn: this._config.MaxGridRows),
+        MenuStyle.VerticalList => new VerticalListWarpMenu(this.Helper, warpHelper, this._config.CloseMenuOnWarp),
         _ => Game1.activeClickableMenu
       };
     }

@@ -24,6 +24,11 @@ This mod has [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/m
 <td><code>"F7"</code></td>
 </tr>
 <tr>
+<td><code>CloseMenuOnWarp</code></td>
+<td>Whether to close the warp menu after a warp</td>
+<td><code>true</code></td>
+</tr>
+<tr>
 <td><code>MenuStyle</code></td>
 <td>
 
