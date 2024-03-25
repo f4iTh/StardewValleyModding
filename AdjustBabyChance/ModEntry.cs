@@ -1,4 +1,7 @@
-﻿using AdjustBabyChance.Common.Configs;
+﻿using System;
+using System.Reflection;
+using AdjustBabyChance.Common.Configs;
+using AdjustBabyChance.Common.IL;
 using HarmonyLib;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -13,7 +16,7 @@ namespace AdjustBabyChance {
     internal static IMonitor InternalMonitor;
 
     /// <summary>The <see cref="Harmony" /> instance.</summary>
-    private Harmony _harmony;
+    private readonly Harmony _harmony = new("com.f4iTh.AdjustBabyChance");
 
     /// <summary>The mod entry point method.</summary>
     /// <param name="helper">The mod helper.</param>
@@ -28,22 +31,20 @@ namespace AdjustBabyChance {
       helper.ConsoleCommands.Add("setbabychance", I18n.Command_Getchance_Description(), this.SetBabyChanceCommand);
       helper.ConsoleCommands.Add("getbabychance", I18n.Command_Getchance_Description(), this.GetBabyChanceCommand);
 
-      if (_config.QuestionChance is < 0f or > 1f) {
-        switch (_config.QuestionChance) {
-          case < 0f:
-            this.Monitor.Log(I18n.Errors_Value_Under(_config.QuestionChance, "value"), LogLevel.Error);
-            break;
-          case > 1f:
-            this.Monitor.Log(I18n.Errors_Value_Over(_config.QuestionChance, "value"), LogLevel.Error);
-            break;
-        }
-
-        _config.QuestionChance = 0.05f;
-        this.Helper.WriteConfig(_config);
+      if (_config.QuestionChance is >= 0f and <= 1f) 
+        return;
+      
+      switch (_config.QuestionChance) {
+        case < 0f:
+          this.Monitor.Log(I18n.Errors_Value_Under(_config.QuestionChance, "value"), LogLevel.Error);
+          break;
+        case > 1f:
+          this.Monitor.Log(I18n.Errors_Value_Over(_config.QuestionChance, "value"), LogLevel.Error);
+          break;
       }
 
-      this._harmony = new Harmony("com.f4iTh.AdjustBabyChance");
-      this._harmony.PatchAll();
+      _config.QuestionChance = 0.05f;
+      this.Helper.WriteConfig(_config);
     }
 
     /// <inheritdoc cref="IGameLoopEvents.GameLaunched" />
@@ -60,6 +61,13 @@ namespace AdjustBabyChance {
         },
         () => this.Helper.WriteConfig(_config)
       ).Register();
+
+      this._harmony.PatchAll();
+
+      if (!this.Helper.ModRegistry.IsLoaded("aedenthorn.FreeLove"))
+        return;
+
+      this.PatchFreeLoveQuestionChance();
     }
 
     /// <summary>Prints the current baby chance to the console.</summary>
@@ -68,7 +76,6 @@ namespace AdjustBabyChance {
     private void GetBabyChanceCommand(string command, string[] args) {
       this.Monitor.Log(I18n.Command_Getchance_Output(_config.QuestionChance), LogLevel.Info);
     }
-
 
     /// <summary>Sets the baby question chance.</summary>
     /// <param name="command">The command string.</param>
@@ -91,6 +98,24 @@ namespace AdjustBabyChance {
       _config.QuestionChance = newChance;
       this.Helper.WriteConfig(_config);
       this.Monitor.Log(I18n.Command_Setchance_Output(newChance), LogLevel.Info);
+    }
+
+    /// <summary>Attempts to patch the <c>Utility_pickPersonalFarmEvent_Prefix</c> prefix method from Free Love.</summary>
+    private void PatchFreeLoveQuestionChance() {
+      Type freeLoveModEntryType = AccessTools.TypeByName("FreeLove.ModEntry, FreeLove");
+      if (freeLoveModEntryType == null) {
+        this.Monitor.Log("Could not find FreeLove.ModEntry. Adjusted question chance might not work correctly.");
+        return;
+      }
+
+      try {
+        MethodInfo pickPersonalFarmEventPrefixMethod = AccessTools.Method(freeLoveModEntryType, "Utility_pickPersonalFarmEvent_Prefix");
+        this._harmony.Patch(pickPersonalFarmEventPrefixMethod, transpiler: new HarmonyMethod(typeof(EventPatch).GetMethod("Transpiler", BindingFlags.Static | BindingFlags.NonPublic)));
+        this.Monitor.Log($"Patched {pickPersonalFarmEventPrefixMethod}");
+      }
+      catch (Exception ex) {
+        this.Monitor.Log($"Could not patch FreeLove.ModEntry::Utility_pickPersonalFarmEvent_Prefix.\n{ex}", LogLevel.Error);
+      }
     }
 
     /// <summary>A helper method used in the transpiler patch for getting the current question chance.</summary>
