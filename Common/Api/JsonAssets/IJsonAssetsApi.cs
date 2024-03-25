@@ -5,57 +5,57 @@ using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewValley;
 
-namespace ModCommon.Api.JsonAssets {
-  public interface IJsonAssetsApi {
-    /// <summary>Load a folder as a Json Assets content pack.</summary>
-    /// <param name="path">The absolute path to the content pack folder.</param>
-    void LoadAssets(string path);
+namespace ModCommon.Api.JsonAssets;
 
-    /// <summary>Load a folder as a Json Assets content pack.</summary>
-    /// <param name="path">The absolute path to the content pack folder.</param>
-    /// <param name="translations">The translations to use for <c>TranslationKey</c> fields, or <c>null</c> to load the content pack's <c>i18n</c> folder if present.</param>
-    void LoadAssets(string path, ITranslationHelper translations);
+public interface IJsonAssetsApi {
+  /// <summary>Load a folder as a Json Assets content pack.</summary>
+  /// <param name="path">The absolute path to the content pack folder.</param>
+  void LoadAssets(string path);
 
-    int GetObjectId(string name);
-    int GetCropId(string name);
-    int GetFruitTreeId(string name);
-    int GetBigCraftableId(string name);
-    int GetHatId(string name);
-    int GetWeaponId(string name);
-    int GetClothingId(string name);
+  /// <summary>Load a folder as a Json Assets content pack.</summary>
+  /// <param name="path">The absolute path to the content pack folder.</param>
+  /// <param name="translations">The translations to use for <c>TranslationKey</c> fields, or <c>null</c> to load the content pack's <c>i18n</c> folder if present.</param>
+  void LoadAssets(string path, ITranslationHelper translations);
 
-    IDictionary<string, int> GetAllObjectIds();
-    IDictionary<string, int> GetAllCropIds();
-    IDictionary<string, int> GetAllFruitTreeIds();
-    IDictionary<string, int> GetAllBigCraftableIds();
-    IDictionary<string, int> GetAllHatIds();
-    IDictionary<string, int> GetAllWeaponIds();
-    IDictionary<string, int> GetAllClothingIds();
+  int GetObjectId(string name);
+  int GetCropId(string name);
+  int GetFruitTreeId(string name);
+  int GetBigCraftableId(string name);
+  int GetHatId(string name);
+  int GetWeaponId(string name);
+  int GetClothingId(string name);
 
-    List<string> GetAllObjectsFromContentPack(string cp);
-    List<string> GetAllCropsFromContentPack(string cp);
-    List<string> GetAllFruitTreesFromContentPack(string cp);
-    List<string> GetAllBigCraftablesFromContentPack(string cp);
-    List<string> GetAllHatsFromContentPack(string cp);
-    List<string> GetAllWeaponsFromContentPack(string cp);
-    List<string> GetAllClothingFromContentPack(string cp);
-    List<string> GetAllBootsFromContentPack(string cp);
+  IDictionary<string, int> GetAllObjectIds();
+  IDictionary<string, int> GetAllCropIds();
+  IDictionary<string, int> GetAllFruitTreeIds();
+  IDictionary<string, int> GetAllBigCraftableIds();
+  IDictionary<string, int> GetAllHatIds();
+  IDictionary<string, int> GetAllWeaponIds();
+  IDictionary<string, int> GetAllClothingIds();
 
-    event EventHandler ItemsRegistered;
-    event EventHandler IdsAssigned;
-    event EventHandler AddedItemsToShop;
-    event EventHandler IdsFixed;
+  List<string> GetAllObjectsFromContentPack(string cp);
+  List<string> GetAllCropsFromContentPack(string cp);
+  List<string> GetAllFruitTreesFromContentPack(string cp);
+  List<string> GetAllBigCraftablesFromContentPack(string cp);
+  List<string> GetAllHatsFromContentPack(string cp);
+  List<string> GetAllWeaponsFromContentPack(string cp);
+  List<string> GetAllClothingFromContentPack(string cp);
+  List<string> GetAllBootsFromContentPack(string cp);
 
-    bool FixIdsInItem(Item item);
-    void FixIdsInItemList(List<Item> items);
-    void FixIdsInLocation(GameLocation location);
+  event EventHandler ItemsRegistered;
+  event EventHandler IdsAssigned;
+  event EventHandler AddedItemsToShop;
+  event EventHandler IdsFixed;
 
-    bool TryGetCustomSprite(object entity, out Texture2D texture, out Rectangle sourceRect);
-    bool TryGetCustomSpriteSheet(object entity, out Texture2D texture, out Rectangle sourceRect);
+  bool FixIdsInItem(Item item);
+  void FixIdsInItemList(List<Item> items);
+  void FixIdsInLocation(GameLocation location);
 
-    // ReSharper disable once InconsistentNaming
-    bool TryGetGiantCropSprite(int productID, out Lazy<Texture2D> texture);
+  bool TryGetCustomSprite(object entity, out Texture2D texture, out Rectangle sourceRect);
+  bool TryGetCustomSpriteSheet(object entity, out Texture2D texture, out Rectangle sourceRect);
 
-    int[] GetGiantCropIndexes();
-  }
+  // ReSharper disable once InconsistentNaming
+  bool TryGetGiantCropSprite(int productID, out Lazy<Texture2D> texture);
+
+  int[] GetGiantCropIndexes();
 }
