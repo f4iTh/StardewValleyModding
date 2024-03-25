@@ -2,6 +2,10 @@
 
 # Release notes
 
+## 1.1.1
+
+- Fixed mod compatibility with Free Love
+
 ## 1.1.0
 
 - Added default i18n translations (english)
