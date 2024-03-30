@@ -55,10 +55,18 @@ namespace WheresMyItems.Common.Configs {
 
       genericModConfig.AddKeybindList(
         this._modManifest,
-        () => this._getConfig().ToggleButton,
-        value => this._getConfig().ToggleButton = value,
-        I18n.Config_Searchmenu_Name,
-        I18n.Config_Searchmenu_Tooltip
+        () => this._getConfig().KeyboardToggleButton,
+        value => this._getConfig().KeyboardToggleButton = value,
+        I18n.Config_Menutoggle_Keyboard_Name,
+        I18n.Config_Menutoggle_Keyboard_Name
+      );
+
+      genericModConfig.AddKeybindList(
+        this._modManifest,
+        () => this._getConfig().GamepadToggleButton,
+        value => this._getConfig().GamepadToggleButton = value,
+        I18n.Config_Menutoggle_Gamepad_Name,
+        I18n.Config_Menutoggle_Gamepad_Tooltip
       );
 
       genericModConfig.AddSectionTitle(
@@ -132,7 +140,6 @@ namespace WheresMyItems.Common.Configs {
         ItemDisplayStyle.None => I18n.Strings_Common_None(),
         ItemDisplayStyle.Horizontal => I18n.Config_Drawdirection_Values_Horizontal(),
         ItemDisplayStyle.Vertical => I18n.Config_Drawdirection_Values_Vertical(),
-        // ItemDrawDirection.GridHorizontal => I18n.Config_Drawdirection_Values_Gridhorizontal(),
         _ => drawDirection.ToString()
       };
     }

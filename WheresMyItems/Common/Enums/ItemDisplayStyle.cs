@@ -9,6 +9,5 @@
 
     /// <summary>Display items vertically.</summary>
     Vertical
-    // GridHorizontal
   }
 }

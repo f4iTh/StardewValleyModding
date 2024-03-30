@@ -1,6 +1,9 @@
 {
-  "config.searchmenu.name": "Search menu keybind",
-  "config.searchmenu.tooltip": "Which keybind should open the search menu.",
+  "config.menutoggle.keyboard.name": "Open menu keybind (keyboard)",
+  "config.menutoggle.keyboard.tooltip": "Which keybind to use to open the menu when using a keyboard.",
+
+  "config.menutoggle.gamepad.name": "Open menu keybind (controller)",
+  "config.menutoggle.gamepad.tooltip": "Which keybind to use to open the menu when using a controller.",
   
   "config.highlightchests.name": "Highlight chests",
   "config.highlightchests.tooltip": "Whether to highlight chests containing searched items.",

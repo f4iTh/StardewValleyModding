@@ -5,8 +5,11 @@ using WheresMyItems.Common.Enums;
 namespace WheresMyItems.Common.Configs {
   /// <summary>The mod configuration.</summary>
   public class ModConfig {
-    /// <summary>The keybind to use to open the menu.</summary>
-    public KeybindList ToggleButton { get; set; } = new(SButton.F5);
+    /// <summary>The keybind to use to open the menu when using a keyboard.</summary>
+    public KeybindList KeyboardToggleButton { get; set; } = new(SButton.F5);
+    
+    /// <summary>The keybind to use to open the menu when using a controller.</summary>
+    public KeybindList GamepadToggleButton { get; set; }
 
     /// <summary>Which method to use to highlight chests.</summary>
     public ChestHighlightMethod ChestHighlightMethod { get; set; } = ChestHighlightMethod.TypingRipple;
@@ -19,7 +22,5 @@ namespace WheresMyItems.Common.Configs {
 
     /// <summary>Which guide arrow option to use.</summary>
     public GuideArrowOption GuideArrowOption { get; set; } = GuideArrowOption.WhileMenuOpen;
-    // public bool DrawItemsOverChests { get; set; } = true;
-    // public bool LimitMaxItemsDrawnOverChests { get; set; } = true;
   }
 }
