@@ -89,8 +89,8 @@ public class ItemSearchMenu : IClickableMenu {
 
   /// <summary>Add all clickable components to a list for snapping behavior.</summary>
   public override void populateClickableComponentList() {
-    this.allClickableComponents = [];
-    this.allClickableComponents.AddRange([this._textBoxClickableComponent, this._previousSearchButton]);
+    this.allClickableComponents = new List<ClickableComponent>();
+    this.allClickableComponents.AddRange(new List<ClickableComponent> { this._textBoxClickableComponent, this._previousSearchButton });
   }
 
   /// <summary>Snap to the default clickable component.</summary>
