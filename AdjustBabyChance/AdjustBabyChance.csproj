@@ -10,7 +10,7 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <ModZipPath>$(SolutionDir)releases\AdjustBabyChance</ModZipPath>
         <EnableModDeploy>true</EnableModDeploy>
-        <LangVersion>latestmajor</LangVersion>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1"/>
