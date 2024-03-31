@@ -19,9 +19,14 @@ This mod has [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/m
 <td>default value</td>
 </tr>
 <tr>
-<td><code>ToggleButton</code></td>
-<td>Which keybind to use to open the item search menu</td>
+<td><code>KeyboardToggleButton</code></td>
+<td>The keybind to use to open the menu when using a keyboard</td>
 <td><code>"F5"</code></td>
+</tr>
+<tr>
+<td><code>GamepadToggleButton</code></td>
+<td>The keybind to use to open the menu when using a controller</td>
+<td><code>null</code></td>
 </tr>
 <tr>
 <td><code>ChestHighlightMethod</code></td>
